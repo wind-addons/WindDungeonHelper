@@ -1,0 +1,27 @@
+## Interface: 80000
+## Author: houshuu
+## Version: @project-version@
+## Title: |cff0288d1W|r|cff039be5i|r|cff03a9f4n|r|cff29b6f6d|r Dungeon Helper
+## Title-zhTW: |cff039be5W|r|cff03a9f4i|r|cff29b6f6n|r|cff4fc3f7d|r 地城助手
+## Title-zhCN: |cff039be5W|r|cff03a9f4i|r|cff29b6f6n|r|cff4fc3f7d|r 地下城助手
+## Notes: @placeholder
+## Notes-zhTW: @placeholder
+## Notes-zhCN: @placeholder
+## DefaultState: enabled
+## SavedVariables: WindDungeonHelperDB
+
+## X-Website: @placeholder
+## X-Feedback: https://github.com/fang2hou/WindDungeonHelper/issues
+
+# Library
+#Libs\load_libs.xml
+
+# Initialize
+Init.lua
+Config.lua
+
+# Localization
+Localization\load_localization.xml
+
+# Core
+Core.lua
