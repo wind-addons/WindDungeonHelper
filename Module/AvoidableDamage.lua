@@ -6,7 +6,12 @@ local AD = WDH:NewModule("AvoidableDamage", "AceHook-3.0", "AceEvent-3.0", "AceT
 DB.defaults.profile.modules.AvoidableDamage = {
     enable = true,
     loud = true,
-    custom_text = false,
+    custom = {
+		enable = false,
+		warningMsg = "",
+		stacksMsg = "",
+		spellMsg = "", 
+	},
     outputmode = "self"
 }
 
@@ -15,14 +20,103 @@ C.ModulesOption.AvoidableDamage = {
     name = L["Avoidable Damage"],
     type = "group",
     args = {
-        enable = {
+		enable = {
             order = 1,
             name = L["Enable"],
             desc = L["Enables / disables the module"],
+			type = "toggle",
+			width = "full",
+            set = function(info,value) AD.db.enable = value end,
+            get = function(info) return AD.db.enable end
+		},
+		ouputtitle = {
+            order = 10,
+            name = L["Notifications"],
+            type = "header",
+		},
+        loud = {
+            order = 11,
+            name = L["Damage notifications"],
+            desc = L["Enables / disables damage notifications"],
             type = "toggle",
-            set = function(info,value) DB.profile.modules.AvoidableDamage.enable = value end,
-            get = function(info) return DB.profile.modules.AvoidableDamage.enable end
-        },
+            set = function(info,value) AD.db.loud = value end,
+            get = function(info) return AD.db.loud end
+		},
+		outputmode = {
+            order = 12,
+            name = L["Messeage Output"],
+            desc = L["Define output channel"],
+			type = "select",
+			set = function(info,value) AD.db.outputmode = value end,
+            get = function(info) return AD.db.outputmode end,
+			values = {
+				["self"] = L["Chat Frame"],
+				["party"] = L["Party"],
+				["raid"] = L["Raid"],
+				["smart"] = L["Smart"],
+			},
+		},
+		customtitle = {
+            order = 20,
+            name = L["Customize"],
+            type = "header",
+		},
+		customenable = {
+            order = 21,
+            name = L["Enable"],
+			type = "toggle",
+			width = "full",
+            set = function(info,value) AD.db.custom.enable = value end,
+            get = function(info) return AD.db.custom.enable end
+		},
+		addondesctext = {
+			order = 22,
+			type = "description",
+			width = "full",
+			name = L["%name% = Player Name, %spell% = Spell Link, %stack% = Aura Stacks, %damage% = Damage, %percent% = Percent"],
+		},
+		customwarning = {
+			order = 23,
+			type = "input",
+			name = L["Warning message text"],
+			width = 'full',
+			disabled = function(info) return not AD.db.custom.enable end,
+			get = function(info) return AD.db.custom.warningMsg end,
+			set = function(info, value) AD.db.custom.warningMsg = value end,
+		},
+		customwarningex = {
+			order = 24,
+			type = "description",
+			name = L["1111"],
+		},
+		customstack = {
+			order = 25,
+			type = "input",
+			disabled = function(info) return not AD.db.custom.enable end,
+			name = L["Stack message text"],
+			width = 'full',
+			get = function(info) return AD.db.custom.stacksMsg end,
+			set = function(info, value) AD.db.custom.stacksMsg = value end,
+		},
+		customstackgex = {
+			order = 26,
+			type = "description",
+			name = L["22222222222222"],
+		},
+		customspell = {
+			order = 27,
+			type = "input",
+			disabled = function(info) return not AD.db.custom.enable end,
+			name = L["Spell message text"],
+			width = 'full',
+			get = function(info) return AD.db.custom.spellMsg end,
+			set = function(info, value) AD.db.custom.spellMsg = value end,
+		},
+		customspellex = {
+			order = 28,
+			type = "description",
+			name = L["33333333333333"],
+		},
     }
 }
 
@@ -246,9 +340,9 @@ local function AuraApply(timestamp, eventType, srcGUID, srcName, srcFlags, dstGU
 	if (Auras[spellId] or (AurasNoTank[spellId] and UnitGroupRolesAssigned(dstName) ~= "TANK")) and UnitIsPlayer(dstName)  then
 		if AD.db.loud then
 			if auraAmount then
-				maybeSendChatMessage(AD.GenerateOutput(warningMsg, dstName, GetSpellLink(spellId), auraAmount))
+				AD:SendChatMessage(AD.GenerateOutput(warningMsg, dstName, GetSpellLink(spellId), auraAmount))
 			else
-				maybeSendChatMessage(AD.GenerateOutput(stacksMsg, dstName, GetSpellLink(spellId)))
+				AD:SendChatMessage(AD.GenerateOutput(stacksMsg, dstName, GetSpellLink(spellId)))
 			end
 		end
 	end
@@ -304,11 +398,11 @@ local function generateMaybeOutput(user)
 		TimerData[user] = nil
 		Timers[user] = nil
 		local userMaxHealth = UnitHealthMax(user)
-		local msgAmount = B.Round(amount / 1000,1)
-		local pct = amount / userMaxHealth * 100
+		local msgAmount = B.Round(amount / 1000, 1)
+		local pct = Round(amount / userMaxHealth * 100)
 		if pct >= hardMinPct and pct >= minPct and AD.db.Loud then
 			msg = msg.."for "..msgAmount.."k ("..pct.."%)."
-			maybeSendChatMessage(msg)
+			AD:SendChatMessage(msg)
 		end
 	end
 
@@ -323,7 +417,7 @@ function AD:SendChatMessage(self, message)
 		SendChatMessage(message,"PARTY")
 	elseif self.db.outputmode == "raid" and IsInGroup() and not IsInGroup(2) and IsInRaid() then
 		SendChatMessage(message,"RAID")
-	elseif self.db.outputmode == "default" then
+	elseif self.db.outputmode == "smart" then
 		if IsInGroup() and not IsInGroup(2) and not IsInRaid() then
 			SendChatMessage(message,"PARTY")
 		elseif IsInGroup() and not IsInGroup(2) and IsInRaid() then
@@ -356,16 +450,16 @@ function AD:CHALLENGE_MODE_COMPLETED(event,...)
 	local count = 0
 	for _ in pairs(CombinedFails) do count = count + 1 end
 	if count == 0 then
-		maybeSendChatMessage("Thank you for travelling with ElitismHelper. No failure damage was taken this run.")
+		AD:SendChatMessage("Thank you for travelling with ElitismHelper. No failure damage was taken this run.")
 		return
 	else
-		maybeSendChatMessage("Thank you for travelling with ElitismHelper. Amount of failure damage:")
+		AD:SendChatMessage("Thank you for travelling with ElitismHelper. Amount of failure damage:")
 	end
 	local u = { }
 	for k, v in pairs(CombinedFails) do table.insert(u, { key = k, value = v }) end
 	table.sort(u, compareDamage)
 	for k,v in pairs(u) do
-			maybeSendChatMessage(k..". "..v["key"].." "..B.Round(v["value"] / 1000,1).."k")
+			AD:SendChatMessage(k..". "..v["key"].." "..B.Round(v["value"] / 1000,1).."k")
 	end
 	CombinedFails = {}
 end

@@ -13,7 +13,7 @@ function WDH:SetUpConfig()
     local logo = CreateFrame('Frame', nil, optionFrame)
     logo:SetFrameLevel(4)
     logo:SetSize(64, 64)
-    logo:SetPoint('TOPRIGHT', -8, -8)
+    logo:SetPoint('TOPRIGHT', -12, -12)
     logo:SetBackdrop({bgFile = ('Interface\\ICONS\\Achievement_Dungeon_Mythic15'):format(AddOnName)})
     optionFrame.logo = logo
 end
