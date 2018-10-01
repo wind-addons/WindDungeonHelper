@@ -1,17 +1,9 @@
 local AddOnName, WDH = ...
-local L = WDH.L
-local B = WDH.Base
-local C = WDH.Config
-local DB = WDH.DataBase
+local L, B, C, DB = WDH.L, WDH.Base, WDH.Config, WDH.DataBase
 
 function WDH:OnInitialize()
     DB.profile = LibStub("AceDB-3.0"):New(AddOnName.."DB", DB.defaults).profile
     self:SetUpConfig()
-    self:RegisterEvent("PLAYER_ENTERING_WORLD")
-end
-
-function WDH:PLAYER_ENTERING_WORLD()
-    --for i,v in pairs(B.OptionFrame2) do print(i,v) end
 end
 
 function WDH:SetUpConfig()
