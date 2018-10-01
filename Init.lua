@@ -12,7 +12,7 @@ local DB = WDH.DataBase
 -- Base
 B.AddonName = L["Wind Dungeon Helper"]
 B.Version = GetAddOnMetadata(AddOnName, "Version")
-B.AddonMsgPrefix = AddOnName.."msg"
+B.AddonMsgPrefix = AddOnName
 C_ChatInfo.RegisterAddonMessagePrefix(B.AddonMsgPrefix)
 --------------------------------------------------------------
 -- Config
