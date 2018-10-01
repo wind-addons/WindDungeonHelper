@@ -46,8 +46,16 @@ function WDH.Config.CreateOptionTable()
 				type = "description",
 				name = L["Wind Dungeon Helper is an addon that can help you fight in dungeon easier. \n\nWind Dungeon Helper is works with modules.\nIf you want to share the module you built, just pull request on addon github page."],
 			},
-			moduleconfigtitle = {
+			github = {
 				order = 5,
+				type  = "input",
+				width = "full",
+				name  = L["Wind Dungeon Helper on Github"],
+				get   = function(info) return "https://github.com/fang2hou/WindDungeonHelper" end,
+				set   = function(info) return "https://github.com/fang2hou/WindDungeonHelper" end,
+			},
+			moduleconfigtitle = {
+				order = 6,
 				type = "header",
 				name = L["Modules"],
 			},
