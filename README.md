@@ -11,10 +11,9 @@ Wind Dungeon Helper is works with modules. If you want to share the module you b
 ## Features
 - **Avoidable Damage** based on [ElitismHelper](https://wow.curseforge.com/projects/elitismhelper)
 
-# Download
+## Download
 [Curse](https://wow.curseforge.com/projects/wind-dungeon-helper)
 
----
-
+## Thanks
 Special thanks for Ace3, ElitismHelper, XIV_Databar.
 The code of those addons helped me a lot.
