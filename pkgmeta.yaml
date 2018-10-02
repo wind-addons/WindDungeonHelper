@@ -1,0 +1,9 @@
+package-as: ElvUI_WindTools
+enable-nolib-creation: no
+externals:
+    Lib/Ace3: https://repos.wowace.com/wow/ace3
+
+ignore:
+    - .gitattributes
+    - .gitignore
+    - README.md

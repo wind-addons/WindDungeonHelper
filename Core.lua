@@ -3,6 +3,7 @@ local L, B, C, DB = WDH.L, WDH.Base, WDH.Config, WDH.DataBase
 
 function WDH:OnInitialize()
     DB.profile = LibStub("AceDB-3.0"):New(AddOnName.."DB", DB.defaults).profile
+    C_ChatInfo.RegisterAddonMessagePrefix(B.AddonMsgPrefix)
     self:SetUpConfig()
 end
 

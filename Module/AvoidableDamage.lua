@@ -2,26 +2,26 @@ local AddOnName, WDH = ...
 local L, B, C, DB = WDH.L, WDH.Base, WDH.Config, WDH.DataBase
 local gsub = string.gsub
 local AD = WDH:NewModule("AvoidableDamage", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
-local debug = true
 
 DB.defaults.profile.modules.AvoidableDamage = {
 	enable = true,
 	notification = {
-		compatible = false,
-		loud = true,
-		outputmode = "self",
+		enable = true,
+		compatible = true,
+		outputmode = "smart",
+		threshold = 30,
 	},
 	rank = {
 		enable = true,
 		worst = false,
+		custom_worst = L["Need improve"],
 	},
     custom = {
 		enable = false,
-		warningMsg = "",
-		stacksMsg = "",
-		spellMsg = "", 
+		warningMsg = L["%name% got hit by %spell%."],
+		stacksMsg = L["%name% got hit by %spell%. %stack% Stacks."],
+		spellMsg = L["%name% got hit by %spell% for %damage% (%percent%)."],
 	},
-    
 }
 
 C.ModulesOrder.AvoidableDamage = 20
@@ -43,27 +43,19 @@ C.ModulesOption.AvoidableDamage = {
             name = L["Notifications"],
             type = "header",
 		},
-		notificationcompatible = {
-            order = 11,
-            name = L["Be compatible with ElitismHelper"],
-            desc = L["Use 'ElitismHelper' as addon message prefix."],
-			type = "toggle",
-			width = "full",
-            set = function(info,value) AD.db.notification.compatible = value end,
-            get = function(info) return AD.db.notification.compatible end
-		},
         notificationloud = {
-            order = 12,
+            order = 11,
             name = L["Damage notifications"],
             desc = L["Enables / disables damage notifications"],
             type = "toggle",
-            set = function(info,value) AD.db.notification.loud = value end,
-            get = function(info) return AD.db.notification.loud end
+            set = function(info,value) AD.db.notification.enable = value end,
+            get = function(info) return AD.db.notification.enable end
 		},
 		notificationoutputmode = {
-            order = 13,
+            order = 12,
             name = L["Messeage Output"],
-            desc = L["Define output channel"],
+			desc = L["Define output channel"],
+			disabled = function(info) return not AD.db.notification.enable end,
 			type = "select",
 			set = function(info,value) AD.db.notification.outputmode = value end,
             get = function(info) return AD.db.notification.outputmode end,
@@ -73,6 +65,26 @@ C.ModulesOption.AvoidableDamage = {
 				["raid"] = L["Raid"],
 				["smart"] = L["Smart"],
 			},
+		},
+		notificationcompatible = {
+            order = 13,
+            name = L["Be compatible with ElitismHelper"],
+			desc = L["Use 'ElitismHelper' as addon message prefix."],
+			disabled = function(info) return not AD.db.notification.enable end,
+			type = "toggle",
+			width = "full",
+            set = function(info,value) AD.db.notification.compatible = value; AD:SetAddonMessagePrefix() end,
+            get = function(info) return AD.db.notification.compatible end
+		},
+		threshold = {
+			order = 14,
+			name = L["Damage threshold"],
+			desc = L["If the sum of damage over threshold, WDH will notify you."],
+			type = "range",
+			disabled = function(info) return not AD.db.notification.enable end,
+			min = 1, max = 100, step = 1,
+			set = function(info,value) AD.db.notification.threshold = value; AD.hardMinPct = AD.db.notification.threshold end,
+            get = function(info) return AD.db.notification.threshold end
 		},
 		rankingtitle = {
             order = 15,
@@ -87,82 +99,110 @@ C.ModulesOption.AvoidableDamage = {
             set = function(info,value) AD.db.rank.enable = value end,
             get = function(info) return AD.db.rank.enable end
 		},
-		rankingmost = {
+		rankingworst = {
             order = 17,
             name = L["The worst player"],
             desc = L["Enables / disables show the worst player in ranking."],
 			type = "toggle",
-			width = "full",
             set = function(info,value) AD.db.rank.worst = value end,
             get = function(info) return AD.db.rank.worst end
 		},
+		rankingworst_custom = {
+			order = 18,
+			type = "input",
+			hidden = function(info) return not AD.db.rank.worst end,
+			name = L["The worst player text"],
+			get = function(info) return AD.db.rank.custom_worst end,
+			set = function(info, value) AD.db.rank.custom_worst = value end,
+		},
+		rankingworst_custom_default = {
+            order = 19,
+			name = L["Defaults"],
+			hidden = function(info) return not AD.db.rank.worst end,
+			type = "execute",
+			func = function() AD.db.rank.custom_worst = DB.defaults.profile.modules.AvoidableDamage.rank.custom_worst end
+		},
+		rankingworst_example = {
+			order = 20,
+			type = "description",
+			hidden = function(info) return not AD.db.rank.worst end,
+			name = function() return B.ColorString(L["Example"])..": "..AD.db.rank.custom_worst..": "..AD.playerUser end
+		},
 		customtitle = {
-            order = 20,
+            order = 40,
             name = L["Customize"],
-            type = "header",
+			type = "header",
+			hidden = function(info) return not AD.db.notification.enable end,
 		},
 		customenable = {
-            order = 21,
-            name = L["Enable"],
+            order = 41,
+			name = L["Enable"],
+			hidden = function(info) return not AD.db.notification.enable end,
 			type = "toggle",
             set = function(info,value) AD.db.custom.enable = value end,
             get = function(info) return AD.db.custom.enable end
 		},
+		customdefault = {
+            order = 42,
+            name = L["Defaults"],
+			type = "execute",
+			hidden = function(info) return not AD.db.custom.enable or not AD.db.notification.enable end,
+			func = function()
+				AD.db.custom.warningMsg = DB.defaults.profile.modules.AvoidableDamage.custom.warningMsg
+				AD.db.custom.stacksMsg = DB.defaults.profile.modules.AvoidableDamage.custom.stacksMsg
+				AD.db.custom.spellMsg = DB.defaults.profile.modules.AvoidableDamage.custom.spellMsg
+			end
+		},
 		customwarning = {
-			order = 23,
+			order = 43,
 			type = "input",
+			width = "full",
 			name = L["Warning message text"],
-			width = 'full',
-			desc = L["Tips:\n%name% = Player Name\n%spell% = Spell Link\n%stack% = Aura Stacks\n%damage% = Damage\n%percent% = Percent"],
-			disabled = function(info) return not AD.db.custom.enable end,
+			desc = function() return AD.Tips end,
+			hidden = function(info) return not AD.db.custom.enable or not AD.db.notification.enable end,
 			get = function(info) return AD.db.custom.warningMsg end,
-			set = function(info, value) AD.db.custom.warningMsg = value end,
+			set = function(info, value) AD.db.custom.warningMsg = value; AD:SetNotificationText() end,
 		},
 		customwarningex = {
-			order = 24,
+			order = 44,
 			type = "description",
-			name = L["1111"],
+			hidden = function(info) return not AD.db.custom.enable or not AD.db.notification.enable end,
+			name = function() return B.ColorString(L["Example"])..": "..AD:GenerateOutput(AD.db.custom.warningMsg, AD.playerUser, GetSpellLink(257274)) end
 		},
 		customstack = {
-			order = 25,
+			order = 45,
 			type = "input",
-			disabled = function(info) return not AD.db.custom.enable end,
+			hidden = function(info) return not AD.db.custom.enable or not AD.db.notification.enable end,
 			name = L["Stack message text"],
-			desc = L["Tips:\n%name% = Player Name\n%spell% = Spell Link\n%stack% = Aura Stacks\n%damage% = Damage\n%percent% = Percent"],
+			desc = function() return AD.Tips end,
 			width = 'full',
 			get = function(info) return AD.db.custom.stacksMsg end,
-			set = function(info, value) AD.db.custom.stacksMsg = value end,
+			set = function(info, value) AD.db.custom.stacksMsg = value; AD:SetNotificationText() end,
 		},
 		customstackgex = {
-			order = 26,
+			order = 46,
 			type = "description",
-			name = L["22222222222222"],
+			hidden = function(info) return not AD.db.custom.enable or not AD.db.notification.enable end,
+			name = function() return B.ColorString(L["Example"])..": "..AD:GenerateOutput(AD.db.custom.stacksMsg, AD.playerUser, GetSpellLink(257274), 3) end
 		},
 		customspell = {
-			order = 27,
+			order = 47,
 			type = "input",
-			disabled = function(info) return not AD.db.custom.enable end,
+			hidden = function(info) return not AD.db.custom.enable or not AD.db.notification.enable end,
 			name = L["Spell message text"],
-			desc = L["Tips:\n%name% = Player Name\n%spell% = Spell Link\n%stack% = Aura Stacks\n%damage% = Damage\n%percent% = Percent"],
+			desc = function() return AD.Tips end,
 			width = 'full',
 			get = function(info) return AD.db.custom.spellMsg end,
-			set = function(info, value) AD.db.custom.spellMsg = value end,
+			set = function(info, value) AD.db.custom.spellMsg = value; AD:SetNotificationText() end,
 		},
 		customspellex = {
-			order = 28,
+			order = 48,
 			type = "description",
-			name = L["33333333333333"],
+			hidden = function(info) return not AD.db.custom.enable or not AD.db.notification.enable end,
+			name = function() return B.ColorString(L["Example"])..": "..AD:GenerateOutput(AD.db.custom.spellMsg, AD.playerUser, GetSpellLink(257274), nil, "25k", "18%%") end
 		},
     }
 }
-
-local Users = {}
-local Timers = {}
-local TimerData = {}
-local CombinedFails = {}
-local activeUser = nil
-local playerUser = GetUnitName("player",true).."-"..GetRealmName():gsub(" ", "")
-local hardMinPct = 0
 
 local Spells = {
 	-- Debug
@@ -340,66 +380,26 @@ local function compareDamage(a,b)
 	return a["value"] < b["value"]
 end
 
-local function SpellDamage(timestamp, eventType, srcGUID, srcName, srcFlags, dstGUID, dstName, dstFlags, spellId, spellName, spellSchool, aAmount)
-	if (Spells[spellId] or (SpellsNoTank[spellId] and UnitGroupRolesAssigned(dstName) ~= "TANK")) and UnitIsPlayer(dstName) then
-		-- Initialize TimerData and CombinedFails for Timer shot
-		if TimerData[dstName] == nil then
-			TimerData[dstName] = {}
-		end
-		if CombinedFails[dstName] == nil then
-			CombinedFails[dstName] = 0
-		end
-		
-		-- Add this event to TimerData / CombinedFails
-		CombinedFails[dstName] = CombinedFails[dstName] + aAmount
-		if TimerData[dstName][spellId] == nil then
-			TimerData[dstName][spellId] = aAmount
-		else
-			TimerData[dstName][spellId] = TimerData[dstName][spellId] + aAmount
-		end
-		
-		-- If there is no timer yet, start one with this event
-		if Timers[dstName] == nil then
-			Timers[dstName] = true
-			C_Timer.After(4, function() return AD.generateMaybeOutput(dstName) end)
-		end
-	end
-end
-
-local function SwingDamage(timestamp, eventType, srcGUID, srcName, srcFlags, dstGUID, dstName, dstFlags, aAmount)
-end
-
-local function AuraApply(timestamp, eventType, srcGUID, srcName, srcFlags, dstGUID, dstName, dstFlags, spellId, spellName, spellSchool, auraType, auraAmount)
-	local warningMsg = L["%name% got hit by %spell%."]
-	local stacksMsg = L["%name% got hit by %spell%. %stack% Stacks."]
-
-	if (Auras[spellId] or (AurasNoTank[spellId] and UnitGroupRolesAssigned(dstName) ~= "TANK")) and UnitIsPlayer(dstName)  then
-		if AD.db.loud then
-			if auraAmount then
-				AD:SendChatMessage(AD.GenerateOutput(warningMsg, dstName, GetSpellLink(spellId), auraAmount))
-			else
-				AD:SendChatMessage(AD.GenerateOutput(stacksMsg, dstName, GetSpellLink(spellId)))
-			end
-		end
-	end
-end
-
-function AD:GenerateOutput(str, name, spell, stack, damage, percent)
-	local new= gsub(str, "%%name%%", name)
-	new = gsub(new, "%%spell%%", spell)
-	if stack then new = gsub(new, "%%stack%%", stack) end
-	if damage then new = gsub(new, "%%damage%%", damage) end
-	if percent then new = gsub(new, "%%percent%%", percent) end
-	return new
-end
-
-
-
 function AD:OnInitialize()
 	self.Version = "1.0"
 	self.db = DB.profile.modules.AvoidableDamage
+	self.activeUser = nil
+	self.playerUser = GetUnitName("player",true).."-"..GetRealmName():gsub(" ", "")
+	self.allUsers = {}
+	self.Timers = {}
+	self.TimerData = {}
+	self.CombinedFails = {}
+	self.hardMinPct = self.db.notification.threshold
+
+	self.Tips = L["Tips"]..": \n"..
+	B.ColorString("%name%").." = "..L["Player Name"].."\n"..
+	B.ColorString("%spell%").." = "..L["Spell Link"].."\n"..
+	B.ColorString("%stack%").." = "..L["Aura Stacks"].."\n"..
+	B.ColorString("%damage%").." = "..L["Damage"].."\n"..
+	B.ColorString("%percent%").." = "..L["Percent"]
 
 	self:SetAddonMessagePrefix()
+	self:SetNotificationText()
 
     self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
     self:RegisterEvent("CHAT_MSG_ADDON")
@@ -408,7 +408,7 @@ function AD:OnInitialize()
     self:RegisterEvent("CHALLENGE_MODE_START")
     self:RegisterEvent("CHALLENGE_MODE_COMPLETED")
 
-    self:RebuildTable()
+	self:RebuildTable()
 end
 
 ---------------------------------------
@@ -416,7 +416,7 @@ end
 function AD:SetAddonMessagePrefix()
 	-- work with ElitismHelper
 	self.prefix = self.db.notification.compatible and "ElitismHelper" or B.AddonMsgPrefix
-	
+
 	if self.db.notification.compatible then
 		local registeredPrefixTable = C_ChatInfo.GetRegisteredAddonMessagePrefixes()
 		
@@ -426,29 +426,28 @@ function AD:SetAddonMessagePrefix()
 		end
 
 		local regStatus = C_ChatInfo.RegisterAddonMessagePrefix(self.prefix)
-		-- debug
-		if not regStatus then print("prefix error") end
+		-- if register failed
+		if debug and not regStatus then print("prefix error") end
 	end
 end
 
-function AD.SendAddonMessage(message)
+function AD:SendAddonMessage(message)
 	if IsInGroup() and not IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and not IsInRaid() then
-		C_ChatInfo.SendAddonMessage(AD.prefix, message, "PARTY")
+		C_ChatInfo.SendAddonMessage(self.prefix, message, "PARTY")
 	elseif IsInGroup() and not IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and IsInRaid() then
-		C_ChatInfo.SendAddonMessage(AD.prefix, message, "RAID")
+		C_ChatInfo.SendAddonMessage(self.prefix, message, "RAID")
 	end
 end
 
-function AD.SendChatMessage(message)
-	if activeUser ~= playerUser then return end
-	print(AD.db.notification.outputmode)
-	if AD.db.notification.outputmode == "self" then
+function AD:SendChatMessage(message)
+	if self.activeUser ~= self.playerUser then return end
+	if self.db.notification.outputmode == "self" then
 		print(message)
-	elseif AD.db.notification.outputmode == "party" and IsInGroup() and not IsInGroup(LE_PARTY_CATEGORY_INSTANCE) then
+	elseif self.db.notification.outputmode == "party" and IsInGroup() and not IsInGroup(LE_PARTY_CATEGORY_INSTANCE) then
 		SendChatMessage(message,"PARTY")
-	elseif AD.db.notification.outputmode == "raid" and IsInGroup() and not IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and IsInRaid() then
+	elseif self.db.notification.outputmode == "raid" and IsInGroup() and not IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and IsInRaid() then
 		SendChatMessage(message,"RAID")
-	elseif AD.db.notification.outputmode == "smart" then
+	elseif self.db.notification.outputmode == "smart" then
 		if IsInGroup() and not IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and not IsInRaid() then
 			SendChatMessage(message,"PARTY")
 		elseif IsInGroup() and not IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and IsInRaid() then
@@ -459,12 +458,55 @@ function AD.SendChatMessage(message)
 	end
 end
 
-function AD.generateMaybeOutput(user)
-	local msg = "<EH> "..user.." got hit by "
+function AD:SetNotificationText()
+	self.warningMsg = self.db.custom.enable and self.db.custom.warningMsg or L["%name% got hit by %spell%."]
+	self.stacksMsg = self.db.custom.enable and self.db.custom.stacksMsg or L["%name% got hit by %spell%. %stack% Stacks."]
+	self.spellMsg = self.db.custom.enable and self.db.custom.spellMsg or L["%name% got hit by %spell% for %damage%k (%percent%)."]
+end
+
+function AD:GenerateOutput(str, name, spell, stack, damage, percent)
+	local new = gsub(str, "%%name%%", name)
+	new = gsub(new, "%%spell%%", spell)
+	if stack then new = gsub(new, "%%stack%%", stack) end
+	if damage then new = gsub(new, "%%damage%%", damage) end
+	if percent then new = gsub(new, "%%percent%%", percent) end
+	return new
+end
+
+---------------------------------------
+-- Notification
+function AD:SpellDamage(timestamp, eventType, srcGUID, srcName, srcFlags, dstGUID, dstName, dstFlags, spellId, spellName, spellSchool, aAmount)
+	if (Spells[spellId] or (SpellsNoTank[spellId] and UnitGroupRolesAssigned(dstName) ~= "TANK")) and UnitIsPlayer(dstName) then
+		-- Initialize TimerData and CombinedFails for Timer shot
+		if self.TimerData[dstName] == nil then
+			self.TimerData[dstName] = {}
+		end
+		if self.CombinedFails[dstName] == nil then
+			self.CombinedFails[dstName] = 0
+		end
+		
+		-- Add this event to TimerData / CombinedFails
+		self.CombinedFails[dstName] = self.CombinedFails[dstName] + aAmount
+		if self.TimerData[dstName][spellId] == nil then
+			self.TimerData[dstName][spellId] = aAmount
+		else
+			self.TimerData[dstName][spellId] = self.TimerData[dstName][spellId] + aAmount
+		end
+		
+		-- If there is no timer yet, start one with this event
+		if self.Timers[dstName] == nil then
+			self.Timers[dstName] = true
+			C_Timer.After(4, function() return self:SpellDamageAnnouncer(dstName) end)
+		end
+	end
+end
+
+function AD:SpellDamageAnnouncer(user)
+	local spellLink = ""
 	local amount = 0
 	local minPct = math.huge
-	for k,v in pairs(TimerData[user]) do
-		msg = msg..GetSpellLink(k).." "
+	for k, v in pairs(self.TimerData[user]) do
+		spellLink = spellLink..GetSpellLink(k).." "
 		local spellMinPct = nil
 		if Spells[k] then
 			spellMinPct = Spells[k]
@@ -476,105 +518,134 @@ function AD.generateMaybeOutput(user)
 		end
 		amount = amount + v
 	end
-	TimerData[user] = nil
-	Timers[user] = nil
+	self.TimerData[user] = nil
+	self.Timers[user] = nil
 	local userMaxHealth = UnitHealthMax(user)
-	local msgAmount = B.Round(amount / 1000, 1)
+	local msgAmount = B.Round(amount / 1000, 1).."k"
 	local pct = Round(amount / userMaxHealth * 100)
-	msg = msg.."for "..msgAmount.."k ("..pct.."%)."
-	AD.SendChatMessage(msg)
-	print(msg)
-	if pct >= hardMinPct and pct >= minPct and AD.db.Loud then
-		msg = msg.."for "..msgAmount.."k ("..pct.."%)."
-		AD.SendChatMessage(msg)
+	
+	if pct >= self.hardMinPct and pct >= minPct and self.db.notification.enable then
+		self:SendChatMessage(self:GenerateOutput(self.spellMsg, user, spellLink, nil, msgAmount, pct.."%%"))
+	end
+end
+
+function AD:SwingDamage(timestamp, eventType, srcGUID, srcName, srcFlags, dstGUID, dstName, dstFlags, aAmount)
+end
+
+function AD:AuraApply(timestamp, eventType, srcGUID, srcName, srcFlags, dstGUID, dstName, dstFlags, spellId, spellName, spellSchool, auraType, auraAmount)
+	if (Auras[spellId] or (AurasNoTank[spellId] and UnitGroupRolesAssigned(dstName) ~= "TANK")) and UnitIsPlayer(dstName)  then
+		if self.db.notification.enable then
+			if auraAmount then
+				self:SendChatMessage(self:GenerateOutput(self.stacksMsg, dstName, GetSpellLink(spellId), auraAmount))
+			else
+				self:SendChatMessage(self:GenerateOutput(self.warningMsg, dstName, GetSpellLink(spellId)))
+			end
+		end
 	end
 end
 
 function AD:RebuildTable()
-	Users = {}
-	activeUser = nil
-	if debug then print("Reset Addon Users table") end
+	self.allUsers = {}
+	self.activeUser = nil
+
 	if IsInGroup() then
-		self.SendAddonMessage("VREQ")
-		if debug then print("Sent message") end
+		self:SendAddonMessage("VREQ")
 	else
-		name = GetUnitName("player",true)
-		activeUser = name.."-"..GetRealmName()
-		if debug then print("Active:", activeUser) end
+		self.activeUser = self.playerUser
 	end
 end
 
-function AD:GROUP_ROSTER_UPDATE(event,...)
+---------------------------------------
+-- Event Binding
+function AD:GROUP_ROSTER_UPDATE(event, ...)
 	self:RebuildTable()
 end
 
-function AD:ZONE_CHANGED_NEW_AREA(event,...)
-	AD:RebuildTable()
+function AD:ZONE_CHANGED_NEW_AREA(event, ...)
+	self:CHALLENGE_MODE_COMPLETED()
+	self:RebuildTable()
 end
 
-function AD:CHALLENGE_MODE_COMPLETED(event,...)
+function AD:CHALLENGE_MODE_COMPLETED(event, ...)
+	if not self.db.rank.enable then return end
 	local count = 0
-	for _ in pairs(CombinedFails) do count = count + 1 end
+	for _ in pairs(self.CombinedFails) do count = count + 1 end
 	if count == 0 then
-		AD:SendChatMessage("Thank you for travelling with ElitismHelper. No failure damage was taken this run.")
+		self:SendChatMessage(L["No failure damage was taken this run."])
 		return
 	else
-		AD:SendChatMessage("Thank you for travelling with ElitismHelper. Amount of failure damage:")
+		self:SendChatMessage(L["Amount of failure damage:"])
 	end
 	local u = { }
-	for k, v in pairs(CombinedFails) do table.insert(u, { key = k, value = v }) end
+	for k, v in pairs(self.CombinedFails) do table.insert(u, { key = k, value = v }) end
 	table.sort(u, compareDamage)
+
+	local mostamount = -1
+	local name = "someone"
+
 	for k,v in pairs(u) do
-			AD:SendChatMessage(k..". "..v["key"].." "..B.Round(v["value"] / 1000,1).."k")
+		if mostamount == -1 then
+			mostamount = v["value"]
+			name = v["key"]
+		else
+			if v["value"] > mostamount then name = v["key"] end
+		end
+		self:SendChatMessage(k..". "..v["key"].." "..B.Round(v["value"] / 1000,1).."k")
 	end
-	CombinedFails = {}
+
+	self.CombinedFails = {}
+
+	if self.db.rank.worst then
+		local worst = self.db.rank.worst and self.db.rank.custom_worst or L["Need improve"]
+		self:SendChatMessage("------------------------")
+		self:SendChatMessage(worst..": "..name)
+	end
 end
 
-function AD:CHALLENGE_MODE_START(event,...)
-	CombinedFails = {}
-	print("Failure damage now being recorded.")
+function AD:CHALLENGE_MODE_START(event, ...)
+	self.CombinedFails = {}
+	self:SendChatMessage(L["[WDH] Avoidable damage notifation enabled, glhf!"])
 end
 
-function AD:CHAT_MSG_ADDON(event,...)
-	local prefix, message, channel, sender = select(1,...)
-	if prefix ~= AD.prefix then
-		return
-	end
+function AD:CHAT_MSG_ADDON(event, ...)
+	local prefix, message, channel, sender = select(1, ...)
+
+	if prefix ~= self.prefix then return end
+	
 	if message == "VREQ" then
-		AD.SendAddonMessage("VANS;"..AD.Version)
+		self:SendAddonMessage("VANS;"..AD.Version)
 	elseif message:match("^VANS") then
-		Users[sender] = message
-		for k,v in pairs(Users) do
-			if activeUser == nil then
-				activeUser = k
+		self.allUsers[sender] = message
+		for k,v in pairs(self.allUsers) do
+			if self.activeUser == nil then
+				self.activeUser = k
 			end
-			if k < activeUser then
-				activeUser = k
+			if k < self.activeUser then
+				self.activeUser = k
 			end
 		end
-	else
 	end
 end
 
-function AD:COMBAT_LOG_EVENT_UNFILTERED(event,...)
+function AD:COMBAT_LOG_EVENT_UNFILTERED(event, ...)
 	local timestamp, eventType, hideCaster, srcGUID, srcName, srcFlags, srcFlags2, dstGUID, dstName, dstFlags, dstFlags2 = CombatLogGetCurrentEventInfo(); -- Those arguments appear for all combat event variants.
 	local eventPrefix, eventSuffix = eventType:match("^(.-)_?([^_]*)$");
 	if (eventPrefix:match("^SPELL") or eventPrefix:match("^RANGE")) and eventSuffix == "DAMAGE" then
 		local spellId, spellName, spellSchool, sAmount, aOverkill, sSchool, sResisted, sBlocked, sAbsorbed, sCritical, sGlancing, sCrushing, sOffhand, _ = select(12,CombatLogGetCurrentEventInfo())
-		SpellDamage(timestamp, eventType, srcGUID, srcName, srcFlags, dstGUID, dstName, dstFlags, spellId, spellName, spellSchool, sAmount)
+		self:SpellDamage(timestamp, eventType, srcGUID, srcName, srcFlags, dstGUID, dstName, dstFlags, spellId, spellName, spellSchool, sAmount)
 	elseif eventPrefix:match("^SWING") and eventSuffix == "DAMAGE" then
 		local aAmount, aOverkill, aSchool, aResisted, aBlocked, aAbsorbed, aCritical, aGlancing, aCrushing, aOffhand, _ = select(12,CombatLogGetCurrentEventInfo())
-		SwingDamage(timestamp, eventType, srcGUID, srcName, srcFlags, dstGUID, dstName, dstFlags, aAmount)
+		self:SwingDamage(timestamp, eventType, srcGUID, srcName, srcFlags, dstGUID, dstName, dstFlags, aAmount)
 	elseif eventPrefix:match("^SPELL") and eventSuffix == "MISSED" then
 		local spellId, spellName, spellSchool, missType, isOffHand, mAmount  = select(12,CombatLogGetCurrentEventInfo())
 		if mAmount then
-			SpellDamage(timestamp, eventType, srcGUID, srcName, srcFlags, dstGUID, dstName, dstFlags, spellId, spellName, spellSchool, mAmount)
+			self:SpellDamage(timestamp, eventType, srcGUID, srcName, srcFlags, dstGUID, dstName, dstFlags, spellId, spellName, spellSchool, mAmount)
 		end
 	elseif eventType == "SPELL_AURA_APPLIED" then
 		local spellId, spellName, spellSchool, auraType = select(12,CombatLogGetCurrentEventInfo())
-		AuraApply(timestamp, eventType, srcGUID, srcName, srcFlags, dstGUID, dstName, dstFlags, spellId, spellName, spellSchool, auraType)
+		self:AuraApply(timestamp, eventType, srcGUID, srcName, srcFlags, dstGUID, dstName, dstFlags, spellId, spellName, spellSchool, auraType)
 	elseif eventType == "SPELL_AURA_APPLIED_DOSE" then
 		local spellId, spellName, spellSchool, auraType, auraAmount = select(12,CombatLogGetCurrentEventInfo())
-		AuraApply(timestamp, eventType, srcGUID, srcName, srcFlags, dstGUID, dstName, dstFlags, spellId, spellName, spellSchool, auraType, auraAmount)
+		self:AuraApply(timestamp, eventType, srcGUID, srcName, srcFlags, dstGUID, dstName, dstFlags, spellId, spellName, spellSchool, auraType, auraAmount)
 	end
 end

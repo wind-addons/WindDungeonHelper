@@ -12,8 +12,7 @@ local DB = WDH.DataBase
 -- Base
 B.AddonName = L["Wind Dungeon Helper"]
 B.Version = GetAddOnMetadata(AddOnName, "Version")
-B.AddonMsgPrefix = AddOnName
-C_ChatInfo.RegisterAddonMessagePrefix(B.AddonMsgPrefix)
+B.AddonMsgPrefix = "WDH"
 --------------------------------------------------------------
 -- Config
 WDH.Config.ModulesOrder = {}
@@ -63,8 +62,8 @@ function WDH.Config.CreateOptionTable()
 	}
 
 	for k, v in pairs(WDH.Config.ModulesOption) do
-		tempOptionsTable.args.k = v
-		tempOptionsTable.args.k.order = WDH.Config.ModulesOrder.k
+		tempOptionsTable.args[k] = v
+		tempOptionsTable.args[k].order = WDH.Config.ModulesOrder[k]
 	end
 
 	return tempOptionsTable
