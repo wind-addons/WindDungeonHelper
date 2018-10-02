@@ -3,8 +3,6 @@
 <img src="https://img.shields.io/badge/Version-1.0-green.svg?longCache=true&style=flat"/>
 </div><br>
 
----
-
 ## Introduction
 Wind Dungeon Helper is an addon that can help you fight in dungeon easier.
 
