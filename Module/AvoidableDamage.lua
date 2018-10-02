@@ -1,7 +1,7 @@
 local AddOnName, WDH = ...
 local L, B, C, DB = WDH.L, WDH.Base, WDH.Config, WDH.DataBase
 local gsub = string.gsub
-local AD = WDH:NewModule("AvoidableDamage", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
+local AD = WDH:NewModule("AvoidableDamage", "AceHook-3.0", "AceEvent-3.0")
 
 DB.defaults.profile.modules.AvoidableDamage = {
 	enable = true,
@@ -233,7 +233,7 @@ local Spells = {
 	[268280] = 20,		--- Tidal Pod (Tidesage Enforcer)
 	[276286] = 20,		--- Slicing Hurricane (Environment)
 	[276292] = 20,		--- Whirlign Slam (Ironhull Apprentice)
-	[269104] = 20,		--- Explosive Void (Lord Stormsong)
+	--[269104] = 20,		--- Explosive Void (Lord Stormsong)
 	[267385] = 20,		--- Tentacle Slam (Vol'zith the Whisperer)
 	
 	-- Siege of Boralus
@@ -562,7 +562,6 @@ function AD:GROUP_ROSTER_UPDATE(event, ...)
 end
 
 function AD:ZONE_CHANGED_NEW_AREA(event, ...)
-	self:CHALLENGE_MODE_COMPLETED()
 	self:RebuildTable()
 end
 

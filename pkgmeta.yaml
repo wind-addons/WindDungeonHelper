@@ -31,6 +31,9 @@ externals:
     lib/AceConfig-3.0:
         url: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceConfig-3.0
 		tag: latest
+    lib/AceLocale-3.0:
+        url: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceLocale-3.0
+		tag: latest
 
 ignore:
     - .gitattributes
