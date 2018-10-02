@@ -431,24 +431,24 @@ function AD:SetAddonMessagePrefix()
 	end
 end
 
-function AD:SendAddonMessage(message)
+function AD.SendAddonMessage(message)
 	if IsInGroup() and not IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and not IsInRaid() then
-		C_ChatInfo.SendAddonMessage(self.prefix, message, "PARTY")
+		C_ChatInfo.SendAddonMessage(AD.prefix, message, "PARTY")
 	elseif IsInGroup() and not IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and IsInRaid() then
-		C_ChatInfo.SendAddonMessage(self.prefix, message, "RAID")
+		C_ChatInfo.SendAddonMessage(AD.prefix, message, "RAID")
 	end
 end
 
-function AD:SendChatMessage(message)
+function AD.SendChatMessage(message)
 	if activeUser ~= playerUser then return end
-	print(self.db.notification.outputmode)
-	if self.db.notification.outputmode == "self" then
+	print(AD.db.notification.outputmode)
+	if AD.db.notification.outputmode == "self" then
 		print(message)
-	elseif self.db.notification.outputmode == "party" and IsInGroup() and not IsInGroup(LE_PARTY_CATEGORY_INSTANCE) then
+	elseif AD.db.notification.outputmode == "party" and IsInGroup() and not IsInGroup(LE_PARTY_CATEGORY_INSTANCE) then
 		SendChatMessage(message,"PARTY")
-	elseif self.db.notification.outputmode == "raid" and IsInGroup() and not IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and IsInRaid() then
+	elseif AD.db.notification.outputmode == "raid" and IsInGroup() and not IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and IsInRaid() then
 		SendChatMessage(message,"RAID")
-	elseif self.db.notification.outputmode == "smart" then
+	elseif AD.db.notification.outputmode == "smart" then
 		if IsInGroup() and not IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and not IsInRaid() then
 			SendChatMessage(message,"PARTY")
 		elseif IsInGroup() and not IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and IsInRaid() then
@@ -482,11 +482,11 @@ function AD.generateMaybeOutput(user)
 	local msgAmount = B.Round(amount / 1000, 1)
 	local pct = Round(amount / userMaxHealth * 100)
 	msg = msg.."for "..msgAmount.."k ("..pct.."%)."
-	AD:SendChatMessage(msg)
+	AD.SendChatMessage(msg)
 	print(msg)
 	if pct >= hardMinPct and pct >= minPct and AD.db.Loud then
 		msg = msg.."for "..msgAmount.."k ("..pct.."%)."
-		AD:SendChatMessage(msg)
+		AD.SendChatMessage(msg)
 	end
 end
 
@@ -495,7 +495,7 @@ function AD:RebuildTable()
 	activeUser = nil
 	if debug then print("Reset Addon Users table") end
 	if IsInGroup() then
-		self:SendAddonMessage("VREQ")
+		self.SendAddonMessage("VREQ")
 		if debug then print("Sent message") end
 	else
 		name = GetUnitName("player",true)
@@ -541,7 +541,7 @@ function AD:CHAT_MSG_ADDON(event,...)
 		return
 	end
 	if message == "VREQ" then
-		SendAddonMessage("VANS;"..AD.Version)
+		AD.SendAddonMessage("VANS;"..AD.Version)
 	elseif message:match("^VANS") then
 		Users[sender] = message
 		for k,v in pairs(Users) do
