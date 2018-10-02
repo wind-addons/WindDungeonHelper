@@ -2,17 +2,26 @@ local AddOnName, WDH = ...
 local L, B, C, DB = WDH.L, WDH.Base, WDH.Config, WDH.DataBase
 local gsub = string.gsub
 local AD = WDH:NewModule("AvoidableDamage", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
+local debug = true
 
 DB.defaults.profile.modules.AvoidableDamage = {
-    enable = true,
-    loud = true,
+	enable = true,
+	notification = {
+		compatible = false,
+		loud = true,
+		outputmode = "self",
+	},
+	rank = {
+		enable = true,
+		worst = false,
+	},
     custom = {
 		enable = false,
 		warningMsg = "",
 		stacksMsg = "",
 		spellMsg = "", 
 	},
-    outputmode = "self"
+    
 }
 
 C.ModulesOrder.AvoidableDamage = 20
@@ -34,27 +43,58 @@ C.ModulesOption.AvoidableDamage = {
             name = L["Notifications"],
             type = "header",
 		},
-        loud = {
+		notificationcompatible = {
             order = 11,
+            name = L["Be compatible with ElitismHelper"],
+            desc = L["Use 'ElitismHelper' as addon message prefix."],
+			type = "toggle",
+			width = "full",
+            set = function(info,value) AD.db.notification.compatible = value end,
+            get = function(info) return AD.db.notification.compatible end
+		},
+        notificationloud = {
+            order = 12,
             name = L["Damage notifications"],
             desc = L["Enables / disables damage notifications"],
             type = "toggle",
-            set = function(info,value) AD.db.loud = value end,
-            get = function(info) return AD.db.loud end
+            set = function(info,value) AD.db.notification.loud = value end,
+            get = function(info) return AD.db.notification.loud end
 		},
-		outputmode = {
-            order = 12,
+		notificationoutputmode = {
+            order = 13,
             name = L["Messeage Output"],
             desc = L["Define output channel"],
 			type = "select",
-			set = function(info,value) AD.db.outputmode = value end,
-            get = function(info) return AD.db.outputmode end,
+			set = function(info,value) AD.db.notification.outputmode = value end,
+            get = function(info) return AD.db.notification.outputmode end,
 			values = {
 				["self"] = L["Chat Frame"],
 				["party"] = L["Party"],
 				["raid"] = L["Raid"],
 				["smart"] = L["Smart"],
 			},
+		},
+		rankingtitle = {
+            order = 15,
+            name = L["Ranking"],
+            type = "header",
+		},
+		rankingenable = {
+            order = 16,
+            name = L["Enable"],
+            desc = L["Enables / disables ranking after dungeon completed."],
+			type = "toggle",
+            set = function(info,value) AD.db.rank.enable = value end,
+            get = function(info) return AD.db.rank.enable end
+		},
+		rankingmost = {
+            order = 17,
+            name = L["The worst player"],
+            desc = L["Enables / disables show the worst player in ranking."],
+			type = "toggle",
+			width = "full",
+            set = function(info,value) AD.db.rank.worst = value end,
+            get = function(info) return AD.db.rank.worst end
 		},
 		customtitle = {
             order = 20,
@@ -321,7 +361,7 @@ local function SpellDamage(timestamp, eventType, srcGUID, srcName, srcFlags, dst
 		-- If there is no timer yet, start one with this event
 		if Timers[dstName] == nil then
 			Timers[dstName] = true
-			C_Timer.After(4, generateMaybeOutput(dstName))
+			C_Timer.After(4, function() return AD.generateMaybeOutput(dstName) end)
 		end
 	end
 end
@@ -353,84 +393,114 @@ function AD:GenerateOutput(str, name, spell, stack, damage, percent)
 	return new
 end
 
+
+
 function AD:OnInitialize()
-    self.db = DB.profile.modules.AvoidableDamage
+	self.Version = "1.0"
+	self.db = DB.profile.modules.AvoidableDamage
+
+	self:SetAddonMessagePrefix()
+
     self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
     self:RegisterEvent("CHAT_MSG_ADDON")
     self:RegisterEvent("GROUP_ROSTER_UPDATE")
     self:RegisterEvent("ZONE_CHANGED_NEW_AREA")
     self:RegisterEvent("CHALLENGE_MODE_START")
     self:RegisterEvent("CHALLENGE_MODE_COMPLETED")
-    -- AD:RegisterEvent("ADDON_LOADED")
+
     self:RebuildTable()
 end
 
-local function maybeSendAddonMessage(prefix, message)
-	if IsInGroup() and not IsInGroup(2) and not IsInRaid() then
-		C_ChatInfo.SendAddonMessage(prefix,message,"PARTY")
-	elseif IsInGroup() and not IsInGroup(2) and IsInRaid() then
-		C_ChatInfo.SendAddonMessage(prefix,message,"RAID")
+---------------------------------------
+-- Chat function
+function AD:SetAddonMessagePrefix()
+	-- work with ElitismHelper
+	self.prefix = self.db.notification.compatible and "ElitismHelper" or B.AddonMsgPrefix
+	
+	if self.db.notification.compatible then
+		local registeredPrefixTable = C_ChatInfo.GetRegisteredAddonMessagePrefixes()
+		
+		for i, v in pairs(registeredPrefixTable) do
+			-- if registered, quit
+			if self.prefix == v then return end
+		end
+
+		local regStatus = C_ChatInfo.RegisterAddonMessagePrefix(self.prefix)
+		-- debug
+		if not regStatus then print("prefix error") end
 	end
 end
 
-local function generateMaybeOutput(user)
-	local func = function()
-		local msg = "<EH> "..user.." got hit by "
-		local amount = 0
-		local minPct = math.huge
-		for k,v in pairs(TimerData[user]) do
-			msg = msg..GetSpellLink(k).." "
-			local spellMinPct = nil
-			if Spells[k] then
-				spellMinPct = Spells[k]
-			elseif SpellsNoTank[k] then
-				spellMinPct = SpellsNoTank[k]
-			end
-			if spellMinPct ~= nil and spellMinPct < minPct then
-				minPct = spellMinPct
-			end
-			amount = amount + v
-		end
-		TimerData[user] = nil
-		Timers[user] = nil
-		local userMaxHealth = UnitHealthMax(user)
-		local msgAmount = B.Round(amount / 1000, 1)
-		local pct = Round(amount / userMaxHealth * 100)
-		if pct >= hardMinPct and pct >= minPct and AD.db.Loud then
-			msg = msg.."for "..msgAmount.."k ("..pct.."%)."
-			AD:SendChatMessage(msg)
-		end
+function AD:SendAddonMessage(message)
+	if IsInGroup() and not IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and not IsInRaid() then
+		C_ChatInfo.SendAddonMessage(self.prefix, message, "PARTY")
+	elseif IsInGroup() and not IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and IsInRaid() then
+		C_ChatInfo.SendAddonMessage(self.prefix, message, "RAID")
 	end
-
-	return func
 end
 
-function AD:SendChatMessage(self, message)
+function AD:SendChatMessage(message)
 	if activeUser ~= playerUser then return end
-	if self.db.outputmode == "self" then
+	print(self.db.notification.outputmode)
+	if self.db.notification.outputmode == "self" then
 		print(message)
-	elseif self.db.outputmode == "party" and IsInGroup() and not IsInGroup(2) then
+	elseif self.db.notification.outputmode == "party" and IsInGroup() and not IsInGroup(LE_PARTY_CATEGORY_INSTANCE) then
 		SendChatMessage(message,"PARTY")
-	elseif self.db.outputmode == "raid" and IsInGroup() and not IsInGroup(2) and IsInRaid() then
+	elseif self.db.notification.outputmode == "raid" and IsInGroup() and not IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and IsInRaid() then
 		SendChatMessage(message,"RAID")
-	elseif self.db.outputmode == "smart" then
-		if IsInGroup() and not IsInGroup(2) and not IsInRaid() then
+	elseif self.db.notification.outputmode == "smart" then
+		if IsInGroup() and not IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and not IsInRaid() then
 			SendChatMessage(message,"PARTY")
-		elseif IsInGroup() and not IsInGroup(2) and IsInRaid() then
+		elseif IsInGroup() and not IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and IsInRaid() then
 			SendChatMessage(message,"RAID")
+		else
+			print(message)
 		end
+	end
+end
+
+function AD.generateMaybeOutput(user)
+	local msg = "<EH> "..user.." got hit by "
+	local amount = 0
+	local minPct = math.huge
+	for k,v in pairs(TimerData[user]) do
+		msg = msg..GetSpellLink(k).." "
+		local spellMinPct = nil
+		if Spells[k] then
+			spellMinPct = Spells[k]
+		elseif SpellsNoTank[k] then
+			spellMinPct = SpellsNoTank[k]
+		end
+		if spellMinPct ~= nil and spellMinPct < minPct then
+			minPct = spellMinPct
+		end
+		amount = amount + v
+	end
+	TimerData[user] = nil
+	Timers[user] = nil
+	local userMaxHealth = UnitHealthMax(user)
+	local msgAmount = B.Round(amount / 1000, 1)
+	local pct = Round(amount / userMaxHealth * 100)
+	msg = msg.."for "..msgAmount.."k ("..pct.."%)."
+	AD:SendChatMessage(msg)
+	print(msg)
+	if pct >= hardMinPct and pct >= minPct and AD.db.Loud then
+		msg = msg.."for "..msgAmount.."k ("..pct.."%)."
+		AD:SendChatMessage(msg)
 	end
 end
 
 function AD:RebuildTable()
 	Users = {}
 	activeUser = nil
-	print("Reset Addon Users table")
+	if debug then print("Reset Addon Users table") end
 	if IsInGroup() then
-		maybeSendAddonMessage(B.AddonMsgPrefix,"AD")
+		self:SendAddonMessage("VREQ")
+		if debug then print("Sent message") end
 	else
 		name = GetUnitName("player",true)
 		activeUser = name.."-"..GetRealmName()
+		if debug then print("Active:", activeUser) end
 	end
 end
 
@@ -467,12 +537,12 @@ end
 
 function AD:CHAT_MSG_ADDON(event,...)
 	local prefix, message, channel, sender = select(1,...)
-	if prefix ~= B.AddonMsgPrefix then
+	if prefix ~= AD.prefix then
 		return
 	end
-	if message == "AD" then
-		maybeSendAddonMessage(B.AddonMsgPrefix,"ADYes;"..B.Version)
-	elseif message:match("^ADYes") then
+	if message == "VREQ" then
+		SendAddonMessage("VANS;"..AD.Version)
+	elseif message:match("^VANS") then
 		Users[sender] = message
 		for k,v in pairs(Users) do
 			if activeUser == nil then
@@ -483,7 +553,6 @@ function AD:CHAT_MSG_ADDON(event,...)
 			end
 		end
 	else
-		-- print("Unknown message: "..message)
 	end
 end
 
