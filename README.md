@@ -2,6 +2,7 @@
 <h1>Wind Dungeon Helper</h1>
 <img src="https://img.shields.io/badge/Version-1.0-green.svg?longCache=true&style=flat"/>
 </div><br>
+
 ---
 
 ## Introduction
