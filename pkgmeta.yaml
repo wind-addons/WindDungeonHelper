@@ -1,4 +1,4 @@
-package-as: ElvUI_WindTools
+package-as: WindDungeonHelper
 enable-nolib-creation: no
 externals:
     lib/LibStub:
