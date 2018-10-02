@@ -4,12 +4,11 @@
 </div><br>
 
 ## Introduction
-Wind Dungeon Helper is an addon that can help you fight in dungeon easier.
-
-Wind Dungeon Helper is works with modules. If you want to share the module you built, just pull request on addon github page.
+Wind Dungeon Helper is a framework works with several modules. It makes the progress of feature developing faster than before. And if you want to share the module you write, just pull request.
 
 ## Features
-- **Avoidable Damage** based on [ElitismHelper](https://wow.curseforge.com/projects/elitismhelper)
+- **Avoidable Damage** based on [ElitismHelper](https://wow.curseforge.com/projects/elitismhelper)  
+This module will send message including spell name after player takes avoidable damage. And all the text of notification is customizable.
 
 ## Download
 [Curse](https://wow.curseforge.com/projects/wind-dungeon-helper)
