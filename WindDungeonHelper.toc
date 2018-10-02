@@ -2,15 +2,15 @@
 ## Author: houshuu
 ## Version: @project-version@
 ## Title: |cff0288d1W|r|cff039be5i|r|cff03a9f4n|r|cff29b6f6d|r Dungeon Helper
-## Title-zhTW: |cff039be5W|r|cff03a9f4i|r|cff29b6f6n|r|cff4fc3f7d|r 地城助手
 ## Title-zhCN: |cff039be5W|r|cff03a9f4i|r|cff29b6f6n|r|cff4fc3f7d|r 地下城助手
-## Notes: @placeholder
-## Notes-zhTW: @placeholder
-## Notes-zhCN: @placeholder
+## Title-zhTW: |cff039be5W|r|cff03a9f4i|r|cff29b6f6n|r|cff4fc3f7d|r 地城助手
+## Notes: Help you fight in dungeon easier.
+## Notes-zhCN: 帮助你在地下城中的战斗更加简单。
+## Notes-zhTW: 幫助你在地城中的戰鬥更加簡單。
 ## DefaultState: enabled
 ## SavedVariables: WindDungeonHelperDB
 
-## X-Website: @placeholder
+## X-Website: https://wow.curseforge.com/projects/wind-dungeon-helper
 ## X-Feedback: https://github.com/fang2hou/WindDungeonHelper/issues
 
 # Library
