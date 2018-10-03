@@ -1,8 +1,15 @@
 local AddOnName, WDH = ...
 local pairs = pairs
-LibStub("AceAddon-3.0"):NewAddon(WDH, AddOnName, "AceEvent-3.0")
+LibStub("AceAddon-3.0"):NewAddon(WDH, AddOnName, "AceEvent-3.0", "AceConsole-3.0")
 local L = LibStub("AceLocale-3.0"):GetLocale(AddOnName, true)
-WDH.L = L
+local LDB = LibStub("LibDataBroker-1.1"):NewDataObject(L["Wind Dungeon Helper"], {
+	type = "data source",
+	text = "WDH",
+	icon = "Interface\\ICONS\\Achievement_Dungeon_Mythic15",
+	OnClick = function() WDH:OpenOptionFrame() end,
+})
+
+WDH.L, WDH.LDB = L, LDB
 WDH.Base = {}
 WDH.Config = {}
 WDH.DataBase = {}
@@ -27,13 +34,25 @@ function WDH.Config.CreateOptionTable()
 				name = L["Author"]..": "..B.ColorString("五氣歸元-暗影之月(TW)", 0, 1, 0.59).." @ "..B.ColorString("人生海海"),
 				type = "description",
 			},
+			-- enable = {
+			-- 	order = 2,
+			-- 	name = L["Enable"],
+			-- 	desc = L["Enables / disables Wind Dungeon Helper"],
+			-- 	type = "toggle",
+			-- 	set = function(info,val) DB.profile.enable = val end,
+			-- 	get = function(info) return DB.profile.enable end
+			-- },
 			enable = {
 				order = 2,
-				name = L["Enable"],
-				desc = L["Enables / disables Wind Dungeon Helper"],
+				name = L["Minimap icon"],
+				desc = L["Enables / disables Wind Dungeon Helper minimap icon"],
 				type = "toggle",
-				set = function(info,val) DB.profile.enable = val end,
-				get = function(info) return DB.profile.enable end
+				set = function(info,val)
+					DB.profile.minimapicon.hide = not val
+					if val then LibStub("LibDBIcon-1.0"):Show(L["Wind Dungeon Helper"])
+					else LibStub("LibDBIcon-1.0"):Hide(L["Wind Dungeon Helper"]) end
+				end,
+				get = function(info) return not DB.profile.minimapicon.hide end
 			},
 			addondesctitle = {
 				order = 3,
@@ -74,6 +93,9 @@ end
 DB.defaults = {
 	profile = {
 		enable = true,
+		minimapicon = {
+			hide = false,
+		},
 		modules = {},
 	}
 }

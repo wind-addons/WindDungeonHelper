@@ -34,6 +34,8 @@ externals:
     lib/AceLocale-3.0:
         url: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceLocale-3.0
         tag: latest
+    lib/LibDataBroker-1.1: https://repos.wowace.com/wow/libdatabroker-1-1
+    lib/LibDBIcon-1.0: https://repos.wowace.com/wow/libdbicon-1-0/trunk/LibDBIcon-1.0
 
 ignore:
     - .gitattributes

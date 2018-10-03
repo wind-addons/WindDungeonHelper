@@ -14,7 +14,7 @@
 ## X-Feedback: https://github.com/fang2hou/WindDungeonHelper/issues
 
 # Library
-Lib\lib.xml
+Lib.xml
 
 # Localization
 Locale\locale.xml

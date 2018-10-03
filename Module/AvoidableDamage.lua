@@ -404,7 +404,7 @@ local function compareDamage(a,b)
 end
 
 function AD:OnInitialize()
-	self.Version = "1.0"
+	self.Version = B.Version
 	self.db = DB.profile.modules.AvoidableDamage
 	self.activeUser = nil
 	self.playerUser = GetUnitName("player",true).."-"..GetRealmName():gsub(" ", "")
@@ -498,7 +498,7 @@ end
 function AD:SetNotificationText()
 	self.warningMsg = self.db.custom.enable and self.db.custom.warningMsg or L["%name% got hit by %spell%."]
 	self.stacksMsg = self.db.custom.enable and self.db.custom.stacksMsg or L["%name% got hit by %spell%. %stack% Stacks."]
-	self.spellMsg = self.db.custom.enable and self.db.custom.spellMsg or L["%name% got hit by %spell% for %damage%k (%percent%)."]
+	self.spellMsg = self.db.custom.enable and self.db.custom.spellMsg or L["%name% got hit by %spell% for %damage% (%percent%)."]
 end
 
 function AD:GenerateOutput(str, name, spell, stack, damage, percent)
@@ -589,7 +589,6 @@ function AD:RebuildTable()
 		self:SendAddonMessage("VREQ")
 	else
 		self.activeUser = self.playerUser
-		LibStub("AceConfigRegistry-3.0"):NotifyChange("WindDungeonHelper");
 	end
 end
 
