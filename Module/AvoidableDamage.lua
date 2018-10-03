@@ -38,6 +38,13 @@ C.ModulesOption.AvoidableDamage = {
             set = function(info,value) AD.db.enable = value end,
             get = function(info) return AD.db.enable end
 		},
+		activeUser = {
+			order = 2,
+			type = "description",
+			width = "full",
+			hidden = function(info) return not AD.db.custom.enable end,
+			name = function() return B.ColorString(L["Active announcer"], 0, 1, 0.59)..": "..AD.activeUser end
+		},
 		ouputtitle = {
             order = 10,
             name = L["Notifications"],

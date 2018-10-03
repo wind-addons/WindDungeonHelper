@@ -51,3 +51,4 @@ L["Damage threshold"] = true
 L["If the sum of damage over threshold, WDH will notify you."] = true
 L["[WDH] Avoidable damage notifation enabled, glhf!"] = true
 L["The worst player text"] = true
+L["Active announcer"] = true
