@@ -27,7 +27,7 @@ DB.defaults.profile.modules.AvoidableDamage = {
 C.ModulesOrder.AvoidableDamage = 20
 C.ModulesOption.AvoidableDamage = {
     name = L["Avoidable Damage"],
-    type = "group",
+	type = "group",
     args = {
 		enable = {
             order = 1,
@@ -35,15 +35,20 @@ C.ModulesOption.AvoidableDamage = {
             desc = L["Enables / disables the module"],
 			type = "toggle",
 			width = "full",
-            set = function(info,value) AD.db.enable = value end,
+			set = function(info,value)
+				AD.db.enable = value
+				if AD.db.enable then AD:Enable() else AD:Disable() end
+				AD:OnInitialize()
+				C_Timer.After(2, function() return AD:RefreshOption() end)
+			end,
             get = function(info) return AD.db.enable end
 		},
 		activeUser = {
 			order = 2,
 			type = "description",
 			width = "full",
-			hidden = function(info) return not AD.db.custom.enable end,
-			name = function() return B.ColorString(L["Active announcer"], 0, 1, 0.59)..": "..AD.activeUser end
+			hidden = function(info) return not AD.db.enable end,
+			name = function() return AD.activeUser and B.ColorString(L["Active announcer"], 0, 1, 0.59)..": "..AD.activeUser end
 		},
 		ouputtitle = {
             order = 10,
@@ -80,7 +85,18 @@ C.ModulesOption.AvoidableDamage = {
 			disabled = function(info) return not AD.db.notification.enable end,
 			type = "toggle",
 			width = "full",
-            set = function(info,value) AD.db.notification.compatible = value; AD:SetAddonMessagePrefix() end,
+			set = function(info,value)
+				AD:UnregisterEvent("CHAT_MSG_ADDON")
+				AD.db.notification.compatible = value
+				AD:SetAddonMessagePrefix()
+				AD.activeUser = nil
+				AD.allUsers = {}
+				if AD.db.enable then
+					AD:RegisterEvent("CHAT_MSG_ADDON")
+					AD:SendAddonMessage("VREQ")
+					C_Timer.After(2, function() return AD:RefreshOption() end)
+				end
+			end,
             get = function(info) return AD.db.notification.compatible end
 		},
 		threshold = {
@@ -407,15 +423,29 @@ function AD:OnInitialize()
 
 	self:SetAddonMessagePrefix()
 	self:SetNotificationText()
+	self:RebuildTable()
+end
 
-    self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+function AD:OnEnable()
+	self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
     self:RegisterEvent("CHAT_MSG_ADDON")
     self:RegisterEvent("GROUP_ROSTER_UPDATE")
     self:RegisterEvent("ZONE_CHANGED_NEW_AREA")
     self:RegisterEvent("CHALLENGE_MODE_START")
     self:RegisterEvent("CHALLENGE_MODE_COMPLETED")
+end
 
-	self:RebuildTable()
+function AD:OnDisable()
+	self:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+    self:UnregisterEvent("CHAT_MSG_ADDON")
+    self:UnregisterEvent("GROUP_ROSTER_UPDATE")
+    self:UnregisterEvent("ZONE_CHANGED_NEW_AREA")
+    self:UnregisterEvent("CHALLENGE_MODE_START")
+    self:UnregisterEvent("CHALLENGE_MODE_COMPLETED")
+end
+
+function AD:RefreshOption()
+	LibStub("AceConfigRegistry-3.0"):NotifyChange("WindDungeonHelper")
 end
 
 ---------------------------------------
@@ -559,6 +589,7 @@ function AD:RebuildTable()
 		self:SendAddonMessage("VREQ")
 	else
 		self.activeUser = self.playerUser
+		LibStub("AceConfigRegistry-3.0"):NotifyChange("WindDungeonHelper");
 	end
 end
 
@@ -615,9 +646,7 @@ end
 
 function AD:CHAT_MSG_ADDON(event, ...)
 	local prefix, message, channel, sender = select(1, ...)
-
 	if prefix ~= self.prefix then return end
-	
 	if message == "VREQ" then
 		self:SendAddonMessage("VANS;"..AD.Version)
 	elseif message:match("^VANS") then
