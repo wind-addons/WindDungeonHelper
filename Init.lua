@@ -43,7 +43,7 @@ function WDH.Config.CreateOptionTable()
 			addondesctext = {
 				order = 4,
 				type = "description",
-				name = L["Wind Dungeon Helper is an addon that can help you fight in dungeon easier. \n\nWind Dungeon Helper is works with modules.\nIf you want to share the module you built, just pull request on addon github page."],
+				name = L["Wind Dungeon Helper is a combat helper works with several modules.\nIf you want to share the module you write, just pull request on addon github page."],
 			},
 			github = {
 				order = 5,
