@@ -65,7 +65,7 @@ C.ModulesOption.AvoidableDamage = {
 			type = "group",
 			inline = true,
 			args = {
-				notificationloud = {
+				enable = {
 					order = 11,
 					name = L["Damage notifications"],
 					desc = L["Enables / disables damage notifications"],
@@ -73,8 +73,18 @@ C.ModulesOption.AvoidableDamage = {
 					set = function(info,value) AD.db.notification.enable = value end,
 					get = function(info) return AD.db.notification.enable end
 				},
-				notificationoutputmode = {
+				threshold = {
 					order = 12,
+					name = L["Damage threshold"],
+					desc = L["If the sum of damage over threshold, WDH will notify you."],
+					type = "range",
+					disabled = function(info) return not AD.db.notification.enable end,
+					min = 1, max = 100, step = 1,
+					set = function(info,value) AD.db.notification.threshold = value; AD.hardMinPct = AD.db.notification.threshold end,
+					get = function(info) return AD.db.notification.threshold end
+				},
+				outputmode = {
+					order = 13,
 					name = L["Messeage Output"],
 					desc = L["Define output channel"],
 					disabled = function(info) return not AD.db.notification.enable end,
@@ -88,37 +98,32 @@ C.ModulesOption.AvoidableDamage = {
 						["smart"] = L["Smart"],
 					},
 				},
-				notificationcompatible = {
-					order = 13,
+				compatible = {
+					order = 15,
 					name = L["Be compatible with ElitismHelper"],
 					desc = L["Use 'ElitismHelper' as addon message prefix."],
 					disabled = function(info) return not AD.db.notification.enable end,
 					type = "toggle",
 					width = "full",
 					set = function(info,value)
-						AD:UnregisterEvent("CHAT_MSG_ADDON")
 						AD.db.notification.compatible = value
+						AD:UnregisterEvent("CHAT_MSG_ADDON")
 						AD:SetAddonMessagePrefix()
 						AD.activeUser = nil
 						AD.allUsers = {}
 						if AD.db.enable then
 							AD:RegisterEvent("CHAT_MSG_ADDON")
-							AD:SendAddonMessage("VREQ")
+							if IsInGroup() then
+								AD:SendAddonMessage("VREQ")
+							else
+								AD.activeUser = AD.playerUser
+							end
 							C_Timer.After(2, function() return AD:RefreshOption() end)
 						end
 					end,
 					get = function(info) return AD.db.notification.compatible end
 				},
-				threshold = {
-					order = 14,
-					name = L["Damage threshold"],
-					desc = L["If the sum of damage over threshold, WDH will notify you."],
-					type = "range",
-					disabled = function(info) return not AD.db.notification.enable end,
-					min = 1, max = 100, step = 1,
-					set = function(info,value) AD.db.notification.threshold = value; AD.hardMinPct = AD.db.notification.threshold end,
-					get = function(info) return AD.db.notification.threshold end
-				},
+				
 			}
 		},
 		rank = {
@@ -127,7 +132,7 @@ C.ModulesOption.AvoidableDamage = {
 			type = "group",
 			inline = true,
 			args = {
-				rankingenable = {
+				enable = {
 					order = 16,
 					name = L["Enable"],
 					desc = L["Enables / disables ranking after dungeon completed."],
@@ -135,7 +140,7 @@ C.ModulesOption.AvoidableDamage = {
 					set = function(info,value) AD.db.rank.enable = value end,
 					get = function(info) return AD.db.rank.enable end
 				},
-				rankingworst = {
+				worst = {
 					order = 17,
 					name = L["The worst player"],
 					desc = L["Enables / disables show the worst player in ranking."],
@@ -143,7 +148,7 @@ C.ModulesOption.AvoidableDamage = {
 					set = function(info,value) AD.db.rank.worst = value end,
 					get = function(info) return AD.db.rank.worst end
 				},
-				rankingworst_custom = {
+				worst_custom = {
 					order = 18,
 					type = "input",
 					hidden = function(info) return not AD.db.rank.worst end,
@@ -151,14 +156,14 @@ C.ModulesOption.AvoidableDamage = {
 					get = function(info) return AD.db.rank.custom_worst end,
 					set = function(info, value) AD.db.rank.custom_worst = value end,
 				},
-				rankingworst_custom_default = {
+				worst_custom_default = {
 					order = 19,
 					name = L["Defaults"],
 					hidden = function(info) return not AD.db.rank.worst end,
 					type = "execute",
 					func = function() AD.db.rank.custom_worst = DB.defaults.profile.modules.AvoidableDamage.rank.custom_worst end
 				},
-				rankingworst_example = {
+				worst_example = {
 					order = 20,
 					type = "description",
 					hidden = function(info) return not AD.db.rank.worst end,
@@ -166,83 +171,72 @@ C.ModulesOption.AvoidableDamage = {
 				},
 			}
 		},
-		Customization = {
-			order = 2,
+		customization = {
+			order = 4,
 			name = L["Customization"],
 			type = "group",
 			inline = true,
+			hidden = function() return not AD.db.notification.enable end,
+			disabled = function() return not AD.db.custom.enable end,
 			args = {
-				customtitle = {
-					order = 40,
-					name = ,
-					type = "header",
-					hidden = function(info) return not AD.db.notification.enable end,
-				},
-				customenable = {
+				enable = {
 					order = 41,
 					name = L["Enable"],
-					hidden = function(info) return not AD.db.notification.enable end,
 					type = "toggle",
+					disabled = false,
 					set = function(info,value) AD.db.custom.enable = value end,
 					get = function(info) return AD.db.custom.enable end
 				},
-				customdefault = {
+				default = {
 					order = 42,
 					name = L["Defaults"],
 					type = "execute",
-					hidden = function(info) return not AD.db.custom.enable or not AD.db.notification.enable end,
 					func = function()
 						AD.db.custom.warningMsg = DB.defaults.profile.modules.AvoidableDamage.custom.warningMsg
 						AD.db.custom.stacksMsg = DB.defaults.profile.modules.AvoidableDamage.custom.stacksMsg
 						AD.db.custom.spellMsg = DB.defaults.profile.modules.AvoidableDamage.custom.spellMsg
 					end
 				},
-				customwarning = {
+				warning = {
 					order = 43,
 					type = "input",
 					width = "full",
 					name = L["Warning message text"],
 					desc = function() return AD.Tips end,
-					hidden = function(info) return not AD.db.custom.enable or not AD.db.notification.enable end,
 					get = function(info) return AD.db.custom.warningMsg end,
 					set = function(info, value) AD.db.custom.warningMsg = value; AD:SetNotificationText() end,
 				},
-				customwarningex = {
+				warningex = {
 					order = 44,
 					type = "description",
-					hidden = function(info) return not AD.db.custom.enable or not AD.db.notification.enable end,
 					name = function() return B.ColorString(L["Example"])..": "..AD:GenerateOutput(AD.db.custom.warningMsg, AD.playerUser, GetSpellLink(257274)) end
 				},
-				customstack = {
+				stack = {
 					order = 45,
 					type = "input",
-					hidden = function(info) return not AD.db.custom.enable or not AD.db.notification.enable end,
 					name = L["Stack message text"],
 					desc = function() return AD.Tips end,
 					width = 'full',
 					get = function(info) return AD.db.custom.stacksMsg end,
 					set = function(info, value) AD.db.custom.stacksMsg = value; AD:SetNotificationText() end,
 				},
-				customstackgex = {
+				stackgex = {
 					order = 46,
 					type = "description",
-					hidden = function(info) return not AD.db.custom.enable or not AD.db.notification.enable end,
 					name = function() return B.ColorString(L["Example"])..": "..AD:GenerateOutput(AD.db.custom.stacksMsg, AD.playerUser, GetSpellLink(257274), 3) end
 				},
-				customspell = {
+				spell = {
 					order = 47,
 					type = "input",
-					hidden = function(info) return not AD.db.custom.enable or not AD.db.notification.enable end,
 					name = L["Spell message text"],
 					desc = function() return AD.Tips end,
 					width = 'full',
 					get = function(info) return AD.db.custom.spellMsg end,
 					set = function(info, value) AD.db.custom.spellMsg = value; AD:SetNotificationText() end,
 				},
-				customspellex = {
+				spellex = {
 					order = 48,
 					type = "description",
-					hidden = function(info) return not AD.db.custom.enable or not AD.db.notification.enable end,
 					name = function() return B.ColorString(L["Example"])..": "..AD:GenerateOutput(AD.db.custom.spellMsg, AD.playerUser, GetSpellLink(257274), nil, "25k", "18%%") end
 				},
 			}
