@@ -1,41 +1,41 @@
 package-as: WindDungeonHelper
 enable-nolib-creation: no
 externals:
-    lib/LibStub:
+    Lib/LibStub:
         url: svn://svn.wowace.com/wow/libstub/mainline/trunk
         tag: latest
-    lib/CallbackHandler-1.0:
+    Lib/CallbackHandler-1.0:
         url: svn://svn.wowace.com/wow/callbackhandler/mainline/trunk/CallbackHandler-1.0
         tag: latest
-    lib/AceAddon-3.0:
+    Lib/AceAddon-3.0:
         url: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceAddon-3.0
         tag: latest
-    lib/AceEvent-3.0:
+    Lib/AceEvent-3.0:
         url: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceEvent-3.0
         tag: latest
-    lib/AceDB-3.0:
+    Lib/AceDB-3.0:
         url: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceDB-3.0
         tag: latest
-    lib/AceDBOptions-3.0:
+    Lib/AceDBOptions-3.0:
         url: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceDBOptions-3.0
         tag: latest
-    lib/AceHook-3.0:
+    Lib/AceHook-3.0:
         url: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceHook-3.0
         tag: latest
-    lib/AceGUI-3.0:
+    Lib/AceGUI-3.0:
         url: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceGUI-3.0
         tag: latest
-    lib/AceConsole-3.0:
+    Lib/AceConsole-3.0:
         url: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceConsole-3.0
         tag: latest
-    lib/AceConfig-3.0:
+    Lib/AceConfig-3.0:
         url: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceConfig-3.0
         tag: latest
-    lib/AceLocale-3.0:
+    Lib/AceLocale-3.0:
         url: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceLocale-3.0
         tag: latest
-    lib/LibDataBroker-1.1: https://repos.wowace.com/wow/libdatabroker-1-1
-    lib/LibDBIcon-1.0: https://repos.wowace.com/wow/libdbicon-1-0/trunk/LibDBIcon-1.0
+    Lib/LibDataBroker-1.1: https://repos.wowace.com/wow/libdatabroker-1-1
+    Lib/LibDBIcon-1.0: https://repos.wowace.com/wow/libdbicon-1-0/trunk/LibDBIcon-1.0
 
 ignore:
     - .gitattributes
