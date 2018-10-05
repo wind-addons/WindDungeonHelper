@@ -12,8 +12,11 @@ L["Enable"] = true
 L["Enables / disables Wind Dungeon Helper"] = true
 L["Enables / disables the module"] = true
 L["Wind Dungeon Helper on Github"] = true
+L["Minimap icon"] = true
+L["Enables / disables Wind Dungeon Helper minimap icon"] = true
 -- Avoidable Damage
 L["Avoidable Damage"] = true
+L["General"] = true
 L["Notifications"] = true
 L["Damage notifications"] = true
 L["Enables / disables damage notifications"] = true
@@ -52,5 +55,3 @@ L["If the sum of damage over threshold, WDH will notify you."] = true
 L["[WDH] Avoidable damage notifation enabled, glhf!"] = true
 L["The worst player text"] = true
 L["Active announcer"] = true
-L["General"] = true
-L["Minimap icon"] = true
