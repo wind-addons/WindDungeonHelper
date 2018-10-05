@@ -14,14 +14,13 @@
 ## X-Feedback: https://github.com/fang2hou/WindDungeonHelper/issues
 
 # Library
-Lib.xml
+libs\load_libs.xml
 
 # Localization
-Locale\locale.xml
+locales\load_locales.xml
 
 # Initialize
-Init.lua
-Core.lua
+init.lua
 
 # Module
-Module\module.xml
+modules\load_modules.xml
