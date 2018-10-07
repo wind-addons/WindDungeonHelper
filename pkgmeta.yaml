@@ -42,3 +42,4 @@ ignore:
     - .gitignore
     - README.md
     - LICENSE
+    - Title.png
