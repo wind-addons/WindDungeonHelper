@@ -206,7 +206,7 @@ C.ModulesOption.AvoidableDamage = {
 					name = L["Enable"],
 					type = "toggle",
 					disabled = false,
-					set = function(info,value) AD.db.custom.enable = value end,
+					set = function(info,value) AD.db.custom.enable = value; AD:SetNotificationText() end,
 					get = function(info) return AD.db.custom.enable end
 				},
 				default = {
