@@ -643,7 +643,6 @@ function AD:GROUP_ROSTER_UPDATE(event, ...)
 end
 
 function AD:ZONE_CHANGED_NEW_AREA(event, ...)
-	self:CHALLENGE_MODE_COMPLETED()
 	self:RebuildTable()
 end
 
