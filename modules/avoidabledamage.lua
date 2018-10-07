@@ -10,6 +10,8 @@ DB.defaults.profile.modules.AvoidableDamage = {
 		compatible = true,
 		outputmode = "smart",
 		threshold = 30,
+		unit = "western",
+		accuracy = 1,
 	},
 	rank = {
 		enable = true,
@@ -92,19 +94,41 @@ C.ModulesOption.AvoidableDamage = {
 					set = function(info,value) AD.db.notification.outputmode = value end,
 					get = function(info) return AD.db.notification.outputmode end,
 					values = {
-						["self"] = L["Chat Frame"],
+						["self"] = L["Self(Chat Frame)"],
 						["party"] = L["Party"],
 						["raid"] = L["Raid"],
 						["smart"] = L["Smart"],
 					},
 				},
-				compatible = {
+				unit = {
+					order = 14,
+					name = L["Numeral System"],
+					disabled = function(info) return not AD.db.notification.enable end,
+					type = "select",
+					set = function(info,value) AD.db.notification.unit = value end,
+					get = function(info) return AD.db.notification.unit end,
+					values = {
+						["western"] = L["Western - k"],
+						["asia"] = L["Asia - W"],
+					},
+				},
+				accuracy = {
 					order = 15,
+					name = L["Damage accuracy"],
+					type = "range",
+					disabled = function(info) return not AD.db.notification.enable end,
+					min = 0, max = 5, step = 1,
+					set = function(info,value) AD.db.notification.accuracy = value end,
+					get = function(info) return AD.db.notification.accuracy end
+				},
+				compatible = {
+					order = 16,
 					name = L["Be compatible with ElitismHelper"],
 					desc = L["Use 'ElitismHelper' as addon message prefix."],
 					disabled = function(info) return not AD.db.notification.enable end,
 					type = "toggle",
 					width = "full",
+					get = function(info) return AD.db.notification.compatible end,
 					set = function(info,value)
 						AD.db.notification.compatible = value
 						AD:UnregisterEvent("CHAT_MSG_ADDON")
@@ -121,9 +145,7 @@ C.ModulesOption.AvoidableDamage = {
 							C_Timer.After(2, function() return AD:RefreshOption() end)
 						end
 					end,
-					get = function(info) return AD.db.notification.compatible end
 				},
-				
 			}
 		},
 		rank = {
@@ -237,7 +259,7 @@ C.ModulesOption.AvoidableDamage = {
 				spellex = {
 					order = 48,
 					type = "description",
-					name = function() return B.ColorString(L["Example"])..": "..AD:GenerateOutput(AD.db.custom.spellMsg, AD.playerUser, GetSpellLink(257274), nil, "25k", "18%%") end
+					name = function() return B.ColorString(L["Example"])..": "..AD:GenerateOutput(AD.db.custom.spellMsg, AD.playerUser, GetSpellLink(257274), nil, AD:GenerateNumber(25000), "18%%") end
 				},
 			}
 		},
@@ -506,8 +528,6 @@ function AD:SendChatMessage(message)
 			SendChatMessage(message,"PARTY")
 		elseif IsInGroup() and not IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and IsInRaid() then
 			SendChatMessage(message,"RAID")
-		else
-			print(message)
 		end
 	end
 end
@@ -527,6 +547,13 @@ function AD:GenerateOutput(str, name, spell, stack, damage, percent)
 	return new
 end
 
+function AD:GenerateNumber(amount)
+	if self.db.notification.unit == "western" then 
+		return B.Round(amount / 1000, self.db.notification.accuracy)..L["unit_k"]
+	elseif self.db.notification.unit == "asia" then
+		return B.Round(amount / 10000, self.db.notification.accuracy)..L["unit_W"]
+	end
+end
 ---------------------------------------
 -- Notification
 function AD:SpellDamage(timestamp, eventType, srcGUID, srcName, srcFlags, dstGUID, dstName, dstFlags, spellId, spellName, spellSchool, aAmount)
@@ -575,7 +602,7 @@ function AD:SpellDamageAnnouncer(user)
 	self.TimerData[user] = nil
 	self.Timers[user] = nil
 	local userMaxHealth = UnitHealthMax(user)
-	local msgAmount = B.Round(amount / 1000, 1).."k"
+	local msgAmount = self:GenerateNumber(amount)
 	local pct = Round(amount / userMaxHealth * 100)
 	
 	if pct >= self.hardMinPct and pct >= minPct and self.db.notification.enable then
@@ -616,6 +643,7 @@ function AD:GROUP_ROSTER_UPDATE(event, ...)
 end
 
 function AD:ZONE_CHANGED_NEW_AREA(event, ...)
+	self:CHALLENGE_MODE_COMPLETED()
 	self:RebuildTable()
 end
 
@@ -643,7 +671,7 @@ function AD:CHALLENGE_MODE_COMPLETED(event, ...)
 		else
 			if v["value"] > mostamount then name = v["key"] end
 		end
-		self:SendChatMessage(k..". "..v["key"].." "..B.Round(v["value"] / 1000,1).."k")
+		self:SendChatMessage(k..". "..v["key"].." "..self:GenerateNumber(v["value"]))
 	end
 
 	self.CombinedFails = {}
@@ -657,7 +685,7 @@ end
 
 function AD:CHALLENGE_MODE_START(event, ...)
 	self.CombinedFails = {}
-	self:SendChatMessage(L["[WDH] Avoidable damage notifation enabled, glhf!"])
+	self:SendChatMessage(L["[WDH] Avoidable damage notification enabled, glhf!"])
 end
 
 function AD:CHAT_MSG_ADDON(event, ...)
