@@ -131,16 +131,22 @@ function table.pack(...)
 end
 
 function WDH:OnInitialize()
-    DB.profile = LibStub("AceDB-3.0"):New(AddOnName.."DB", DB.defaults).profile
-    C_ChatInfo.RegisterAddonMessagePrefix(B.AddonMsgPrefix)
     self:SetUpConfig()
-    self:RegisterChatCommand("wdh", "OpenOptionFrame")
+	self:RegisterChatCommand("wdh", "OpenOptionFrame")
+	C_ChatInfo.RegisterAddonMessagePrefix(B.AddonMsgPrefix)
 end
 
 function WDH:SetUpConfig()
-    LibStub("AceConfigRegistry-3.0"):RegisterOptionsTable(AddOnName, function() return C.CreateOptionTable() end)
+	DB.db = LibStub("AceDB-3.0"):New(AddOnName.."DB", DB.defaults)
+	DB.profile = DB.db.profile
+	DB.profileOptions = LibStub("AceDBOptions-3.0"):GetOptionsTable(DB.db)
+
+	LibStub("AceConfigRegistry-3.0"):RegisterOptionsTable(AddOnName, function() return C.CreateOptionTable() end)
+	LibStub("AceConfigRegistry-3.0"):RegisterOptionsTable(AddOnName.."Profiles", DB.profileOptions)
+
     self.optionFrame = LibStub("AceConfigDialog-3.0"):AddToBlizOptions(AddOnName, B.AddonName)
-    
+	self.optionFrame.profilePanel = LibStub("AceConfigDialog-3.0"):AddToBlizOptions(AddOnName.."Profiles", L["Profiles"], B.AddonName)
+
     local logo = CreateFrame('Frame', nil, self.optionFrame)
     logo:SetFrameLevel(4)
     logo:SetSize(64, 64)
@@ -152,6 +158,6 @@ function WDH:SetUpConfig()
 end
 
 function WDH:OpenOptionFrame()
-    InterfaceOptionsFrame_OpenToCategory(self.optionFrame)
+    InterfaceOptionsFrame_OpenToCategory(self.optionFrame.profilePanel)
     InterfaceOptionsFrame_OpenToCategory(self.optionFrame)
 end

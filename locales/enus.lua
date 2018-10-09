@@ -9,6 +9,7 @@ L["Description"] = true
 L["Wind Dungeon Helper is a combat helper works with several modules.\nIf you want to share the module you write, just pull request on addon github page."] = true
 L["Modules"] = true
 L["Enable"] = true
+L["Profiles"] = true
 L["Enables / disables Wind Dungeon Helper"] = true
 L["Enables / disables the module"] = true
 L["Wind Dungeon Helper on Github"] = true
