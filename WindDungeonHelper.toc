@@ -1,4 +1,4 @@
-## Interface: 80000
+## Interface: 80100
 ## Author: houshuu
 ## Version: @project-version@
 ## Title: |cff0288d1W|r|cff039be5i|r|cff03a9f4n|r|cff29b6f6d|r Dungeon Helper
