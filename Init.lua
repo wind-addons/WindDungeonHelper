@@ -6,7 +6,7 @@ local L = LibStub("AceLocale-3.0"):GetLocale(AddOnName, true)
 local LDB = LibStub("LibDataBroker-1.1"):NewDataObject(L["Wind Dungeon Helper"], {
 	type = "data source",
 	text = "WDH",
-	icon = "Interface\\ICONS\\Achievement_Dungeon_Mythic15",
+	icon = "Interface\\ICONS\\Achievement_Challengemode_Gold",
 	OnClick = function() WDH:OpenOptionFrame() end,
 })
 
@@ -150,7 +150,7 @@ function WDH:SetUpConfig()
     logo:SetFrameLevel(4)
     logo:SetSize(64, 64)
     logo:SetPoint('TOPRIGHT', -12, -12)
-    logo:SetBackdrop({bgFile = ('Interface\\ICONS\\Achievement_Dungeon_Mythic15'):format(AddOnName)})
+    logo:SetBackdrop({bgFile = ('Interface\\ICONS\\Ability_Racial_EmbraceoftheLoa_Bwonsomdi'):format(AddOnName)})
     self.optionFrame.logo = logo
 
     LibStub("LibDBIcon-1.0"):Register(L["Wind Dungeon Helper"], self.LDB, DB.profile.minimapicon)
