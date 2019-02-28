@@ -14,8 +14,7 @@ Wind Dungeon Helper is a combat helper works with several modules. And if you wa
     - This module will send message including spell name after player takes avoidable damage. Besides, all the text of notification is customizable with a GUI option frame inside Interface > Addons. This module developed based on the algorithm from ElitismHelper, and the player priority setting is fully compatible with ElitismHelper(if you choose the compatible mode).
 
 ## 下載 Download
-[WDH 的 Curse 頁面](https://wow.curseforge.com/projects/wind-dungeon-helper)  
-[WDH on Curse Page](https://wow.curseforge.com/projects/wind-dungeon-helper)
+[WDH 的 Curse 頁面 (WDH on Curse Page)](https://wow.curseforge.com/projects/wind-dungeon-helper)
 
 ## 感謝 Thanks
 特別感謝  Ace3, ElitismHelper, XIV_Databar。  
