@@ -271,7 +271,7 @@ local Spells = {
 	-- Affixes
 	[209862] = 20,		-- Volcanic Plume (Environment)
 	[226512] = 20,		-- Sanguine Ichor (Environment)
-	[286373] = 20,		-- Chill of Death (Environment) (Season 2)
+	[288694] = 20,		-- Shadow Smash (Environment) (Season 2)
 
 	-- Freehold
 	[272046] = 20,		--- Dive Bomb (Sharkbait)
