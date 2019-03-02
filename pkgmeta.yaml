@@ -36,6 +36,7 @@ externals:
         tag: latest
     Libs/LibDataBroker-1.1: https://repos.wowace.com/wow/libdatabroker-1-1
     Libs/LibDBIcon-1.0: https://repos.wowace.com/wow/libdbicon-1-0/trunk/LibDBIcon-1.0
+    Libs/LibObjectiveProgress-1.0: https://repos.curseforge.com/wow/libobjectiveprogress-1-0
 
 ignore:
     - .gitattributes
