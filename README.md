@@ -1,6 +1,6 @@
 <div align="center">
 <img src="https://github.com/fang2hou/WindDungeonHelper/blob/master/Title.png?raw=true"/><br>
-<img src="https://img.shields.io/badge/Version-1.1.2-green.svg?longCache=true&style=flat"/>
+<img src="https://img.shields.io/badge/Version-1.3.2-green.svg?longCache=true&style=flat"/>
 </div><br>
 
 ## Introduction
@@ -14,7 +14,7 @@ This module will send message including spell name after player takes avoidable 
 This module will add percentage information on tooltip for every enemy in dungeon.
 
 ## Download
-[Curse](https://wow.curseforge.com/projects/wind-dungeon-helper)
+[Curse](https://wow.curseforge.com/projects/wind-dungeon-helper) <== Click here!
 
 This git repo do not include any libs used in addon, download via Twitch Desktop is highly recommended.
 
