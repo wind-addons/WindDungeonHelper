@@ -365,6 +365,7 @@ local Spells = {
 	
 
 	-- Underrot
+	[264757] = 20,		--- Sanguine Feast (Elder Leaxa)
 	[265542] = 20,		--- Rotten Bile (Fetid Maggot)
 	[265019] = 20,		--- Savage Cleave (Chosen Blood Matron)
 	[261498] = 20,		--- Creeping Rot (Elder Leaxa)
