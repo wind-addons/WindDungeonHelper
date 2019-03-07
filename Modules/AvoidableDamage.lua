@@ -369,6 +369,9 @@ local Spells = {
 	[265019] = 20,		--- Savage Cleave (Chosen Blood Matron)
 	[261498] = 20,		--- Creeping Rot (Elder Leaxa)
 	[265665] = 20,		--- Foul Sludge (Living Rot)
+	[265511] = 20,		--- Spirit Drain (Spirit Drain Totem)
+	[272469] = 20,		--- Abyssal Slam (Abyssal Reach)
+	[272609] = 20,		--- Maddening Gaze (Faceless Corruptor)
 }
 local SpellsNoTank = {
 	-- Freehold
