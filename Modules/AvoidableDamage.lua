@@ -439,8 +439,8 @@ local Auras = {
 local AurasNoTank = {
 }
 
-local function compareDamage(a,b)
-	return a["value"] < b["value"]
+local function compareDamage(a, b)
+	return a["value"] > b["value"]
 end
 
 function AD:OnInitialize()
