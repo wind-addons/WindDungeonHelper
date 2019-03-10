@@ -296,6 +296,7 @@ local Spells = {
 	[267385] = 20,		--- Tentacle Slam (Vol'zith the Whisperer)
 	
 	-- Siege of Boralus
+	[256627] = 20,		--- Slobber Knocker (Scrimshaw Enforcer)
 	[256663] = 20,		--- Burning Tar (Blacktar Bomber)
 	[275775] = 20,		--- Savage Tempest (Irontide Raider)
 	[272426] = 20,		--- Sighted Artillery
