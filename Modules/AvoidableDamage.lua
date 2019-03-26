@@ -302,6 +302,7 @@ local Spells = {
 	[272426] = 20,		--- Sighted Artillery
 	[272140] = 20,		--- Iron Volley
 	[273681] = 20,		--- Heavy Hitter (Chopper Redhook)
+	[257886] = 20,      --- Brine Pool (Hadal Darkfathom)
 	
 	-- Tol Dagor
 	[257785] = 20,		--- Flashing Daggers
