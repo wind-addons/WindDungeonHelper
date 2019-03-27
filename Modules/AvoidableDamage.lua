@@ -411,6 +411,7 @@ local SpellsNoTank = {
 local Auras = {
 	-- Freehold
 	[274516] = true,		-- Slippery Suds
+	[274389] = true,        -- Rat Traps (Vermin Trapper)
 	
 	-- Shrine of the Storm
 	[268391] = true,		-- Mental Assault (Abyssal Cultist)
