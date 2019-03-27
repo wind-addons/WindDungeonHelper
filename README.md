@@ -1,6 +1,6 @@
 <div align="center">
 <img src="https://github.com/fang2hou/WindDungeonHelper/blob/master/Title.png?raw=true"/><br>
-<img src="https://img.shields.io/badge/Version-1.3.2-green.svg?longCache=true&style=flat"/>
+<img src="https://img.shields.io/badge/Version-1.3.4-green.svg?longCache=true&style=flat"/>
 </div><br>
 
 ## Introduction
