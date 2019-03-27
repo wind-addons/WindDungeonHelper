@@ -277,9 +277,13 @@ local Spells = {
 	[272046] = 20,		--- Dive Bomb (Sharkbait)
 	[257426] = 20,		--- Brutal Backhand (Irontide Enforcer)
 	[258352] = 20,		--- Grapeshot (Captain Eudora)
-	[272374] = 20,		--- Whirlpool of Blades
+	[256594] = 20,      --- Barrel Smash (Captain Raoul)
+	[267523] = 20,      --- Cutting Surge (Captain Jolly)
+	[272374] = 20,      --- Whirlpool of Blades (Captain Jolly)
 	[256546] = 20,		--- Shark Tornado
 	[257310] = 20,		--- Cannon Barrage
+	[257757] = 20,      --- Goin' Bananas (Bilge Rat Buccaneer)
+	[274389] = 20,      --- Rat Traps (Vermin Trapper)
 	[257902] = 20,		--- Shell Bounce (Ludwig Von Tortollan)
 	[258199] = 20,		--- Ground Shatter (Irontide Crusher)
 	[276061] = 20,		--- Boulder Throw (Irontide Crusher)
@@ -402,7 +406,6 @@ local SpellsNoTank = {
 }
 local Auras = {
 	-- Freehold
-	[274389] = true,		-- Rat Traps (Vermin Trapper)
 	[274516] = true,		-- Slippery Suds
 	
 	-- Shrine of the Storm
