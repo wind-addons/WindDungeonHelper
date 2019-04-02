@@ -368,6 +368,7 @@ local Spells = {
 	[269092] = 20,		--- Artillery Barrage (Ordnance Specialist)
 
 	-- Temple of Sethraliss
+	[268851] = 20,      --- Lightning Shield (Adderis)
 	[273225] = 20,		--- Volley (Sandswept Marksman)
 	[273995] = 20,		--- Pyrrhic Blast (Crazed Incubator)
 	[264206] = 20,		--- Burrow (Merektha)
@@ -657,7 +658,7 @@ function AD:ZONE_CHANGED_NEW_AREA(event, ...)
 end
 
 function AD:CHALLENGE_MODE_COMPLETED(event, ...)
-	if not self.db.rank.enable then return end
+	if not self.db.rank.enable or not self.db.enable then return end
 	local count = 0
 	for _ in pairs(self.CombinedFails) do count = count + 1 end
 	if count == 0 then
@@ -693,6 +694,7 @@ function AD:CHALLENGE_MODE_COMPLETED(event, ...)
 end
 
 function AD:CHALLENGE_MODE_START(event, ...)
+	if not self.db.enable then return end
 	self.CombinedFails = {}
 	self:SendChatMessage(L["[WDH] Avoidable damage notification enabled, glhf!"])
 end
