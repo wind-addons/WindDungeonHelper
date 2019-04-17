@@ -280,19 +280,20 @@ local Spells = {
 	-- Affixes
 	[209862] = 20,		-- Volcanic Plume (Environment)
 	[226512] = 20,		-- Sanguine Ichor (Environment)
-	[288694] = 20,		-- Shadow Smash (Environment) (Season 2)
+	[288694] = 20,		-- Shadow Smash (Season 2)
+	[288858] = 20,		-- Expel Soul (Season 2)
 
 	-- Freehold
 	[272046] = 20,		--- Dive Bomb (Sharkbait)
 	[257426] = 20,		--- Brutal Backhand (Irontide Enforcer)
 	[258352] = 20,		--- Grapeshot (Captain Eudora)
-	[256594] = 20,      --- Barrel Smash (Captain Raoul)
-	[267523] = 20,      --- Cutting Surge (Captain Jolly)
-	[272374] = 20,      --- Whirlpool of Blades (Captain Jolly)
+	[256594] = 20,    --- Barrel Smash (Captain Raoul)
+	[267523] = 20,    --- Cutting Surge (Captain Jolly)
+	[272374] = 20,    --- Whirlpool of Blades (Captain Jolly)
 	[256546] = 20,		--- Shark Tornado
 	[257310] = 20,		--- Cannon Barrage
-	[257757] = 20,      --- Goin' Bananas (Bilge Rat Buccaneer)
-	[274389] = 20,      --- Rat Traps (Vermin Trapper)
+	[257757] = 20,    --- Goin' Bananas (Bilge Rat Buccaneer)
+	[274389] = 20,    --- Rat Traps (Vermin Trapper)
 	[257902] = 20,		--- Shell Bounce (Ludwig Von Tortollan)
 	[258199] = 20,		--- Ground Shatter (Irontide Crusher)
 	[276061] = 20,		--- Boulder Throw (Irontide Crusher)
@@ -311,15 +312,15 @@ local Spells = {
 	-- Siege of Boralus
 	[256627] = 20,		--- Slobber Knocker (Scrimshaw Enforcer)
 	[256663] = 20,		--- Burning Tar (Blacktar Bomber)
-	[257431] = 20,      --- Meat Hook (Chopper Redhook)
+	[257431] = 20,    --- Meat Hook (Chopper Redhook)
 	[275775] = 20,		--- Savage Tempest (Irontide Raider)
-	[269029] = 20,      --- Clear the Deck (Dread Captain Lockwood)
+	[269029] = 20,    --- Clear the Deck (Dread Captain Lockwood)
 	[272874] = 20,		--- Trample (Ashvane Commander)
 	[272426] = 20,		--- Sighted Artillery
 	[272140] = 20,		--- Iron Volley
-	[257292] = 20,      --- Heavy Slash (Irontide Cleaver)
+	[257292] = 20,    --- Heavy Slash (Irontide Cleaver)
 	[273681] = 20,		--- Heavy Hitter (Chopper Redhook)
-	[257886] = 20,      --- Brine Pool (Hadal Darkfathom)
+	[257886] = 20,    --- Brine Pool (Hadal Darkfathom)
 	
 	-- Tol Dagor
 	[257785] = 20,		--- Flashing Daggers
@@ -377,12 +378,13 @@ local Spells = {
 	[269092] = 20,		--- Artillery Barrage (Ordnance Specialist)
 
 	-- Temple of Sethraliss
-	[268851] = 20,      --- Lightning Shield (Adderis)
+	[268851] = 20,    --- Lightning Shield (Adderis)
 	[273225] = 20,		--- Volley (Sandswept Marksman)
 	[273995] = 20,		--- Pyrrhic Blast (Crazed Incubator)
 	[264206] = 20,		--- Burrow (Merektha)
 	[272657] = 20,		--- Noxious Breath
-	
+	[272658] = 20,		--- Electrified Scales
+	[272821] = 20,		--- Call Lightning (Stormcaller)
 
 	-- Underrot
 	[264757] = 20,		--- Sanguine Feast (Elder Leaxa)
