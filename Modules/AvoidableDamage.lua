@@ -290,6 +290,7 @@ local Spells = {
     [256594] = 20,    --- Barrel Smash (Captain Raoul)
     [267523] = 20,    --- Cutting Surge (Captain Jolly)
     [272374] = 20,    --- Whirlpool of Blades (Captain Jolly)
+    [272397] = 20,		--- Whirlpool of Blades (Captain Jolly)
     [256546] = 20,		--- Shark Tornado
     [257310] = 20,		--- Cannon Barrage
     [257757] = 20,    --- Goin' Bananas (Bilge Rat Buccaneer)
