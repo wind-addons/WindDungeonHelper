@@ -1,22 +1,22 @@
--- Module: LFGPartyInfo
+-- Module: LFGGroupInfo
 -- Author: houshuu@NGA
 -- Icon resource is from FFXIV public kit
 local AddOnName, WDH = ...
 local L, B, C, DB = WDH.L, WDH.Base, WDH.Config, WDH.DataBase
-local LPI = WDH:NewModule("LFGPartyInfo", "AceHook-3.0")
+local LGI = WDH:NewModule("LFGGroupInfo", "AceHook-3.0")
 
 local GetSearchResultInfo = C_LFGList.GetSearchResultInfo
 local GetSearchResultMemberInfo = C_LFGList.GetSearchResultMemberInfo
 local pairs, format, twipe, tsort = pairs, string.format, table.wipe, table.sort
 
-DB.defaults.profile.modules.LFGPartyInfo = {
+DB.defaults.profile.modules.LFGGroupInfo = {
 	enable = true,
 	compact_mode = false,
 	hide_title = false,
 }
 
-C.ModulesOrder.LFGPartyInfo = 22
-C.ModulesOption.LFGPartyInfo = {
+C.ModulesOrder.LFGGroupInfo = 22
+C.ModulesOption.LFGGroupInfo = {
     name = L["LFG Party Info"],
 	type = "group",
 	childGroups = "tree",
@@ -26,8 +26,8 @@ C.ModulesOption.LFGPartyInfo = {
 			name = L["General"],
 			type = "group",
 			inline = true,
-			set = function(info,value) LPI.db[info[#info]] = value end,
-			get = function(info) return LPI.db[info[#info]] end,
+			set = function(info,value) LGI.db[info[#info]] = value end,
+			get = function(info) return LGI.db[info[#info]] end,
 			args = {
 				enable = {
 					order = 1,
@@ -54,7 +54,7 @@ C.ModulesOption.LFGPartyInfo = {
 }
 
 local function AddClassInfo(tooltip, resultID)
-	if not LPI.db.enable then return end
+	if not LGI.db.enable then return end
 	local result = GetSearchResultInfo(resultID)
 	local cache = {
 		TANK = {},
@@ -108,13 +108,13 @@ local function AddClassInfo(tooltip, resultID)
 	tsort(cache, function(a,b) print(a); return display_order[a] > display_order[b] end)
 	
 	-- Add text in tooltip
-	if not LPI.db.hide_title then
+	if not LGI.db.hide_title then
 		tooltip:AddLine(" ")
 		tooltip:AddLine(L["|cff00a8ffWDH|r Party Info"])
 	end
 	
 	-- [compact mode] Take a little break between title and members
-	if LPI.db.compact_mode then tooltip:AddLine(" ") end
+	if LGI.db.compact_mode then tooltip:AddLine(" ") end
 
 	-- Display the classes by role
 	for i=1, #display_order do 
@@ -122,7 +122,7 @@ local function AddClassInfo(tooltip, resultID)
 		local members = cache[role]
 		if members and display[role] then
 			-- [not compact mode] Add the role title
-			if not LPI.db.compact_mode then
+			if not LGI.db.compact_mode then
 				tooltip:AddLine(" ")
 				tooltip:AddLine(role_icons[role].inline.." "..role_text[role])
 			end
@@ -135,7 +135,7 @@ local function AddClassInfo(tooltip, resultID)
 				if counter ~= 1 then number_text = format(" × %d", counter) end
 				
 				-- [compact mode] Add a icon to the head of class string
-				if LPI.db.compact_mode then icon = role_icons[role].compact.." " end
+				if LGI.db.compact_mode then icon = role_icons[role].compact.." " end
 
 				tooltip:AddLine(icon..class_color_prefix..LOCALIZED_CLASS_NAMES_MALE[class].."|r"..number_text)
 			end
@@ -153,8 +153,8 @@ local function AddClassInfo(tooltip, resultID)
 	tooltip:SetPoint("TOPLEFT", _G.LFGListFrame, "TOPRIGHT", 10, 0)
 end
 
-function LPI:OnInitialize()
+function LGI:OnInitialize()
     self.Version = B.Version
-    self.db = DB.profile.modules.LFGPartyInfo
+    self.db = DB.profile.modules.LFGGroupInfo
     hooksecurefunc("LFGListUtil_SetSearchEntryTooltip", AddClassInfo)
 end

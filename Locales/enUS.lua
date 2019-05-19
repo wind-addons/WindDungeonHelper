@@ -64,10 +64,10 @@ L["Asia - W"] = true
 L["Damage accuracy"] = true
 -- Enemy Progress
 L["Enemy Progress"] = true
--- LFG Party Info
-L["LFG Party Info"] = true
+-- LFG Group Info
+L["LFG Group Info"] = true
 L["Compact mode"] = true
 L["Display a role icon for each class instead of the role title."] = true
 L["No title in tooltip"] = true
 L["Do not display the WindDungeonHelper title in tooltip."] = true
-L["|cff00a8ffWDH|r Party Info"] = true
+L["|cff00a8ffWDH|r Group Info"] = true

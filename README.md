@@ -12,6 +12,8 @@ If you want to share the module you write, just pull request it.
 This module will send message including spell name after player takes avoidable damage. Besides, all the text of notification is customizable with a GUI option frame inside Interface > Addons. This module developed based on the algorithm from ElitismHelper, and the player priority setting is fully compatible with ElitismHelper(if you choose the compatible mode).
 2. **Enemy Force**  
 This module will add percentage information on tooltip for every enemy in dungeon.
+2. **LFG Group Info**  
+This module will add the information of the members inside the group.
 
 ## Download
 [Curse](https://wow.curseforge.com/projects/wind-dungeon-helper)
