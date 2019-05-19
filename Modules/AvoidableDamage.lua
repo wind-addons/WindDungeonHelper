@@ -10,6 +10,7 @@ local UnitIsGroupLeader = UnitIsGroupLeader
 local UnitIsPlayer = UnitIsPlayer
 local GetUnitName = GetUnitName
 local GetRealmName = GetRealmName
+local C_ChatInfo_SendAddonMessage = C_ChatInfo.SendAddonMessage
 local AD = WDH:NewModule("AvoidableDamage", "AceHook-3.0", "AceEvent-3.0")
 
 DB.defaults.profile.modules.AvoidableDamage = {
@@ -534,7 +535,7 @@ end
 function AD:SendAddonMessage(message)
     if IsInGroup() and not IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and not IsInRaid() then
         if self.db.notification.outputmode == "party" or self.db.notification.outputmode == "emote" then
-            C_ChatInfo.SendAddonMessage(self.prefix, message, "PARTY")
+            C_ChatInfo_SendAddonMessage(self.prefix, message, "PARTY")
         end
     end
 end
