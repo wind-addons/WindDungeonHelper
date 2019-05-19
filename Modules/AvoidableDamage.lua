@@ -382,6 +382,7 @@ local Spells = {
     -- Temple of Sethraliss
     [268851] = 20,    --- Lightning Shield (Adderis)
     [273225] = 20,    --- Volley (Sandswept Marksman)
+    [264574] = 20,    --- Power Shot (Sandswept Marksman)
     [273995] = 20,    --- Pyrrhic Blast (Crazed Incubator)
     [264206] = 20,    --- Burrow (Merektha)
     [272657] = 20,    --- Noxious Breath
