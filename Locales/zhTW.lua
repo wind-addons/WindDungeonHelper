@@ -66,6 +66,7 @@ L["Damage accuracy"] = "傷害小數位"
 -- Enemy Progress
 L["Enemy Progress"] = "小怪進度"
 -- LFG Party Info
+L["LFG Party Info"] = "預組職業情報"
 L["Compact mode"] = "緊湊模式"
 L["Display a role icon for each class instead of the role title."] = "使用角色定位圖標來替代角色定位標題."
 L["No title in tooltip"] = "浮動提示隱藏標題"

@@ -65,6 +65,7 @@ L["Damage accuracy"] = true
 -- Enemy Progress
 L["Enemy Progress"] = true
 -- LFG Party Info
+L["LFG Party Info"] = true
 L["Compact mode"] = true
 L["Display a role icon for each class instead of the role title."] = true
 L["No title in tooltip"] = true
