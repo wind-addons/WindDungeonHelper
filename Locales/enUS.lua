@@ -15,6 +15,7 @@ L["Enables / disables the module"] = true
 L["Wind Dungeon Helper on Github"] = true
 L["Minimap icon"] = true
 L["Enables / disables Wind Dungeon Helper minimap icon"] = true
+L["Click to toggle config window."] = true
 -- Avoidable Damage
 L["Avoidable Damage"] = true
 L["General"] = true

@@ -8,6 +8,11 @@ local LDB = LibStub("LibDataBroker-1.1"):NewDataObject(L["Wind Dungeon Helper"],
 	text = "WDH",
 	icon = "Interface\\ICONS\\Achievement_Challengemode_Gold",
 	OnClick = function() WDH:OpenOptionFrame() end,
+	OnTooltipShow = function(tooltip)
+		if not tooltip or not tooltip.AddLine then return end
+		tooltip:AddLine("|cff00a8ff"..L["Wind Dungeon Helper"].."|r")
+		tooltip:AddLine(L["Click to toggle config window."])
+	end,
 })
 
 WDH.L, WDH.LDB = L, LDB

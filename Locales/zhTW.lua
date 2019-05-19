@@ -15,6 +15,7 @@ L["Enables / disables the module"] = "開啟/關閉該模組"
 L["Wind Dungeon Helper on Github"]= "Wind 地城助手的 Github 頁面"
 L["Minimap icon"] = "小地圖圖標"
 L["Enables / disables Wind Dungeon Helper minimap icon"] = "開啟/關閉 WDH 小地圖圖標"
+L["Click to toggle config window."] = "點擊開啟設定窗口."
 -- Avoidable Damage
 L["General"] = "一般"
 L["Avoidable Damage"] = "可規避傷害"
