@@ -17,7 +17,7 @@ DB.defaults.profile.modules.LFGGroupInfo = {
 
 C.ModulesOrder.LFGGroupInfo = 22
 C.ModulesOption.LFGGroupInfo = {
-    name = L["LFG Party Info"],
+    name = L["LFG Group Info"],
 	type = "group",
 	childGroups = "tree",
     args = {
