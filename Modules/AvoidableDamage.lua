@@ -107,6 +107,7 @@ C.ModulesOption.AvoidableDamage = {
                         ["self"] = L["Self(Chat Frame)"],
                         ["party"] = L["Party"],
                         ["emote"] = L["Emote"],
+                        ["none"] = L["None"],
                     },
                 },
                 unit = {
@@ -531,12 +532,15 @@ end
 
 function AD:SendAddonMessage(message)
     if IsInGroup() and not IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and not IsInRaid() then
-        C_ChatInfo.SendAddonMessage(self.prefix, message, "PARTY")
+        if self.db.notification.outputmode == "party" or self.db.notification.outputmode == "emote" then
+            C_ChatInfo.SendAddonMessage(self.prefix, message, "PARTY")
+        end
     end
 end
 
 function AD:SendChatMessage(message)
     if not self.db.notification.enable or self.activeUser ~= self.playerUser then return end
+    if self.db.notification.outputmode == "none" then return end
     if self.db.notification.outputmode == "self" then
         print(message)
     elseif self.db.notification.outputmode == "party" and IsInGroup() and not IsInGroup(LE_PARTY_CATEGORY_INSTANCE) then
