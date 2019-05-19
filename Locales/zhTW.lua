@@ -62,6 +62,12 @@ L["unit_k"] = "千"
 L["unit_W"] = "萬"
 L["Western - k"] = "西方 - 千"
 L["Asia - W"] = "亞洲 - 萬"
-L["Damage accuracy"] = "傷害精確度"
+L["Damage accuracy"] = "傷害小數位"
 -- Enemy Progress
 L["Enemy Progress"] = "小怪進度"
+-- LFG Party Info
+L["Compact mode"] = "緊湊模式"
+L["Display a role icon for each class instead of the role title."] = "使用角色定位圖標來替代角色定位標題."
+L["No title in tooltip"] = "浮動提示隱藏標題"
+L["Do not display the WindDungeonHelper title in tooltip."] = "不顯示浮動提示中 Wind 地城助手的標題."
+L["|cff00a8ffWDH|r Party Info"] = "|cff00a8ffWind 地城助手|r 隊伍情報"
