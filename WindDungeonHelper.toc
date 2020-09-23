@@ -1,5 +1,5 @@
 ## Interface: 80300
-## Author: houshuu
+## Author: fang2hou
 ## Version: @project-version@
 ## Title: |cff0288d1W|r|cff039be5i|r|cff03a9f4n|r|cff29b6f6d|r Dungeon Helper
 ## Title-zhCN: |cff039be5W|r|cff03a9f4i|r|cff29b6f6n|r|cff4fc3f7d|r 地下城助手
@@ -9,18 +9,10 @@
 ## Notes-zhTW: 幫助你在地城中的戰鬥更加簡單。
 ## DefaultState: enabled
 ## SavedVariables: WindDungeonHelperDB
+## X-Curse-Project-ID: 304072
+## X-WoWI-ID: 25532
 
-## X-Website: https://wow.curseforge.com/projects/wind-dungeon-helper
-## X-Feedback: https://github.com/fang2hou/WindDungeonHelper/issues
-
-# Library
-Libs\Load_Libs.xml
-
-# Localization
-Locales\Load_Locales.xml
-
-# Initialize
+Libraries\Libraries.xml
+Locales\Locales.xml
 Init.lua
-
-# Module
-Modules\Load_Modules.xml
+Modules\Modules.xml
