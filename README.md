@@ -1,25 +1,36 @@
-<div align="center">
-<img src="https://github.com/fang2hou/WindDungeonHelper/blob/master/Title.png?raw=true"/><br>
-<img src="https://img.shields.io/badge/Version-1.4.0-green.svg?longCache=true&style=flat"/>
-</div><br>
+<center>
+<img src="Title.png"/><br>
+<img src="https://img.shields.io/badge/Version-1.4.0-green.svg?longCache=true&style=for-the-badge"/>
 
-## Introduction
-**Wind Dungeon Helper** is a combat helper works with several modules.  
-If you want to share the module you write, just pull request it.
+[简体中文 (zhCN)](README_zhCN.md) | [繁體中文 (zhTW)](README_zhTW.md)
+</center>
 
-## Features
-1. **Avoidable Damage** based on [ElitismHelper](https://wow.curseforge.com/projects/elitismhelper)  
-This module will send message including spell name after player takes avoidable damage. Besides, all the text of notification is customizable with a GUI option frame inside Interface > Addons. This module developed based on the algorithm from ElitismHelper, and the player priority setting is fully compatible with ElitismHelper(if you choose the compatible mode).
-2. **Enemy Force**  
-This module will add percentage information on tooltip for every enemy in dungeon.
-2. **LFG Group Info**  
-This module will add the information of the members inside the group.
+# ✅ Status
+![](https://img.shields.io/github/workflow/status/fang2hou/WindDungeonHelper/publish) [![](https://img.shields.io/badge/Wind%20Plugins-Join-grey.svg?longCache=true&color=7289DA&logo=discord)](https://discord.gg/nA44TeZ)
 
-## Download
-[Curse](https://wow.curseforge.com/projects/wind-dungeon-helper)
+Download Sites: [Curse](https://www.curseforge.com/wow/addons/wind-dungeon-helper) | [WoWInterface](https://www.wowinterface.com/downloads/info25532-WindDungeonHelper.html) | [Github Release](https://github.com/fang2hou/WindDungeonHelper/releases)
 
-This git repo do not include any libs used in addon, download via Twitch Desktop is highly recommended.
+## ⚔️ Introduction
+**Wind Dungeon Helper** is a plugin designed for dungeon combats.  
+This plugin is aim to improve your skills and and QoL.
 
-## Thanks
-Special thanks for `Ace3`, `ElitismHelper`, `XIV_Databar`.  
-The code of those addons helped me a lot.
+## 💦 Features
+1. **Avoidable Damage** (A fork of [ElitismHelper](https://wow.curseforge.com/projects/elitismhelper))
+
+    This module will send a message including spell name after the player takes avoidable damage. 
+    - Customizable damage threshold.
+    - Customizable announcement text.
+    - Customizable announcement channel.
+    - Generate the ranking after the dungeon once completed.
+    - If you enabled `compatible mode`, it will be fully compatible with ElitismHelper.
+
+2. **Enemy Progress**
+
+    This module will add percentage information on the tooltip for every enemy in the dungeon.
+
+3. **LFG Group Info**
+
+    This module will add the class information of the members inside the group.
+
+## ❤️ Credits
+Special thanks for `Ace3`, `ElitismHelper`, `XIV_Databar`.
