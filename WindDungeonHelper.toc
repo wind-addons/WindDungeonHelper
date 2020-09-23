@@ -1,5 +1,5 @@
 ## Interface: 80300
-## Author: fang2hou
+## Author: houshuu
 ## Version: @project-version@
 ## Title: |cff0288d1W|r|cff039be5i|r|cff03a9f4n|r|cff29b6f6d|r Dungeon Helper
 ## Title-zhCN: |cff039be5W|r|cff03a9f4i|r|cff29b6f6n|r|cff4fc3f7d|r 地下城助手
@@ -12,7 +12,7 @@
 ## X-Curse-Project-ID: 304072
 ## X-WoWI-ID: 25532
 
-Libraries\Libraries.xml
-Locales\Locales.xml
-Init.lua
-Modules\Modules.xml
+Libraries\Load_Libraries.xml
+Locales\Load_Locales.xml
+Initialize.lua
+Modules\Load_Modules.xml
