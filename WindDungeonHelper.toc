@@ -9,10 +9,14 @@
 ## Notes-zhTW: 幫助你在地城中的戰鬥更加簡單。
 ## DefaultState: enabled
 ## SavedVariables: WindDungeonHelperDB
+## OptionalDeps: ElvUI_WindTools
 ## X-Curse-Project-ID: 304072
 ## X-WoWI-ID: 25532
 
 Libraries\Load_Libraries.xml
 Locales\Load_Locales.xml
+Settings\Load_Settings.xml
 Initialize.lua
+Core\Load_Core.xml
 Modules\Load_Modules.xml
+Options\Load_Options.xml

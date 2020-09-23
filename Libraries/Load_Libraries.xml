@@ -12,5 +12,5 @@
     <Include file="AceLocale-3.0\AceLocale-3.0.xml"/>
     <Include file="LibObjectiveProgress-1.0\embed.xml"/>
     <Script file="LibDataBroker-1.1\LibDataBroker-1.1.lua"/>
-    <Script file="LibDBIcon-1.0\LibDBIcon-1.0.lua"/>
+    <Script file="LibDBIcon-1.0\LibDBIcon-1.0\LibDBIcon-1.0.lua"/>
 </Ui>
