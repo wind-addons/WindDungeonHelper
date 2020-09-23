@@ -1,9 +1,9 @@
-<center>
+<div align="center">
 <img src="Title.png"/><br>
 <img src="https://img.shields.io/badge/Version-1.4.0-green.svg?longCache=true&style=for-the-badge"/>
 
 [简体中文 (zhCN)](README_zhCN.md) | [繁體中文 (zhTW)](README_zhTW.md)
-</center>
+</div>
 
 # ✅ Status
 ![](https://img.shields.io/github/workflow/status/fang2hou/WindDungeonHelper/publish) [![](https://img.shields.io/badge/Wind%20Plugins-Join-grey.svg?longCache=true&color=7289DA&logo=discord)](https://discord.gg/nA44TeZ)
