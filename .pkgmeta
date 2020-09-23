@@ -34,7 +34,7 @@ externals:
   Libs/LibDataBroker-1.1:
     url: https://repos.wowace.com/wow/libdatabroker-1-1
   Libs/LibDBIcon-1.0:
-    url: https://repos.wowace.com/wow/libdbicon-1-0/trunk libdbicon-1-0
+    url: https://repos.wowace.com/wow/libdbicon-1-0/trunk
     type: svn
   Libraries/LibObjectiveProgress-1.0:
     url: https://repos.curseforge.com/wow/libobjectiveprogress-1-0
