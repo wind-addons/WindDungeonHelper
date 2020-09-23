@@ -15,6 +15,6 @@ addon[5] = {} -- Options
 _G["WindDungeonHelper"] = addon
 
 -- Variables
-Engine.AddonName = L["Wind Dungeon Helper"]
+Engine.AddonName = Locale["Wind Dungeon Helper"]
 Engine.Version = GetAddOnMetadata(addonName, "Version")
 Engine.AddonMsgPrefix = "WINDDH"

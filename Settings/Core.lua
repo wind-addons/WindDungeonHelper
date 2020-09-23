@@ -2,7 +2,9 @@ local W, F, L, P, O = unpack(select(2, ...))
 
 P = {
     enable = true,
-    minimapIcon = true
+    minimapIcon = {
+        hide = false,
+    }
 }
 
 function W:BuildDatabase()

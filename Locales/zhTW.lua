@@ -1,6 +1,5 @@
-local AddOnName, _ = ...
-local AceLocale = LibStub:GetLibrary("AceLocale-3.0")
-local L = AceLocale:NewLocale(AddOnName, "zhTW")
+local addonName = ...
+local L = LibStub("AceLocale-3.0"):NewLocale(addonName, "zhTW")
 if not L then return end
 -- zhTW
 L["Wind Dungeon Helper"] = "Wind 地城助手"

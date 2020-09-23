@@ -16,7 +16,7 @@ O = {
     args = {
         author = {
             order = 1,
-            name = L["Author"] .. ": " .. W.ColorString("Tabimonk-暗影之月(TW)", 0, 1, 0.59) .. " @ 人生海海",
+            name = L["Author"] .. ": " .. F.CreateColorString("Tabimonk-暗影之月(TW)", 0, 1, 0.59) .. " @ 人生海海",
             type = "description"
         },
         minimapIcon = {
@@ -46,17 +46,17 @@ function W:BuildOptions()
     self.OptionFrame = ACD:AddToBlizOptions(name, W.AddonName)
     self.OptionFrame.ProfilesFrame = ACD:AddToBlizOptions(name .. "Profiles", L["Profiles"], W.AddonName)
 
-    local logo = CreateFrame("Frame", nil, self.OptionFrame, "BackdropTemplate")
-    logo:SetFrameLevel(4)
-    logo:SetSize(64, 64)
-    logo:SetPoint("TOPRIGHT", -12, -12)
-    logo:SetBackdrop(
-        {
-            bgFile = "Interface\\ICONS\\SPELL_ANIMAREVENDRETH_BUFF",
-            insets = {left = 5, right = 5, top = 5, bottom = 5}
-        }
-    )
-    self.OptionFrame.Logo = logo
+    local logoFrame = CreateFrame("Frame", nil, self.OptionFrame)
+    logoFrame:SetFrameLevel(4)
+    logoFrame:SetSize(54, 54)
+    logoFrame:SetPoint("TOPRIGHT", -12, -12)
+
+    local tex = logoFrame:CreateTexture(nil, "ARTWORK")
+    tex:SetTexture("Interface\\Icons\\Spell_animarevendreth_buff")
+    tex:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+    tex:SetPoint("TOPLEFT", 0, 0)
+    tex:SetPoint("BOTTOMRIGHT", 0, 0)
+    self.OptionFrame.Logo = logoFrame
 
     self.DataBroker =
         LDB:NewDataObject(
@@ -64,7 +64,7 @@ function W:BuildOptions()
         {
             type = "data source",
             text = "WDH",
-            icon = "Interface\\ICONS\\Achievement_Challengemode_Gold",
+            icon = "Interface\\Icons\\Achievement_challengemode_gold",
             OnClick = function()
                 W:ShowOptions()
             end,
@@ -74,7 +74,8 @@ function W:BuildOptions()
             end
         }
     )
-    LibStub("LibDBIcon-1.0"):Register(L["Wind Dungeon Helper"], DataBroker, self.db.minimapIcon)
+
+    LDBI:Register(L["Wind Dungeon Helper"], self.DataBroker, self.db.minimapIcon)
 end
 
 function W:ShowOptions()

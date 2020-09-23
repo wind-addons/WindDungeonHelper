@@ -11,7 +11,7 @@ end
 
 function F.CreateColorString(text, r, g, b)
     if not text or not type(text) == "string" then
-        F.DebugMessage("Functions", "Cannot find the text.")
+        print("Cannot find the text.")
         return
     end
 
