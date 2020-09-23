@@ -1,6 +1,6 @@
-## Interface: 80300
+## Interface: 90001
 ## Author: houshuu
-## Version: @project-version@
+## Version: 1.4.0
 ## Title: |cff0288d1W|r|cff039be5i|r|cff03a9f4n|r|cff29b6f6d|r Dungeon Helper
 ## Title-zhCN: |cff039be5W|r|cff03a9f4i|r|cff29b6f6n|r|cff4fc3f7d|r 地下城助手
 ## Title-zhTW: |cff039be5W|r|cff03a9f4i|r|cff29b6f6n|r|cff4fc3f7d|r 地城助手
