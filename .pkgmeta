@@ -36,9 +36,6 @@ externals:
   Libraries/LibDBIcon-1.0:
     url: https://repos.wowace.com/wow/libdbicon-1-0/trunk
     type: svn
-  Libraries/LibObjectiveProgress-1.0:
-    url: https://repos.curseforge.com/wow/libobjectiveprogress-1-0
-    type: hg
 
 ignore:
   - .gitignore
