@@ -85,3 +85,7 @@ end
 function W:ShowOptions()
     InterfaceOptionsFrame_OpenToCategory(self.OptionFrame)
 end
+
+function W:RefreshOptions()
+    ACR:NotifyChange("WindDungeonHelper")
+end
