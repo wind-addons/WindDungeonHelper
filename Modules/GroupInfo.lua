@@ -131,16 +131,17 @@ end
 
 function GI:OnInitialize()
 	self.db = W.db.groupInfo
+	self:ProfileUpdate()
 end
 
-function GI:OnEnable()
-	if not self.IsHooked("LFGListUtil_SetSearchEntryTooltip") then
-		self:SecureHook("LFGListUtil_SetSearchEntryTooltip", "AddGroupInfo")
-	end
-end
-
-function GI:OnDisable()
-	if self.IsHooked("LFGListUtil_SetSearchEntryTooltip") then
-		self:Unhook("LFGListUtil_SetSearchEntryTooltip")
+function GI:ProfileUpdate()
+	if self.db and self.db.enable then
+		if not self:IsHooked("LFGListUtil_SetSearchEntryTooltip") then
+			self:SecureHook("LFGListUtil_SetSearchEntryTooltip", "AddGroupInfo")
+		end
+	else
+		if self:IsHooked("LFGListUtil_SetSearchEntryTooltip") then
+			self:Unhook("LFGListUtil_SetSearchEntryTooltip")
+		end
 	end
 end
