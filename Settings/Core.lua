@@ -4,7 +4,7 @@ P = {
     enable = true,
     minimapIcon = {
         hide = false,
-    }
+    },
 }
 
 function W:BuildDatabase()
