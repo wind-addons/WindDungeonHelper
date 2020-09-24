@@ -1,4 +1,5 @@
 local W, F, L, _, O = unpack(select(2, ...))
+local GI = W:GetModule("GroupInfo")
 
 O.groupInfo = {
     order = 5,
@@ -9,6 +10,7 @@ O.groupInfo = {
     end,
     set = function(info, value)
         W.db[info[#info - 1]][info[#info]] = value
+        GI:ProfileUpdate()
     end,
     args = {
         enable = {
