@@ -331,9 +331,15 @@ local function SortTable(t)
 end
 
 function AD:SetNotificationText()
-    warningMessage = self.db.enable and self.db.custom.warningMessage or P.custom.warningMessage
-    stacksMessage = self.db.enable and self.db.custom.stacksMessage or P.custom.stacksMessage
-    spellMessage = self.db.enable and self.db.custom.spellMessage or P.custom.spellMessage
+    if self.db.custom.enable then
+        warningMessage = self.db.custom.warningMessage
+        stacksMessage = self.db.custom.stacksMessage
+        spellMessage = self.db.custom.spellMessage
+    else
+        warningMessage = P.avoidableDamage.custom.warningMessage
+        stacksMessage = P.avoidableDamage.custom.stacksMessage
+        spellMessage = P.avoidableDamage.custom.spellMessage
+    end
 end
 
 function AD:GenerateOutput(text, name, spell, stack, damage, percent)
@@ -350,7 +356,7 @@ function AD:GenerateOutput(text, name, spell, stack, damage, percent)
 
     if percent then
         percent = F.Round(percent, self.db.notification.accuracy)
-        text = gsub(text, "%%percent%%", format("%s%%%%", 2.1))
+        text = gsub(text, "%%percent%%", format("%s%%%%", percent))
     end
     return text
 end
