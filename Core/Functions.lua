@@ -26,6 +26,20 @@ function F.CreateColorString(text, r, g, b)
     return "|cff" .. hex .. text .. "|r"
 end
 
+function F.CreateClassColorString(text, englishClass)
+    if not text or not type(text) == "string" then
+        print("Cannot find the text.")
+        return
+    end
+    if not englishClass or type(englishClass) ~= "string" then
+        print("Cannot find the class text.")
+        return
+    end
+
+    local r, g, b = GetClassColor(englishClass)
+    return F.CreateColorString(text, r, g, b)
+end
+
 function F.Round(number, decimals)
     return format(format("%%.%df", decimals), number)
 end

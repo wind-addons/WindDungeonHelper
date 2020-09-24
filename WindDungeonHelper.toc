@@ -19,4 +19,4 @@ Media\Load_Media.xml
 Settings\Load_Settings.xml
 Core\Load_Core.xml
 Options\Load_Options.xml
-## Modules\Load_Modules.xml
+Modules\Load_Modules.xml
