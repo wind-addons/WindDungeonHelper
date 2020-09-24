@@ -1,3 +1,4 @@
 Libraries/*
 !Libraries/Load_Libraries.xml
+!Libraries/LibObjectiveProgress-1.0
 .DS_Store
