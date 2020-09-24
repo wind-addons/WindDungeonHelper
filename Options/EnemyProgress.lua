@@ -10,7 +10,6 @@ O.enemyProgress = {
     end,
     set = function(info, value)
         W.db[info[#info - 1]][info[#info]] = value
-        EP:ProfileUpdate()
     end,
     args = {
         enable = {
@@ -18,6 +17,10 @@ O.enemyProgress = {
             name = L["Enable"],
             desc = L["Enables / disables the module"],
             type = "toggle",
+            set = function(info, value)
+                W.db[info[#info - 1]][info[#info]] = value
+                EP:ProfileUpdate()
+            end,
             width = "full"
         },
         accuracy = {
