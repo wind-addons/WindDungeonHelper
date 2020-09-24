@@ -19,6 +19,17 @@ O.enemyProgress = {
             desc = L["Enables / disables the module"],
             type = "toggle",
             width = "full"
+        },
+        accuracy = {
+            order = 2,
+            name = L["Accuracy"],
+            type = "range",
+            disabled = function(info)
+                return not W.db.enable
+            end,
+            min = 0,
+            max = 5,
+            step = 1
         }
     }
 }

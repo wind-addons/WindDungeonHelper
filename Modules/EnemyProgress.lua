@@ -10,6 +10,10 @@ local tonumber = tonumber
 local tostring = tostring
 
 local GameTooltip = _G.GameTooltip
+local IsAddOnLoaded = IsAddOnLoaded
+
+local C_QuestLog_GetInfo = C_QuestLog.GetInfo
+local C_QuestLog_GetLogIndexForQuestID = C_QuestLog.GetLogIndexForQuestID
 
 local function CheckElvUIWindTools()
 	if IsAddOnLoaded("ElvUI_WindTools") then
@@ -21,25 +25,14 @@ local function CheckElvUIWindTools()
 end
 
 function EP:AddObjectiveProgress(tt)
-	if CheckElvUIWindTools() then
-		return
-	end
-
-	if not tt or not tt.NumLines or tt:NumLines() == 0 then
+	if not tt or not tt.NumLines or tt:NumLines() == 0 or CheckElvUIWindTools() then
 		return
 	end
 
 	local name, unit = tt:GetUnit()
-	if not unit then
-		return
-	end
+	local GUID = unit and UnitGUID(unit)
+	local npcID = GUID and select(6, ("-"):split(GUID))
 
-	local GUID = UnitGUID(unit)
-	if not GUID or GUID == "" then
-		return
-	end
-
-	local npcID = select(6, ("-"):split(GUID))
 	if not npcID or npcID == "" then
 		return
 	end
@@ -50,19 +43,14 @@ function EP:AddObjectiveProgress(tt)
 	end
 
 	for questID, npcWeight in next, weightsTable do
-		local questTitle = C_TaskQuest_GetQuestInfoByQuestID(questID)
-		for j = 1, tt:NumLines() do
-			if _G["GameTooltipTextLeft" .. j] and _G["GameTooltipTextLeft" .. j]:GetText() == questTitle then
-				_G["GameTooltipTextLeft" .. j]:SetText(
-					_G["GameTooltipTextLeft" .. j]:GetText() .. " - " .. tostring(floor((npcWeight * 100) + 0.5) / 100) .. "%"
-				)
+		local info = C_QuestLog_GetInfo(C_QuestLog_GetLogIndexForQuestID(questID))
+		for i = 1, tt:NumLines() do
+			local text = _G["GameTooltipTextLeft" .. i]
+			if text and text:GetText() == info.title then
+				text:SetText(text:GetText() .. format(" + %s%%", F.Round(npcWeight, self.db.accuracy)))
 			end
 		end
 	end
-end
-
-function EP:RefreshOption()
-	LibStub("AceConfigRegistry-3.0"):NotifyChange("WindDungeonHelper")
 end
 
 function EP:OnInitialize()
