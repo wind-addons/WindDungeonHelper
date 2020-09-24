@@ -11,6 +11,7 @@ local tostring = tostring
 
 local GameTooltip = _G.GameTooltip
 local IsAddOnLoaded = IsAddOnLoaded
+local UnitGUID = UnitGUID
 
 local C_QuestLog_GetInfo = C_QuestLog.GetInfo
 local C_QuestLog_GetLogIndexForQuestID = C_QuestLog.GetLogIndexForQuestID
