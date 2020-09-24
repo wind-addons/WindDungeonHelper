@@ -8,6 +8,7 @@ local ADBO = LibStub("AceDBOptions-3.0")
 local LDB = LibStub("LibDataBroker-1.1")
 local LDBI = LibStub("LibDBIcon-1.0")
 
+local C_Timer_After = C_Timer.After
 local CreateFrame = CreateFrame
 local InterfaceOptionsFrame_OpenToCategory = InterfaceOptionsFrame_OpenToCategory
 
@@ -88,4 +89,8 @@ end
 
 function W:RefreshOptions()
     ACR:NotifyChange("WindDungeonHelper")
+end
+
+function W:RefreshOptionsAfter(second)
+    C_Timer_After(second, self.RefreshOptions)
 end

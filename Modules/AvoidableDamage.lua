@@ -583,12 +583,12 @@ function AD:OnInitialize()
     self:SetAddonMessagePrefix()
     self:SetNotificationText()
     self:ResetAuthority()
-    self:ToggleModule()
+    self:ProfileUpdate()
 
     self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 end
 
-function AD:ToggleModule()
+function AD:ProfileUpdate()
     if self.db.enable then
         self:ResetAuthority()
         self:RegisterEvent("CHAT_MSG_ADDON")
@@ -604,4 +604,8 @@ function AD:ToggleModule()
         self:UnregisterEvent("CHALLENGE_MODE_COMPLETED")
         self:ResetStatistic()
     end
+end
+
+function AD:GetActiveUser()
+    return activeUser
 end
