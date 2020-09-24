@@ -7,6 +7,7 @@ local pairs = pairs
 local sort = sort
 local wipe = wipe
 
+local IsAddOnLoaded = IsAddOnLoaded
 local C_LFGList_GetSearchResultInfo = C_LFGList.GetSearchResultInfo
 local C_LFGList_GetSearchResultMemberInfo = C_LFGList.GetSearchResultMemberInfo
 
@@ -41,8 +42,17 @@ local function GetIconString(role, mode)
 	return format(template, RoleIconTextures[role])
 end
 
+local function CheckElvUIWindTools()
+	if IsAddOnLoaded("ElvUI_WindTools") then
+		local E = _G.ElvUI and _G.ElvUI[1]
+		if E and E.db.WT.tooltips.groupInfo.enable then
+			return true
+		end
+	end
+end
+
 function GI:AddGroupInfo(tooltip, resultID)
-	if not self.db or not self.db.enable then
+	if not self.db or not self.db.enable or CheckElvUIWindTools() then
 		return
 	end
 
@@ -121,14 +131,11 @@ end
 
 function GI:OnInitialize()
 	self.db = W.db.groupInfo
-	if self.db.enbale then
-		self:Enable()
-	end
 end
 
 function GI:OnEnable()
 	if not self.IsHooked("LFGListUtil_SetSearchEntryTooltip") then
-		GI:SecureHook("LFGListUtil_SetSearchEntryTooltip", "AddGroupInfo")
+		self:SecureHook("LFGListUtil_SetSearchEntryTooltip", "AddGroupInfo")
 	end
 end
 
