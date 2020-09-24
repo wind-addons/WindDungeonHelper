@@ -1,4 +1,5 @@
-local W, F, L, P, O = unpack(select(2, ...))
+local ns = select(2, ...)
+local W, F, L = unpack(ns)
 local LibStub = _G.LibStub
 
 local ACD = LibStub("AceConfigDialog-3.0")
@@ -10,9 +11,10 @@ local LDBI = LibStub("LibDBIcon-1.0")
 local CreateFrame = CreateFrame
 local InterfaceOptionsFrame_OpenToCategory = InterfaceOptionsFrame_OpenToCategory
 
-O = {
+local options = {
     type = "group",
     name = F.CreateColorString(W.AddonName) .. " - " .. W.Version,
+    childGroups = "tab",
     args = {
         author = {
             order = 1,
@@ -39,9 +41,11 @@ O = {
     }
 }
 
+ns[5] = options.args
+
 function W:BuildOptions()
     local name = "WindDungeonHelper"
-    ACR:RegisterOptionsTable(name, O)
+    ACR:RegisterOptionsTable(name, options)
     ACR:RegisterOptionsTable(name .. "Profiles", ADBO:GetOptionsTable(W.Database))
     self.OptionFrame = ACD:AddToBlizOptions(name, W.AddonName)
     self.OptionFrame.ProfilesFrame = ACD:AddToBlizOptions(name .. "Profiles", L["Profiles"], W.AddonName)

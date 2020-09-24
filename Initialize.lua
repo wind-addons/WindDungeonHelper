@@ -9,8 +9,6 @@ local Locale = LibStub("AceLocale-3.0"):GetLocale(addonName, true)
 addon[1] = Engine
 addon[2] = {} -- Funtions
 addon[3] = Locale
-addon[4] = {} -- Profile
-addon[5] = {} -- Options
 
 _G["WindDungeonHelper"] = addon
 

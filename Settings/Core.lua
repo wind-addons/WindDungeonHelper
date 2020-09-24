@@ -1,13 +1,15 @@
-local W, F, L, P, O = unpack(select(2, ...))
+local ns = select(2, ...)
+local W, F, L = unpack(ns)
+local ADB = LibStub("AceDB-3.0")
 
-P = {
+ns[4] = {
     enable = true,
     minimapIcon = {
-        hide = false,
-    },
+        hide = false
+    }
 }
 
 function W:BuildDatabase()
-    self.Database = LibStub("AceDB-3.0"):New("WindDungeonHelperDB", {profile = P})
+    self.Database = ADB:New("WindDungeonHelperDB", {profile = ns[4]})
     self.db = self.Database.profile
 end
