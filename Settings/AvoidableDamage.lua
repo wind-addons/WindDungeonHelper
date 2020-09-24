@@ -2,12 +2,12 @@ local W, F, L, P = unpack(select(2, ...))
 
 P.avoidableDamage = {
     enable = true,
+    compatible = true,
     notification = {
         enable = true,
-        compatible = true,
-        outputmode = "party",
-        threshold = 30,
-        unit = "western",
+        channel = "SELF",
+        threshold = 1,
+        unit = "ASIA",
         accuracy = 1
     },
     rank = {
