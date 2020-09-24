@@ -6,7 +6,7 @@ W.Media = {
 	Textures = {}
 }
 
-local MediaPath = "Interface\\Addons\\ElvUI_WindTools\\Media\\"
+local MediaPath = "Interface\\Addons\\WindDungeonHelper\\Media\\"
 
 do
 	local template = "|T%s:%d:%d:0:0:64:64:5:59:5:59|t"
@@ -20,6 +20,6 @@ local function AddMedia(name, file, type)
 	W.Media[type][name] = MediaPath .. type .. "\\" .. file
 end
 
-AddMedia("Tank", "Tank.tga", "Icons")
-AddMedia("Damager", "Damager.tga", "Icons")
-AddMedia("Healer", "Healer.tga", "Icons")
+AddMedia("sunUITank", "Tank.tga", "Icons")
+AddMedia("sunUIHealer", "Healer.tga", "Icons")
+AddMedia("sunUIDPS", "DPS.tga", "Icons")
