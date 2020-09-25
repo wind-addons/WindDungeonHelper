@@ -5,8 +5,8 @@ P.avoidableDamage = {
     compatible = true,
     notification = {
         enable = true,
-        channel = "SELF",
-        threshold = 1,
+        channel = "PARTY",
+        threshold = 30,
         unit = "ASIA",
         accuracy = 1
     },
