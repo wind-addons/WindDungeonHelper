@@ -595,6 +595,8 @@ function AD:OnInitialize()
 end
 
 function AD:ProfileUpdate()
+    self.db = W.db.avoidableDamage
+    
     if self.db.enable then
         self:ResetAuthority()
         self:RegisterEvent("CHAT_MSG_ADDON")

@@ -1,4 +1,4 @@
-local W, F, L, _, O = unpack(select(2, ...))
+local W, F, L, P, O = unpack(select(2, ...))
 local AD = W:GetModule("AvoidableDamage")
 local name = UnitName("player")
 

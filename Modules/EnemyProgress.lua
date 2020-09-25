@@ -60,6 +60,8 @@ function EP:OnInitialize()
 end
 
 function EP:ProfileUpdate()
+	self.db = W.db.avoidableDamage
+	
 	if self.db and self.db.enable then
 		if not self:IsHooked(GameTooltip, "OnTooltipSetUnit") then
 			self:SecureHookScript(GameTooltip, "OnTooltipSetUnit", "AddObjectiveProgress")

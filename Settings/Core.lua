@@ -11,5 +11,6 @@ ns[4] = {
 
 function W:BuildDatabase()
     self.Database = ADB:New("WindDungeonHelperDB", {profile = ns[4]})
+    self.Database.RegisterCallback(self, "OnProfileChanged")
     self.db = self.Database.profile
 end

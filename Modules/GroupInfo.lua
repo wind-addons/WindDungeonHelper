@@ -135,6 +135,8 @@ function GI:OnInitialize()
 end
 
 function GI:ProfileUpdate()
+	self.db = W.db.avoidableDamage
+
 	if self.db and self.db.enable then
 		if not self:IsHooked("LFGListUtil_SetSearchEntryTooltip") then
 			self:SecureHook("LFGListUtil_SetSearchEntryTooltip", "AddGroupInfo")

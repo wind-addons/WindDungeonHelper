@@ -9,3 +9,12 @@ function W:OnInitialize()
 
     C_ChatInfo_RegisterAddonMessagePrefix(self.AddonMsgPrefix)
 end
+
+function W:OnProfileChanged()
+    self.db = self.Database.profile
+    for _, module in self:IterateModules() do
+        if module.ProfileUpdate then
+            module:ProfileUpdate()
+        end
+    end
+end
