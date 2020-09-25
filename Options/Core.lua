@@ -84,6 +84,7 @@ function W:BuildOptions()
 end
 
 function W:ShowOptions()
+    InterfaceOptionsFrame_Show()
     InterfaceOptionsFrame_OpenToCategory(self.OptionFrame)
 end
 
