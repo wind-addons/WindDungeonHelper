@@ -1,4 +1,5 @@
 local W, F, L = unpack(select(2, ...))
+local locale = GetLocale()
 local format = format
 
 W.Media = {
@@ -18,6 +19,14 @@ end
 
 local function AddMedia(name, file, type)
 	W.Media[type][name] = MediaPath .. type .. "\\" .. file
+end
+
+if locale == "zhCN" then
+	AddMedia("logo", "WindDungeonHelper_zhCN.tga", "Textures")
+elseif locale == "zhTW" then
+	AddMedia("logo", "WindDungeonHelper_zhTW.tga", "Textures")
+else
+	AddMedia("logo", "WindDungeonHelper.tga", "Textures")
 end
 
 AddMedia("sunUITank", "Tank.tga", "Icons")

@@ -1,6 +1,7 @@
 local ns = select(2, ...)
 local W, F, L = unpack(ns)
 local LibStub = _G.LibStub
+local locale = GetLocale()
 
 local ACD = LibStub("AceConfigDialog-3.0")
 local ACR = LibStub("AceConfigRegistry-3.0")
@@ -12,15 +13,41 @@ local C_Timer_After = C_Timer.After
 local CreateFrame = CreateFrame
 local InterfaceOptionsFrame_OpenToCategory = InterfaceOptionsFrame_OpenToCategory
 
+local authorString = L["Author"] .. ": " .. F.CreateColorString("Tabimonk-暗影之月(TW)", 0, 1, 0.59) .. " @ 人生海海"
+
+local titleImageConfig = {
+    height = function()
+        if locale == "zhCN" or locale == "zhTW" then
+            return 92
+        else
+            return 114
+        end
+    end,
+    width = function()
+        return 512
+    end,
+    coords = function()
+        if locale == "zhCN" or locale == "zhTW" then
+            return {0, 1, 0.2, 0.92}
+        else
+            return {0, 1, 0.03, 0.92}
+        end
+    end
+}
+
 local options = {
     type = "group",
-    name = F.CreateColorString(W.AddonName) .. " - " .. W.Version,
+    name = F.CreateColorString(W.AddonName) .. " - " .. W.Version .. " | " .. authorString,
     childGroups = "tab",
     args = {
-        author = {
-            order = 1,
-            name = L["Author"] .. ": " .. F.CreateColorString("Tabimonk-暗影之月(TW)", 0, 1, 0.59) .. " @ 人生海海",
-            type = "description"
+        logo = {
+            order = 2,
+            type = "description",
+            name = "",
+            image = W.Media.Textures.logo,
+            imageWidth = titleImageConfig.width(),
+            imageHeight = titleImageConfig.height(),
+            imageCoords = titleImageConfig.coords()
         },
         minimapIcon = {
             order = 2,
