@@ -7,7 +7,7 @@ W.Media = {
 	Textures = {}
 }
 
-local MediaPath = "Interface\\Addons\\WindDungeonHelper\\Media\\"
+local MediaPath = "Interface/Addons/WindDungeonHelper/Media/"
 
 do
 	local template = "|T%s:%d:%d:0:0:64:64:5:59:5:59|t"
@@ -18,7 +18,7 @@ do
 end
 
 local function AddMedia(name, file, type)
-	W.Media[type][name] = MediaPath .. type .. "\\" .. file
+	W.Media[type][name] = MediaPath .. type .. "/" .. file
 end
 
 if locale == "zhCN" then
@@ -29,9 +29,9 @@ else
 	AddMedia("logo", "WindDungeonHelper.tga", "Textures")
 end
 
-AddMedia("sunUITank", "Tank.tga", "Icons")
-AddMedia("sunUIHealer", "Healer.tga", "Icons")
-AddMedia("sunUIDPS", "DPS.tga", "Icons")
+AddMedia("sunUITank", "SunUI/Tank.tga", "Icons")
+AddMedia("sunUIHealer", "SunUI/Healer.tga", "Icons")
+AddMedia("sunUIDPS", "SunUI/DPS.tga", "Icons")
 
 AddMedia("discord", "Discord.tga", "Icons")
 AddMedia("qq", "QQ.tga", "Icons")
