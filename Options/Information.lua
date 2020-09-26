@@ -7,6 +7,12 @@ local format = format
 local StaticPopup_Show = StaticPopup_Show
 
 local wowVersion, wowPatch = GetBuildInfo()
+local locale = GetLocale()
+
+local discordURL = "https://discord.gg/nA44TeZ"
+if locale == "zhCN" or locale == "zhTW" then
+    discordURL = "https://discord.gg/wvV5rQy"
+end
 
 _G.StaticPopupDialogs["WIND_DUNGEON_HELPER_EDITBOX"] = {
     text = "",
@@ -155,7 +161,7 @@ O.information = {
                             "WIND_DUNGEON_HELPER_EDITBOX",
                             L["Wind Dungeon Helper"] .. " - " .. L["Discord"],
                             nil,
-                            "https://discord.gg/JMz5Zsk"
+                            discordURL
                         )
                     end,
                     width = 0.7
