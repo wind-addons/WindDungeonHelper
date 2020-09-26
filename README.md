@@ -26,11 +26,15 @@ This plugin is aim to improve your skills and and QoL.
 
 2. **Enemy Progress**
 
-    This module will add percentage information on the tooltip for every enemy in the dungeon.
+    Add percentage information on the tooltip for every enemy in the dungeon.
 
 3. **LFG Group Info**
 
-    This module will add the class information of the members inside the group.
+    Add the class information of the members inside the group.
+
+4. **Quick Keystone**
+
+    Put the keystone from bag automatically.
 
 ## ❤️ Credits
 Special thanks for `Ace3`, `ElitismHelper`, `XIV_Databar`.
