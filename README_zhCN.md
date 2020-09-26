@@ -35,4 +35,4 @@
     自动放置背包内的传奇地下城钥石.
 
 ## ❤️ 鸣谢
-特别感谢 `Ace3`, `ElitismHelper`, `XIV_Databar`.
+[完整鸣谢名单](CREDITS.md)

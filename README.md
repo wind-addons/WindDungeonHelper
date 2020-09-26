@@ -37,4 +37,4 @@ This plugin is aim to improve your skills and and QoL.
     Put the keystone from bag automatically.
 
 ## ❤️ Credits
-Special thanks for `Ace3`, `ElitismHelper`, `XIV_Databar`.
+[All credits](CREDITS.md)

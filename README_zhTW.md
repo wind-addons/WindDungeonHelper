@@ -35,4 +35,4 @@
     自動放置背包中的傳奇地城鑰石.
 
 ## ❤️ 鳴謝
-特別感謝 `Ace3`, `ElitismHelper`, `XIV_Databar`.
+[完整鳴謝名单](CREDITS.md)
