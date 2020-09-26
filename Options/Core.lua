@@ -1,17 +1,19 @@
 local ns = select(2, ...)
 local W, F, L = unpack(ns)
 local LibStub = _G.LibStub
-local locale = GetLocale()
-
 local ACD = LibStub("AceConfigDialog-3.0")
 local ACR = LibStub("AceConfigRegistry-3.0")
 local ADBO = LibStub("AceDBOptions-3.0")
 local LDB = LibStub("LibDataBroker-1.1")
 local LDBI = LibStub("LibDBIcon-1.0")
 
-local C_Timer_After = C_Timer.After
 local CreateFrame = CreateFrame
 local InterfaceOptionsFrame_OpenToCategory = InterfaceOptionsFrame_OpenToCategory
+local InterfaceOptionsFrame_Show = InterfaceOptionsFrame_Show
+
+local C_Timer_After = C_Timer.After
+
+local locale = GetLocale()
 
 local titleImageConfig = {
     height = function()

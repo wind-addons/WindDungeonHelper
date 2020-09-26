@@ -1,6 +1,11 @@
 local W, F, L, P, O = unpack(select(2, ...))
 
 local format = format
+local print = print
+local select = select
+local type = type
+
+local GetClassColor = GetClassColor
 
 local function RGBToHex(r, g, b)
     r = r <= 1 and r >= 0 and r or 0
@@ -42,8 +47,4 @@ end
 
 function F.Round(number, decimals)
     return format(format("%%.%df", decimals), number)
-end
-
-function table.pack(...)
-    return {n = select("#", ...), ...}
 end

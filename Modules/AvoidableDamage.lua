@@ -1,19 +1,33 @@
 -- Based on ElitismHelper
 local W, F, L, P = unpack(select(2, ...))
 local AD = W:NewModule("AvoidableDamage", "AceHook-3.0", "AceEvent-3.0")
+
+local format = format
 local gsub = gsub
-local SendChatMessage = SendChatMessage
+local pairs = pairs
+local sort = sort
+local tinsert = tinsert
+local wipe = wipe
+
+local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
+local GetRealmName = GetRealmName
+local GetSpellLink = GetSpellLink
+local GetUnitName = GetUnitName
 local IsInGroup = IsInGroup
 local IsInRaid = IsInRaid
+local SendChatMessage = SendChatMessage
 local UnitGroupRolesAssigned = UnitGroupRolesAssigned
+local UnitHealthMax = UnitHealthMax
 local UnitIsGroupLeader = UnitIsGroupLeader
 local UnitIsPlayer = UnitIsPlayer
-local GetUnitName = GetUnitName
-local GetRealmName = GetRealmName
-local C_ChatInfo_SendAddonMessage = C_ChatInfo.SendAddonMessage
+
 local C_ChatInfo_GetRegisteredAddonMessagePrefixes = C_ChatInfo.GetRegisteredAddonMessagePrefixes
 local C_ChatInfo_RegisterAddonMessagePrefix = C_ChatInfo.RegisterAddonMessagePrefix
+local C_ChatInfo_SendAddonMessage = C_ChatInfo.SendAddonMessage
 local C_Timer_After = C_Timer.After
+
+local LE_PARTY_CATEGORY_HOME = LE_PARTY_CATEGORY_HOME
+local LE_PARTY_CATEGORY_INSTANCE = LE_PARTY_CATEGORY_INSTANCE
 
 local Spells = {
     -- [257274] = 20, -- Debug
@@ -528,7 +542,7 @@ function AD:CHALLENGE_MODE_COMPLETED()
     SortTable(damageTable)
 
     for index, data in pairs(damageTable) do
-        self:SendChatMessage(format("%d. %s %s", k, data.key, self:GenerateNumber(data["value"])))
+        self:SendChatMessage(format("%d. %s %s", index, data.key, self:GenerateNumber(data["value"])))
     end
 
     if self.db.rank.worst then

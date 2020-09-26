@@ -3,7 +3,9 @@ local EP = W:NewModule("EnemyProgress", "AceHook-3.0")
 local LOP = LibStub("LibObjectiveProgress-1.0")
 
 local _G = _G
+
 local floor = floor
+local format = format
 local next = next
 local select = select
 local tonumber = tonumber
@@ -61,7 +63,7 @@ end
 
 function EP:ProfileUpdate()
 	self.db = W.db.avoidableDamage
-	
+
 	if self.db and self.db.enable then
 		if not self:IsHooked(GameTooltip, "OnTooltipSetUnit") then
 			self:SecureHookScript(GameTooltip, "OnTooltipSetUnit", "AddObjectiveProgress")
