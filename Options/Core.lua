@@ -60,19 +60,6 @@ function W:BuildOptions()
     ACR:RegisterOptionsTable(name .. "Profiles", ADBO:GetOptionsTable(W.Database))
     self.OptionFrame = ACD:AddToBlizOptions(name, W.AddonName)
     self.OptionFrame.ProfilesFrame = ACD:AddToBlizOptions(name .. "Profiles", L["Profiles"], W.AddonName)
-
-    local logoFrame = CreateFrame("Frame", nil, self.OptionFrame)
-    logoFrame:SetFrameLevel(4)
-    logoFrame:SetSize(54, 54)
-    logoFrame:SetPoint("TOPRIGHT", -12, -12)
-
-    local tex = logoFrame:CreateTexture(nil, "ARTWORK")
-    tex:SetTexture("Interface\\Icons\\Spell_animarevendreth_buff")
-    tex:SetTexCoord(0.08, 0.92, 0.08, 0.92)
-    tex:SetPoint("TOPLEFT", 0, 0)
-    tex:SetPoint("BOTTOMRIGHT", 0, 0)
-    self.OptionFrame.Logo = logoFrame
-
     self.DataBroker =
         LDB:NewDataObject(
         L["Wind Dungeon Helper"],
