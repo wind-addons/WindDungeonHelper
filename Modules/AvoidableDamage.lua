@@ -601,10 +601,7 @@ function AD:OnInitialize()
 
     self:SetAddonMessagePrefix()
     self:SetNotificationText()
-    self:ResetAuthority()
     self:ProfileUpdate()
-
-    self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 end
 
 function AD:ProfileUpdate()
@@ -617,12 +614,14 @@ function AD:ProfileUpdate()
         self:RegisterEvent("ZONE_CHANGED_NEW_AREA", "ResetAuthority")
         self:RegisterEvent("CHALLENGE_MODE_START")
         self:RegisterEvent("CHALLENGE_MODE_COMPLETED")
+        self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
     else
         self:UnregisterEvent("CHAT_MSG_ADDON")
         self:UnregisterEvent("GROUP_ROSTER_UPDATE")
         self:UnregisterEvent("ZONE_CHANGED_NEW_AREA")
         self:UnregisterEvent("CHALLENGE_MODE_START")
         self:UnregisterEvent("CHALLENGE_MODE_COMPLETED")
+        self:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
         self:ResetStatistic()
     end
 end

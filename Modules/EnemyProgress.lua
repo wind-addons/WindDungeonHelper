@@ -56,13 +56,8 @@ function EP:AddObjectiveProgress(tt)
 	end
 end
 
-function EP:OnInitialize()
-	self.db = W.db.enemyProgress
-	self:ProfileUpdate()
-end
-
 function EP:ProfileUpdate()
-	self.db = W.db.avoidableDamage
+	self.db = W.db.enemyProgress
 
 	if self.db and self.db.enable then
 		if not self:IsHooked(GameTooltip, "OnTooltipSetUnit") then
@@ -74,3 +69,5 @@ function EP:ProfileUpdate()
 		end
 	end
 end
+
+EP.OnInitialize = EP.ProfileUpdate

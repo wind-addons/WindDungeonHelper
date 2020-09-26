@@ -129,11 +129,6 @@ function GI:AddGroupInfo(tooltip, resultID)
 	tooltip:Show()
 end
 
-function GI:OnInitialize()
-	self.db = W.db.groupInfo
-	self:ProfileUpdate()
-end
-
 function GI:ProfileUpdate()
 	self.db = W.db.groupInfo
 
@@ -147,3 +142,5 @@ function GI:ProfileUpdate()
 		end
 	end
 end
+
+GI.OnInitialize = GI.ProfileUpdate
