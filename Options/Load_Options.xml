@@ -5,4 +5,5 @@
 	<Script file='AvoidableDamage.lua'/>
 	<Script file='EnemyProgress.lua'/>
 	<Script file='GroupInfo.lua'/>
+	<Script file='QuickKeystone.lua'/>
 </Ui>
