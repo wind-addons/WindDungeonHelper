@@ -16,30 +16,38 @@ local keystones = {
     [151086] = true
 }
 
--- local function CheckElvUIWindTools()
---     if IsAddOnLoaded("ElvUI_WindTools") then
---         local E = _G.ElvUI and _G.ElvUI[1]
---         if E and E.private.WT.tooltips.objectiveProgress then
---             return true
---         end
---     end
--- end
+local function CheckElvUIWindTools()
+    if IsAddOnLoaded("ElvUI_WindTools") then
+        local E = _G.ElvUI and _G.ElvUI[1]
+        if E and E.db.WT.combat.quickKeystone.enable then
+            return true
+        end
+    end
+end
 
 function QK:PutKeystone()
+    if CheckElvUIWindTools() then
+        return
+    end
+
     for bagIndex = 0, NUM_BAG_SLOTS do
         for slotIndex = 1, GetContainerNumSlots(bagIndex) do
             local itemID = GetContainerItemID(bagIndex, slotIndex)
             if itemID and keystones[itemID] then
-                print(bagIndex, slotIndex)
+                UseContainerItem(bagIndex, slotIndex)
                 return
             end
         end
     end
 end
 
-function QK:UpdateHook(event)
+function QK:UpdateHook(event, addon)
     if event then
-        self:UnregisterEvent("ADDON_LOADED")
+        if addon == "Blizzard_ChallengesUI" then
+            self:UnregisterEvent("ADDON_LOADED")
+        else
+            return
+        end
     end
 
     local frame = _G.ChallengesKeystoneFrame
