@@ -1,38 +1,9 @@
 package-as: WindDungeonHelper
 
 externals:
-  Libraries/LibStub:
-    url: svn://svn.wowace.com/wow/libstub/mainline/trunk
-    tag: latest
-  Libraries/CallbackHandler-1.0:
-    url: svn://svn.wowace.com/wow/callbackhandler/mainline/trunk/CallbackHandler-1.0
-    tag: latest
-  Libraries/AceAddon-3.0:
-    url: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceAddon-3.0
-    tag: latest
-  Libraries/AceEvent-3.0:
-    url: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceEvent-3.0
-    tag: latest
-  Libraries/AceDB-3.0:
-    url: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceDB-3.0
-    tag: latest
-  Libraries/AceDBOptions-3.0:
-    url: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceDBOptions-3.0
-    tag: latest
-  Libraries/AceHook-3.0:
-    url: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceHook-3.0
-    tag: latest
-  Libraries/AceGUI-3.0:
-    url: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceGUI-3.0
-    tag: latest
-  Libraries/AceConfig-3.0:
-    url: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceConfig-3.0
-    tag: latest
-  Libraries/AceLocale-3.0:
-    url: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceLocale-3.0
-    tag: latest
-  Libraries/LibDataBroker-1.1:
-    url: https://repos.wowace.com/wow/libdatabroker-1-1
+  Libraries/Ace3:
+    url: https://repos.wowace.com/wow/ace3/trunk
+    type: svn
   Libraries/LibDBIcon-1.0:
     url: https://repos.wowace.com/wow/libdbicon-1-0/trunk
     type: svn
