@@ -18,7 +18,7 @@ jobs:
       - name: Build and publish
         uses: BigWigsMods/packager@master
         with:
-          args: -g 9.0.1 -d # Delete after pre-patch
+          args: -g 9.0.1 # Delete after pre-patch
         env:
           CF_API_KEY: ${{ secrets.CF_API_KEY }}
           GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
