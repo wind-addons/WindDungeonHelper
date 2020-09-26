@@ -32,3 +32,8 @@ end
 AddMedia("sunUITank", "Tank.tga", "Icons")
 AddMedia("sunUIHealer", "Healer.tga", "Icons")
 AddMedia("sunUIDPS", "DPS.tga", "Icons")
+
+AddMedia("discord", "Discord.tga", "Icons")
+AddMedia("qq", "QQ.tga", "Icons")
+AddMedia("github", "Github.tga", "Icons")
+AddMedia("nga", "NGA.tga", "Icons")

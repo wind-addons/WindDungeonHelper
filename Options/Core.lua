@@ -13,8 +13,6 @@ local C_Timer_After = C_Timer.After
 local CreateFrame = CreateFrame
 local InterfaceOptionsFrame_OpenToCategory = InterfaceOptionsFrame_OpenToCategory
 
-local authorString = L["Author"] .. ": " .. F.CreateColorString("Tabimonk-暗影之月(TW)", 0, 1, 0.59) .. " @ 人生海海"
-
 local titleImageConfig = {
     height = function()
         if locale == "zhCN" or locale == "zhTW" then
@@ -37,34 +35,17 @@ local titleImageConfig = {
 
 local options = {
     type = "group",
-    name = F.CreateColorString(W.AddonName) .. " - " .. W.Version .. " | " .. authorString,
+    name = "",
     childGroups = "tab",
     args = {
         logo = {
-            order = 2,
+            order = 1,
             type = "description",
             name = "",
             image = W.Media.Textures.logo,
             imageWidth = titleImageConfig.width(),
             imageHeight = titleImageConfig.height(),
             imageCoords = titleImageConfig.coords()
-        },
-        minimapIcon = {
-            order = 2,
-            name = L["Minimap icon"],
-            desc = L["Enables / disables %s minimap icon"],
-            type = "toggle",
-            set = function(info, value)
-                W.db.minimapIcon = value
-                if value then
-                    LDBI:Show(L["Wind Dungeon Helper"])
-                else
-                    LDBI:Hide(L["Wind Dungeon Helper"])
-                end
-            end,
-            get = function()
-                return W.db.minimapIcon
-            end
         }
     }
 }
