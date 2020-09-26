@@ -16,7 +16,7 @@ local C_ChatInfo_RegisterAddonMessagePrefix = C_ChatInfo.RegisterAddonMessagePre
 local C_Timer_After = C_Timer.After
 
 local Spells = {
-    [257274] = 20,
+    -- [257274] = 20, -- Debug
     -- Affixes
     [209862] = 20, -- Volcanic Plume (Environment)
     [226512] = 20, -- Sanguine Ichor (Environment)
@@ -264,7 +264,6 @@ local SpellsNotTank = {
 }
 
 local Auras = {
-    [257274] = true,
     -- Freehold
     [274516] = true, -- Slippery Suds
     [274389] = true, -- Rat Traps (Vermin Trapper)
@@ -596,7 +595,7 @@ end
 
 function AD:ProfileUpdate()
     self.db = W.db.avoidableDamage
-    
+
     if self.db.enable then
         self:ResetAuthority()
         self:RegisterEvent("CHAT_MSG_ADDON")
