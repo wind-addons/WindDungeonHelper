@@ -7,7 +7,7 @@ if not L then return end
 L["%name% got hit by %spell% for %damage% (%percent%)."] = "%name% 被 %spell% 击中,伤害为 %damage% (%percent%)."
 L["%name% got hit by %spell%."] = "%name% 被 %spell% 击中."
 L["%name% got hit by %spell%. %stack% Stacks."] = "%name% 被 %spell% 击中,层数为 %stack%."
-L["%s is a plugin designed for dungeon combats."] = "%s 是一个面向地下城战斗的插件."
+L["%s is a plugin designed for dungeon combats."] = "%s是一个面向地下城战斗的插件."
 L["Accuracy"] = "准确度"
 L["Active User"] = "活跃用户"
 L["Add LFG group info to tooltip."] = "添加寻求组队的队伍信息到鼠标提示."
