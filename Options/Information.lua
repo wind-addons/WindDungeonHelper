@@ -67,7 +67,7 @@ O.information = {
             desc = format(L["Enables / disables %s minimap icon"], L["Wind Dungeon Helper"]),
             type = "toggle",
             set = function(info, value)
-                W.db.minimapIcon = value
+                W.db.minimapIcon.hide = not value
                 if value then
                     LDBI:Show(L["Wind Dungeon Helper"])
                 else
@@ -75,7 +75,7 @@ O.information = {
                 end
             end,
             get = function()
-                return W.db.minimapIcon
+                return not W.db.minimapIcon.hide
             end
         },
         description = {
