@@ -580,19 +580,19 @@ function AD:CHAT_MSG_ADDON(_, prefix, message, channel, sender)
 end
 
 function AD:COMBAT_LOG_EVENT_UNFILTERED()
-    local eventInfo = {CombatLogGetCurrentEventInfo()}
-    local type = eventInfo[2]
+    local _, type, _, _, _, _, _, _, destName, _, _, spellId, _, _, info15, info16, info17 =
+        CombatLogGetCurrentEventInfo()
     local eventPrefix, eventSuffix = type:match("^(.-)_?([^_]*)$")
     if (eventPrefix:match("^SPELL") or eventPrefix:match("^RANGE")) and eventSuffix == "DAMAGE" then
-        self:SpellDamage(eventInfo[9], eventInfo[12], eventInfo[15])
+        self:SpellDamage(destName, spellId, info15)
     elseif eventPrefix:match("^SPELL") and eventSuffix == "MISSED" then
-        if eventInfo[17] then
-            self:SpellDamage(eventInfo[9], eventInfo[12], eventInfo[17])
+        if info17 then
+            self:SpellDamage(destName, spellId, info17)
         end
     elseif type == "SPELL_AURA_APPLIED" then
-        self:AuraApply(eventInfo[9], eventInfo[12])
+        self:AuraApply(destName, spellId)
     elseif type == "SPELL_AURA_APPLIED_DOSE" then
-        self:AuraApply(eventInfo[9], eventInfo[12], eventInfo[16])
+        self:AuraApply(destName, spellId, info16)
     end
 end
 
