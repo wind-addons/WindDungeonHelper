@@ -4,7 +4,7 @@
 </div>
 
 # ✅ 狀態
-![](https://img.shields.io/github/workflow/status/fang2hou/WindDungeonHelper/publish) [![](https://img.shields.io/badge/Wind%20Plugins-加入-grey.svg?longCache=true&color=7289DA&logo=discord)](https://discord.gg/wvV5rQy)
+![](https://img.shields.io/github/workflow/status/fang2hou/WindDungeonHelper/publish_stable) [![](https://img.shields.io/badge/Wind%20Plugins-加入-grey.svg?longCache=true&color=7289DA&logo=discord)](https://discord.gg/wvV5rQy)
 
 下載點: [Curse](https://www.curseforge.com/wow/addons/wind-dungeon-helper) | [WoWInterface](https://www.wowinterface.com/downloads/info25532-WindDungeonHelper.html) | [Github 發布](https://github.com/fang2hou/WindDungeonHelper/releases)
 
