@@ -1,0 +1,38 @@
+name: publish
+
+on:
+  push:
+    tags:
+      - "**-alpha-**"
+      - "**-beta-**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Fetch the repo
+        uses: actions/checkout@v1
+        with:
+          fetch-depth: 50
+
+      - name: Build and publish
+        uses: BigWigsMods/packager@master
+        with:
+          args: -g 9.0.1 # Delete after pre-patch
+        env:
+          CF_API_KEY: ${{ secrets.CF_API_KEY }}
+          GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload to Github Actions
+        uses: actions/upload-artifact@v2
+        with:
+          name: WindDungeonHelper
+          path: .release/*.zip
+
+      - name: Notification on build failed
+        uses: nebularg/actions-discord-webhook@v1
+        with:
+          webhook_url: ${{ secrets.WEBHOOK_URL }}
+          status: ${{ job.status }}
+        if: failure()

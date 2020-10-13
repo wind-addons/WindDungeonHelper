@@ -2,8 +2,9 @@ name: publish
 
 on:
   push:
-    tags:
-      - "*"
+    tags-ignore:
+      - "**-alpha-**"
+      - "**-beta-**"
 
 jobs:
   build:
@@ -22,7 +23,7 @@ jobs:
         env:
           CF_API_KEY: ${{ secrets.CF_API_KEY }}
           GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
-          # WOWI_API_TOKEN: ${{ secrets.WOWI_API_TOKEN }}
+          WOWI_API_TOKEN: ${{ secrets.WOWI_API_TOKEN }}
 
       - name: Upload to Github Actions
         uses: actions/upload-artifact@v2
