@@ -528,7 +528,7 @@ function AD:CHALLENGE_MODE_COMPLETED()
     end
 
     local count = 0
-    for _ in pairs(self.CombinedFails) do
+    for _ in pairs(combinedFails) do
         count = count + 1
     end
 
