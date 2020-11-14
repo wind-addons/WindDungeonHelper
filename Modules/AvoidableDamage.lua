@@ -527,7 +527,12 @@ function AD:CHALLENGE_MODE_COMPLETED()
         return
     end
 
-    if #combinedFails == 0 then
+    local count = 0
+    for _ in pairs(self.CombinedFails) do
+        count = count + 1
+    end
+
+    if count == 0 then
         self:SendChatMessage(L["No failure damage was taken this run."])
         return
     end
