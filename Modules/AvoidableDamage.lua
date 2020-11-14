@@ -551,7 +551,7 @@ function AD:CHALLENGE_MODE_COMPLETED()
     end
 
     if self.db.rank.worst then
-        self:SendChatMessage("------------------------")
+        self:SendChatMessage("-----------------------")
         self:SendChatMessage(format("%s: %s", self.db.rank.customWorst, damageTable[1].key))
     end
 
