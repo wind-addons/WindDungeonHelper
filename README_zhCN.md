@@ -1,6 +1,6 @@
 <div align="center">
 <img src="Title.png"/><br>
-<img src="https://img.shields.io/badge/版本-1.4.0-green.svg?longCache=true&style=for-the-badge"/>
+<img src="https://img.shields.io/badge/版本-1.4.4-green.svg?longCache=true&style=for-the-badge"/>
 </div>
 
 # ✅ 状态
