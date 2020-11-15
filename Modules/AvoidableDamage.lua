@@ -467,6 +467,10 @@ function AD:SpellDamage(dstName, spellID, damageAmount)
 end
 
 function AD:SpellDamageAnnouncer(player)
+    if not timerData[player] then
+        return
+    end
+    
     local spellLinks = ""
     local totalDamage = 0
 
