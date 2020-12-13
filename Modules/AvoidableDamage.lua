@@ -47,6 +47,8 @@ local Auras = {}
 
 local AurasNotTank = {}
 
+local Swing = {}
+
 local SwingNotTank = {}
 
 local warningMessage
