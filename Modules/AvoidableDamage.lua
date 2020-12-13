@@ -8,6 +8,7 @@ local pairs = pairs
 local math_pow = math.pow
 local sort = sort
 local tinsert = tinsert
+local strmatch = strmatch
 local wipe = wipe
 
 local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
@@ -45,6 +46,8 @@ local SpellsNotTank = {}
 local Auras = {}
 
 local AurasNotTank = {}
+
+local SwingNotTank = {}
 
 local warningMessage
 local stacksMessage
@@ -121,6 +124,10 @@ function AD:GenerateNumber(amount)
     return amount
 end
 
+function AD:GetIDByGUID(guid)
+    return tonumber(strmatch(guid or "", "Creature%-.-%-.-%-.-%-.-%-(.-)%-"))
+end
+
 function AD:SetAddonMessagePrefix()
     -- compatible mode
     self.prefix = self.db.compatible and "ElitismHelper" or W.AddonMsgPrefix
@@ -158,41 +165,54 @@ function AD:SendChatMessage(message)
     end
 end
 
-function AD:SpellDamage(dstName, spellID, damageAmount)
+function AD:SpellDamage(dstName, spellID, damageAmount, sourceGUID)
     if not UnitIsPlayer(dstName) then
         return
     end
 
     local isTank = UnitGroupRolesAssigned(dstName) == "TANK"
 
-    if Spells[spellID] or (SpellsNotTank[spellID] and not isTank) then
-        -- Initialize TimerData and CombinedFails for Timer shot
-        if timerData[dstName] == nil then
-            timerData[dstName] = {}
+    if spellID then
+        if not Spells[spellID] and not (SpellsNotTank[spellID] and not isTank) then
+            return
         end
-
-        if combinedFails[dstName] == nil then
-            combinedFails[dstName] = 0
-        end
-
-        -- Add this event to TimerData / CombinedFails
-        combinedFails[dstName] = combinedFails[dstName] + damageAmount
-        if timerData[dstName][spellID] == nil then
-            timerData[dstName][spellID] = damageAmount
+    else
+        local npcID = sourceGUID and self:GetIDByGUID(sourceGUID)
+        if npcID then
+            if not Swing[npcID] and not (SwingNotTank[npcID] and not isTank) then
+                return
+            end
+            spellID = 6603 -- Set same id for melee attack
         else
-            timerData[dstName][spellID] = timerData[dstName][spellID] + damageAmount
+            return
         end
+    end
+    -- Initialize TimerData and CombinedFails for Timer shot
+    if timerData[dstName] == nil then
+        timerData[dstName] = {}
+    end
 
-        -- If there is no timer yet, start one with this event
-        if timers[dstName] == nil then
-            timers[dstName] = true
-            C_Timer_After(
-                4,
-                function()
-                    self:SpellDamageAnnouncer(dstName)
-                end
-            )
-        end
+    if combinedFails[dstName] == nil then
+        combinedFails[dstName] = 0
+    end
+
+    -- Add this event to TimerData / CombinedFails
+    combinedFails[dstName] = combinedFails[dstName] + damageAmount
+    if timerData[dstName][spellID] == nil then
+        timerData[dstName][spellID] = damageAmount
+    else
+        timerData[dstName][spellID] = timerData[dstName][spellID] + damageAmount
+    end
+
+    -- If there is no timer yet, start one with this event
+    if timers[dstName] == nil then
+        timers[dstName] = true
+        C_Timer_After(
+            4,
+            function()
+                self:SpellDamageAnnouncer(dstName)
+            end
+        )
     end
 end
 
@@ -319,11 +339,14 @@ function AD:CHAT_MSG_ADDON(_, prefix, message, channel, sender)
 end
 
 function AD:COMBAT_LOG_EVENT_UNFILTERED()
-    local _, type, _, _, _, _, _, _, destName, _, _, spellId, _, _, info15, info16, info17 =
+    local _, type, _, sourceGUID, _, _, _, _, destName, _, _, spellId, _, _, info15, info16, info17 =
         CombatLogGetCurrentEventInfo()
-    local eventPrefix, eventSuffix = type:match("^(.-)_?([^_]*)$")
+    local eventPrefix, eventSuffix = strmatch(type, "^(.-)_?([^_]*)$")
+
     if (eventPrefix:match("^SPELL") or eventPrefix:match("^RANGE")) and eventSuffix == "DAMAGE" then
         self:SpellDamage(destName, spellId, info15)
+    elseif eventPrefix == "SWING" and eventSuffix == "DAMAGE" then
+        self:SpellDamage(destName, nil, spellId, sourceGUID)
     elseif eventPrefix:match("^SPELL") and eventSuffix == "MISSED" then
         if info17 then
             self:SpellDamage(destName, spellId, info17)
