@@ -5,6 +5,7 @@ local AD = W:NewModule("AvoidableDamage", "AceHook-3.0", "AceEvent-3.0")
 local format = format
 local gsub = gsub
 local pairs = pairs
+local math_pow = math.pow
 local sort = sort
 local tinsert = tinsert
 local wipe = wipe
@@ -94,23 +95,29 @@ function AD:GenerateOutput(text, name, spell, stack, damage, percent)
         percent = F.Round(percent, self.db.notification.accuracy)
         text = gsub(text, "%%percent%%", format("%s%%%%", percent))
     end
+
     return text
 end
 
 function AD:GenerateNumber(amount)
+    if not self.db or not self.db.notification then
+        return
+    end
+
     if self.db.notification.unit == "ASIA" then
-        if amount > 10000 then
+        if amount > math_pow(10, 4) then
             return F.Round(amount / 10000, self.db.notification.accuracy) .. L["[UNIT] W"]
         else
             return amount
         end
     elseif self.db.notification.unit == "WESTERN" then
-        if amount > 1000 then
+        if amount > math_pow(10, 3) then
             return F.Round(amount / 1000, self.db.notification.accuracy) .. L["[UNIT] K"]
         else
             return amount
         end
     end
+
     return amount
 end
 
