@@ -22,7 +22,6 @@ This plugin is aim to improve your skills and and QoL.
     - Customizable announcement text.
     - Customizable announcement channel.
     - Generate the ranking after the dungeon once completed.
-    - If you enabled `compatible mode`, it will be fully compatible with ElitismHelper.
 
 2. **Enemy Progress**
 
