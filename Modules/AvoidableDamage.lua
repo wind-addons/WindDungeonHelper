@@ -31,6 +31,9 @@ local C_Timer_After = C_Timer.After
 local LE_PARTY_CATEGORY_HOME = LE_PARTY_CATEGORY_HOME
 local LE_PARTY_CATEGORY_INSTANCE = LE_PARTY_CATEGORY_INSTANCE
 
+-- local wprint = function() return end
+local wprint = print
+
 --------------------------------------------
 -- Authority
 --------------------------------------------
@@ -183,16 +186,16 @@ local MISTAKE = {
 local MistakeData = {
     ["The Necrotic Wake"] = {
         -- Debug (死靈進門右轉法術怪)
-        {
-            -- 近戰攻擊
-            type = MISTAKE.MELEE,
-            npc = 166302
-        },
-        {
-            -- 汲取體液
-            type = MISTAKE.SPELL_DAMAGE,
-            spell = 334749
-        },
+        -- {
+        --     -- 近戰攻擊
+        --     type = MISTAKE.MELEE,
+        --     npc = 166302
+        -- },
+        -- {
+        --     -- 汲取體液
+        --     type = MISTAKE.SPELL_DAMAGE,
+        --     spell = 334749
+        -- },
         -- [3] 縫補師縫肉
         {
             -- 肉鉤
@@ -205,7 +208,7 @@ local MistakeData = {
             spell = 320366
         },
         {
-            -- 病態凝視
+            -- 病態凝視 (追人)
             type = MISTAKE.MELEE,
             npc = 162689,
             playerDebuff = 343556
@@ -267,7 +270,7 @@ function AD:Compile()
         end
     end
 
-    print(mapName.." compiled")
+    wprint(mapName .. " compiled")
 end
 
 -- DEBUG
@@ -409,16 +412,7 @@ function AD:GetHit_Spell(player, spellID, amount)
         timerData[player][spellID] = timerData[player][spellID] + amount
     end
 
-    -- If there is no timer yet, start one with this event
-    if timers[player] == nil then
-        timers[player] = true
-        C_Timer_After(
-            4,
-            function()
-                self:DamageAnnouncer(player)
-            end
-        )
-    end
+    self:AnnounceAfterSeconds(4, player)
 end
 
 function AD:GetHit_Swing(player, sourceGUID, amount)
@@ -426,8 +420,6 @@ function AD:GetHit_Swing(player, sourceGUID, amount)
     if not sourceID or not policy.melee[sourceID] then
         return
     end
-
-    print(player, sourceGUID, amount)
 
     -- If debuff needed
     if policy.melee[sourceID].playerDebuff then
@@ -454,18 +446,21 @@ function AD:GetHit_Swing(player, sourceGUID, amount)
         combinedFails[player] = 0
     end
     combinedFails[player] = combinedFails[player] + amount
-    
+
     if not timerData[player][6603] then
         timerData[player][6603] = amount
     else
         timerData[player][6603] = timerData[player][6603] + amount
     end
 
-    -- If there is no timer yet, start one with this event
+    self:AnnounceAfterSeconds(4, player)
+end
+
+function AD:AnnounceAfterSeconds(sec, player)
     if not timers[player] then
         timers[player] = true
         C_Timer_After(
-            4,
+            sec,
             function()
                 self:DamageAnnouncer(player)
             end
@@ -493,25 +488,8 @@ function AD:DamageAnnouncer(player)
     local damageText = self:FormatNumber(totalDamage)
     local percentage = totalDamage / playerMaxHealth * 100
 
-
     if self.db.notification.enable and percentage >= 0 then -- self.db.notification.threshold then
         self:SendChatMessage(self:GenerateOutput(spellMessage, player, spellLinks, nil, damageText, percentage))
-    end
-end
-
-function AD:AuraApply(dstName, spellID, auraAmount)
-    if not UnitIsPlayer(dstName) or not self.db.notification.enable then
-        return
-    end
-
-    local isTank = UnitGroupRolesAssigned(dstName) == "TANK"
-
-    if Auras[spellID] or (Auras[spellID] == MISTAKE.NOT_TANK and not isTank) then
-        if auraAmount then
-            self:SendChatMessage(self:GenerateOutput(stacksMessage, dstName, GetSpellLink(spellID), auraAmount))
-        else
-            self:SendChatMessage(self:GenerateOutput(warningMessage, dstName, GetSpellLink(spellID)))
-        end
     end
 end
 
@@ -520,6 +498,10 @@ function AD:ResetStatistic()
     wipe(timerData)
     wipe(timers)
 end
+
+--------------------------------------------
+-- Toggling
+--------------------------------------------
 
 function AD:CHALLENGE_MODE_COMPLETED()
     self:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
@@ -569,6 +551,7 @@ function AD:CHALLENGE_MODE_START()
 end
 
 function AD:OnInitialize()
+    self:InitializeAuthority()
     self:ProfileUpdate()
     self:SetNotificationText()
 end
