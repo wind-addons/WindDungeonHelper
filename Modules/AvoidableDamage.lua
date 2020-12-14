@@ -66,6 +66,12 @@ do
     function AD:SendMyLevel()
         if IsInGroup(LE_PARTY_CATEGORY_HOME) then
             local level = self.db.notification.channel and channelLevel[self.db.notification.channel] or 0
+
+            -- If reload the ui, the data is cleared
+            if self.inRecording then
+                level = level + 100
+            end
+
             local message = format("%s;%d;%d", level, myServerID, myPlayerUID)
             C_ChatInfo_SendAddonMessage(self.prefix, message, "PARTY")
         end
@@ -157,8 +163,8 @@ end
 --------------------------------------------
 -- Types
 local MISTAKE = {
-    SPELL_DAMAGE = 1,
-    MELEE = 2
+    SPELL_DAMAGE = 1, -- 法術傷害
+    MELEE = 2 -- 近戰傷害
 }
 -- Data
 local MistakeData = {
@@ -195,7 +201,7 @@ local MistakeData = {
 }
 
 --------------------------------------------
--- Compile triggers
+-- Compile Triggers
 --------------------------------------------
 local MapID = {
     [1666] = "The Necrotic Wake",
@@ -422,12 +428,14 @@ function AD:CHALLENGE_MODE_COMPLETED()
     end
 
     self:ResetStatistic()
+    self.inRecording = nil
 end
 
 function AD:CHALLENGE_MODE_START()
     self:SendChatMessage(L["[WDH] Avoidable damage notification enabled, glhf!"])
     self:ResetStatistic()
     self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+    self.inRecording = true
 end
 
 function AD:COMBAT_LOG_EVENT_UNFILTERED()
@@ -459,13 +467,15 @@ function AD:ProfileUpdate()
     self.db = W.db.avoidableDamage
 
     if self.db.enable then
-        self:ResetAuthority()
+        self:UpdatePartyInfo()
         self:RegisterEvent("CHAT_MSG_ADDON")
-        self:RegisterEvent("GROUP_ROSTER_UPDATE", "ResetAuthority")
-        self:RegisterEvent("ZONE_CHANGED_NEW_AREA", "ResetAuthority")
+        self:RegisterEvent("GROUP_ROSTER_UPDATE", "UpdatePartyInfo")
+        self:RegisterEvent("ZONE_CHANGED_NEW_AREA", "UpdatePartyInfo")
         self:RegisterEvent("CHALLENGE_MODE_START")
         self:RegisterEvent("CHALLENGE_MODE_COMPLETED")
-        self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+        if IsInInstance() then
+            self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+        end
     else
         self:UnregisterEvent("CHAT_MSG_ADDON")
         self:UnregisterEvent("GROUP_ROSTER_UPDATE")
@@ -478,5 +488,5 @@ function AD:ProfileUpdate()
 end
 
 function AD:GetActiveUser()
-    return activeUser
+    return ""
 end
