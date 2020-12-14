@@ -78,7 +78,7 @@ do
     end
 end
 
-function AD:ReceiveLevel(message)
+function AD:ReceiveLevel(message, sender)
     if message == "RESET_AUTHORITY" then
         self:UpdatePartyInfo()
         return
@@ -155,6 +155,12 @@ function AD:SendChatMessage(message)
         SendChatMessage(message, "PARTY")
     elseif self.db.notification.channel == "EMOTE" and IsInGroup() and not IsInGroup(LE_PARTY_CATEGORY_INSTANCE) then
         SendChatMessage(": " .. message, "EMOTE")
+    end
+end
+
+function AD:CHAT_MSG_ADDON(_, prefix, message, channel, sender)
+    if prefix == self.prefix then
+        self:ReceiveLevel(message, sender)
     end
 end
 
