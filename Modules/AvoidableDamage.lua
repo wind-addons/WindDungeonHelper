@@ -31,25 +31,61 @@ local C_Timer_After = C_Timer.After
 local LE_PARTY_CATEGORY_HOME = LE_PARTY_CATEGORY_HOME
 local LE_PARTY_CATEGORY_INSTANCE = LE_PARTY_CATEGORY_INSTANCE
 
-local Spells = {
-    -- Necrotic Wake | 死靈戰地 | 通灵战潮
-    -- [3] 縫肉
-    [327952] = true, --肉鉤
-    [320366] = true, --防腐黏液 (腳下污水)
-    -- [4] 『霜縛者』納爾索
-    [320784] = true, --彗星風暴
-    [328212] = true --鋒利碎冰 (大冰圈)
+-- Mistake Types
+local MISTAKE = {
+    SPELL_DAMAGE = 1,
+    MELEE = 2
 }
 
-local SpellsNotTank = {}
+-- Get Map Name
+local MapID = {
+    [1666] = "The Necrotic Wake",
+    [1667] = "The Necrotic Wake",
+    [1668] = "The Necrotic Wake"
+}
 
-local Auras = {}
+local MistakeData = {
+    ["The Necrotic Wake"] = {
+        -- [3] 縫補師縫肉
+        {
+            -- 肉鉤
+            Type = MISTAKE.SPELL_DAMAGE,
+            SpellID = 327952
+        },
+        {
+            -- 防腐黏液 (腳下污水)
+            Type = MISTAKE.SPELL_DAMAGE,
+            SpellID = 320366
+        },
+        {
+            -- 病態凝視
+            Type = MISTAKE.MELEE,
+            PlayerNeedDebuff = 343556
+        },
+        -- [4] 『霜縛者』納爾索
+        {
+            -- 彗星風暴
+            Type = MISTAKE.SPELL_DAMAGE,
+            SpellID = 320784
+        },
+        {
+            -- 鋒利碎冰 (大冰圈)
+            Type = MISTAKE.SPELL_DAMAGE,
+            SpellID = 328212
+        }
+    }
+}
 
-local AurasNotTank = {}
+local Spells = {
+    -- 死靈戰地
+    -- [3] 縫補師縫肉
+    [327952] = MISTAKE.ALL, --肉鉤
+    [320366] = MISTAKE.ALL, --防腐黏液 (腳下污水)
+    -- [4] 『霜縛者』納爾索
+    [320784] = MISTAKE.ALL, --彗星風暴
+    [328212] = MISTAKE.ALL --
+}
 
-local Swing = {}
-
-local SwingNotTank = {}
 
 local warningMessage
 local stacksMessage
@@ -70,6 +106,10 @@ local function SortTable(t)
             return a.value > b.value
         end
     )
+end
+
+local function GetIDByGUID(guid)
+    return tonumber(strmatch(guid or "", "Creature%-.-%-.-%-.-%-.-%-(.-)%-"))
 end
 
 function AD:SetNotificationText()
@@ -126,30 +166,9 @@ function AD:GenerateNumber(amount)
     return amount
 end
 
-function AD:GetIDByGUID(guid)
-    return tonumber(strmatch(guid or "", "Creature%-.-%-.-%-.-%-.-%-(.-)%-"))
-end
-
-function AD:SetAddonMessagePrefix()
-    -- compatible mode
-    self.prefix = self.db.compatible and "ElitismHelper" or W.AddonMsgPrefix
-
-    if self.db.compatible then
-        local registeredPrefixs = C_ChatInfo_GetRegisteredAddonMessagePrefixes()
-
-        for _, registeredPrefix in pairs(registeredPrefixs) do
-            if self.prefix == registeredPrefix then
-                return
-            end
-        end
-
-        C_ChatInfo_RegisterAddonMessagePrefix(self.prefix)
-    end
-end
-
 function AD:SendAddonMessage(message)
     if IsInGroup(LE_PARTY_CATEGORY_HOME) and not IsInRaid() then
-        C_ChatInfo_SendAddonMessage(self.prefix, message, "PARTY")
+        C_ChatInfo_SendAddonMessage(W.AddonMsgPrefix, message, "PARTY")
     end
 end
 
@@ -175,13 +194,13 @@ function AD:SpellDamage(dstName, spellID, damageAmount, sourceGUID)
     local isTank = UnitGroupRolesAssigned(dstName) == "TANK"
 
     if spellID then
-        if not Spells[spellID] and not (SpellsNotTank[spellID] and not isTank) then
+        if not Spells[spellID] or (isTank and Spells[spellID] == MISTAKE.NOT_TANK) then
             return
         end
     else
         local npcID = sourceGUID and self:GetIDByGUID(sourceGUID)
         if npcID then
-            if not Swing[npcID] and not (SwingNotTank[npcID] and not isTank) then
+            if not Swing[spellID] or (isTank and Swing[spellID] == MISTAKE.NOT_TANK) then
                 return
             end
             spellID = 6603 -- Set same id for melee attack
@@ -250,7 +269,7 @@ function AD:AuraApply(dstName, spellID, auraAmount)
 
     local isTank = UnitGroupRolesAssigned(dstName) == "TANK"
 
-    if Auras[spellID] or (AurasNotTank[spellID] and not isTank) then
+    if Auras[spellID] or (Auras[spellID] == MISTAKE.NOT_TANK and not isTank) then
         if auraAmount then
             self:SendChatMessage(self:GenerateOutput(stacksMessage, dstName, GetSpellLink(spellID), auraAmount))
         else
@@ -361,11 +380,8 @@ function AD:COMBAT_LOG_EVENT_UNFILTERED()
 end
 
 function AD:OnInitialize()
-    self.db = W.db.avoidableDamage
-
-    self:SetAddonMessagePrefix()
-    self:SetNotificationText()
     self:ProfileUpdate()
+    self:SetNotificationText()
 end
 
 function AD:ProfileUpdate()
