@@ -93,7 +93,8 @@ function AD:ReceiveLevel(message, sender)
         authorityCache = {
             level = level,
             serverID = serverID,
-            playerUID = playerUID
+            playerUID = playerUID,
+            name = sender
         }
         return
     end
@@ -115,6 +116,13 @@ function AD:ReceiveLevel(message, sender)
         authorityCache.level = level
         authorityCache.serverID = serverID
         authorityCache.playerUID = playerUID
+        authorityCache.name = sender
+    end
+end
+
+function AD:CHAT_MSG_ADDON(_, prefix, message, channel, sender)
+    if prefix == self.prefix then
+        self:ReceiveLevel(message, sender)
     end
 end
 
@@ -140,6 +148,10 @@ do
     end
 end
 
+function AD:GetActiveUser()
+    return authorityCache and authorityCache.name or GetUnitName("player")
+end
+
 function AD:SendChatMessage(message)
     if not self.db.notification.enable or not IsInGroup(LE_PARTY_CATEGORY_HOME) then
         return
@@ -158,82 +170,118 @@ function AD:SendChatMessage(message)
     end
 end
 
-function AD:CHAT_MSG_ADDON(_, prefix, message, channel, sender)
-    if prefix == self.prefix then
-        self:ReceiveLevel(message, sender)
-    end
-end
-
 --------------------------------------------
 -- Database
 --------------------------------------------
 -- Types
 local MISTAKE = {
     SPELL_DAMAGE = 1, -- 法術傷害
-    MELEE = 2 -- 近戰傷害
+    AURA = 2, -- 得到錯誤的效果
+    MELEE = 3 -- 近戰傷害
 }
 -- Data
 local MistakeData = {
     ["The Necrotic Wake"] = {
+        -- Debug (死靈進門右轉法術怪)
+        {
+            -- 近戰攻擊
+            type = MISTAKE.MELEE,
+            npc = 166302
+        },
+        {
+            -- 汲取體液
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 334749
+        },
         -- [3] 縫補師縫肉
         {
             -- 肉鉤
-            Type = MISTAKE.SPELL_DAMAGE,
-            SpellID = 327952
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 327952
         },
         {
             -- 防腐黏液 (腳下污水)
-            Type = MISTAKE.SPELL_DAMAGE,
-            SpellID = 320366
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 320366
         },
         {
             -- 病態凝視
-            Type = MISTAKE.MELEE,
-            NPCID = 162689,
-            PlayerNeedDebuff = 343556
+            type = MISTAKE.MELEE,
+            npc = 162689,
+            playerDebuff = 343556
         },
         -- [4] 『霜縛者』納爾索
         {
             -- 彗星風暴
-            Type = MISTAKE.SPELL_DAMAGE,
-            SpellID = 320784
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 320784
         },
         {
             -- 鋒利碎冰 (大冰圈)
-            Type = MISTAKE.SPELL_DAMAGE,
-            SpellID = 328212
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 328212
         }
     }
 }
 
 --------------------------------------------
--- Compile Triggers
+-- Triggers
 --------------------------------------------
-local MapID = {
+local MapTable = {
     [1666] = "The Necrotic Wake",
     [1667] = "The Necrotic Wake",
     [1668] = "The Necrotic Wake"
+}
+
+local policy = {
+    spell = {},
+    aura = {},
+    melee = {}
 }
 
 local function GetIDByGUID(guid)
     return tonumber(strmatch(guid or "", "Creature%-.-%-.-%-.-%-.-%-(.-)%-"))
 end
 
-local warningMessage
-local stacksMessage
-local spellMessage
+function AD:Compile()
+    local mapID = C_Map.GetBestMapForUnit("player")
+    local mapName = MapTable[mapID]
 
-local allUsers = {}
-local timers = {}
-local timerData = {}
-local combinedFails = {}
+    policy = {
+        spell = {},
+        aura = {},
+        melee = {}
+    }
 
-local activeUser
-local playerName = GetUnitName("player", true) .. "-" .. gsub(GetRealmName(), " ", "")
+    if not mapName or not MistakeData[mapName] then
+        return
+    end
+
+    for _, mistake in pairs(MistakeData[mapName]) do
+        if mistake.type == MISTAKE.SPELL_DAMAGE then
+            policy.spell[mistake.spell] = mistake
+        elseif mistake.type == MISTAKE.AURA then
+            policy.aura[mistake.aura] = mistake
+        elseif mistake.type == MISTAKE.MELEE then
+            policy.melee[mistake.npc] = mistake
+        end
+    end
+
+    print(mapName.." compiled")
+end
+
+-- DEBUG
+function AD:GetPolicy()
+    return policy
+end
 
 --------------------------------------------
 -- Message Functions
 --------------------------------------------
+local warningMessage
+local stacksMessage
+local spellMessage
+
 function AD:FormatNumber(amount)
     if not self.db or not self.db.notification then
         return
@@ -291,6 +339,10 @@ end
 --------------------------------------------
 -- Statistic Functions
 --------------------------------------------
+local timers = {}
+local timerData = {}
+local combinedFails = {}
+
 local function SortTable(t)
     sort(
         t,
@@ -300,58 +352,128 @@ local function SortTable(t)
     )
 end
 
-function AD:SpellDamage(dstName, spellID, damageAmount, sourceGUID)
-    if not UnitIsPlayer(dstName) then
+function AD:COMBAT_LOG_EVENT_UNFILTERED()
+    local _, event, _, sourceGUID, _, _, _, _, destName, _, _, param12, _, _, param15, param16, param17 =
+        CombatLogGetCurrentEventInfo()
+
+    if not UnitIsPlayer(destName) then
         return
     end
 
-    local isTank = UnitGroupRolesAssigned(dstName) == "TANK"
+    local eventPrefix, eventSuffix = strmatch(event, "^(.-)_?([^_]*)$")
 
-    if spellID then
-        if not Spells[spellID] or (isTank and Spells[spellID] == MISTAKE.NOT_TANK) then
-            return
+    if (strmatch(eventPrefix, "^SPELL") or strmatch(eventSuffix, "^RANGE")) and eventSuffix == "DAMAGE" then
+        -- SPELL_DAMAGE | RANGE_DAMAGE | SPELL_PERIODIC_DAMAGE | SPELL_BUILDING_DAMAGE
+        -- spell: 12th
+        -- amount: 15th
+        self:GetHit_Spell(destName, param12, param15)
+    elseif eventPrefix == "SWING" and eventSuffix == "DAMAGE" then
+        -- SWING_DAMAGE
+        -- amount: 12th
+        self:GetHit_Swing(destName, sourceGUID, param12)
+    elseif eventPrefix:match("^SPELL") and eventSuffix == "MISSED" then
+        -- SPELL_MISSED | SPELL_PERIODIC_MISSED
+        -- spell: 12th
+        -- amountMissed: 17th
+        if param17 then
+            self:GetHit_Spell(destName, param12, param17)
         end
-    else
-        local npcID = sourceGUID and self:GetIDByGUID(sourceGUID)
-        if npcID then
-            if not Swing[spellID] or (isTank and Swing[spellID] == MISTAKE.NOT_TANK) then
-                return
-            end
-            spellID = 6603 -- Set same id for melee attack
-        else
-            return
-        end
+    elseif event == "SPELL_AURA_APPLIED" then
+        -- spell: 12th
+        -- amount: 16th
+        -- TODO
+    elseif event == "SPELL_AURA_APPLIED_DOSE" then
+    -- spell: 12th
+    -- amount: 16th
+    -- TODO
     end
-    -- Initialize TimerData and CombinedFails for Timer shot
-    if timerData[dstName] == nil then
-        timerData[dstName] = {}
+end
+
+function AD:GetHit_Spell(player, spellID, amount)
+    if not policy.spell[spellID] then
+        return
     end
 
-    if combinedFails[dstName] == nil then
-        combinedFails[dstName] = 0
+    if timerData[player] == nil then
+        timerData[player] = {}
     end
 
-    -- Add this event to TimerData / CombinedFails
-    combinedFails[dstName] = combinedFails[dstName] + damageAmount
-    if timerData[dstName][spellID] == nil then
-        timerData[dstName][spellID] = damageAmount
+    if combinedFails[player] == nil then
+        combinedFails[player] = 0
+    end
+
+    combinedFails[player] = combinedFails[player] + amount
+    if timerData[player][spellID] == nil then
+        timerData[player][spellID] = amount
     else
-        timerData[dstName][spellID] = timerData[dstName][spellID] + damageAmount
+        timerData[player][spellID] = timerData[player][spellID] + amount
     end
 
     -- If there is no timer yet, start one with this event
-    if timers[dstName] == nil then
-        timers[dstName] = true
+    if timers[player] == nil then
+        timers[player] = true
         C_Timer_After(
             4,
             function()
-                self:SpellDamageAnnouncer(dstName)
+                self:DamageAnnouncer(player)
             end
         )
     end
 end
 
-function AD:SpellDamageAnnouncer(player)
+function AD:GetHit_Swing(player, sourceGUID, amount)
+    local sourceID = GetIDByGUID(sourceGUID)
+    if not sourceID or not policy.melee[sourceID] then
+        return
+    end
+
+    print(player, sourceGUID, amount)
+
+    -- If debuff needed
+    if policy.melee[sourceID].playerDebuff then
+        local hasDebuff = false
+        if type(policy.melee[sourceID].playerDebuff) == "number" then
+            for i = 1, 40 do
+                local debuffID = select(10, UnitDebuff(player, i))
+                if debuffID == policy.melee[sourceID].playerDebuff then
+                    hasDebuff = true
+                    break
+                end
+            end
+        end
+        if not hasDebuff then
+            return
+        end
+    end
+
+    if not timerData[player] then
+        timerData[player] = {}
+    end
+
+    if not combinedFails[player] then
+        combinedFails[player] = 0
+    end
+    combinedFails[player] = combinedFails[player] + amount
+    
+    if not timerData[player][6603] then
+        timerData[player][6603] = amount
+    else
+        timerData[player][6603] = timerData[player][6603] + amount
+    end
+
+    -- If there is no timer yet, start one with this event
+    if not timers[player] then
+        timers[player] = true
+        C_Timer_After(
+            4,
+            function()
+                self:DamageAnnouncer(player)
+            end
+        )
+    end
+end
+
+function AD:DamageAnnouncer(player)
     if not timerData[player] then
         return
     end
@@ -371,7 +493,8 @@ function AD:SpellDamageAnnouncer(player)
     local damageText = self:FormatNumber(totalDamage)
     local percentage = totalDamage / playerMaxHealth * 100
 
-    if self.db.notification.enable and percentage >= self.db.notification.threshold then
+
+    if self.db.notification.enable and percentage >= 0 then -- self.db.notification.threshold then
         self:SendChatMessage(self:GenerateOutput(spellMessage, player, spellLinks, nil, damageText, percentage))
     end
 end
@@ -439,29 +562,10 @@ end
 
 function AD:CHALLENGE_MODE_START()
     self:SendChatMessage(L["[WDH] Avoidable damage notification enabled, glhf!"])
+    self:Compile()
     self:ResetStatistic()
     self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
     self.inRecording = true
-end
-
-function AD:COMBAT_LOG_EVENT_UNFILTERED()
-    local _, type, _, sourceGUID, _, _, _, _, destName, _, _, spellId, _, _, info15, info16, info17 =
-        CombatLogGetCurrentEventInfo()
-    local eventPrefix, eventSuffix = strmatch(type, "^(.-)_?([^_]*)$")
-
-    if (eventPrefix:match("^SPELL") or eventPrefix:match("^RANGE")) and eventSuffix == "DAMAGE" then
-        self:SpellDamage(destName, spellId, info15)
-    elseif eventPrefix == "SWING" and eventSuffix == "DAMAGE" then
-        self:SpellDamage(destName, nil, spellId, sourceGUID)
-    elseif eventPrefix:match("^SPELL") and eventSuffix == "MISSED" then
-        if info17 then
-            self:SpellDamage(destName, spellId, info17)
-        end
-    elseif type == "SPELL_AURA_APPLIED" then
-        self:AuraApply(destName, spellId)
-    elseif type == "SPELL_AURA_APPLIED_DOSE" then
-        self:AuraApply(destName, spellId, info16)
-    end
 end
 
 function AD:OnInitialize()
@@ -473,10 +577,11 @@ function AD:ProfileUpdate()
     self.db = W.db.avoidableDamage
 
     if self.db.enable then
+        self:Compile()
         self:UpdatePartyInfo()
         self:RegisterEvent("CHAT_MSG_ADDON")
         self:RegisterEvent("GROUP_ROSTER_UPDATE", "UpdatePartyInfo")
-        self:RegisterEvent("ZONE_CHANGED_NEW_AREA", "UpdatePartyInfo")
+        self:RegisterEvent("ZONE_CHANGED_NEW_AREA", "Compile")
         self:RegisterEvent("CHALLENGE_MODE_START")
         self:RegisterEvent("CHALLENGE_MODE_COMPLETED")
         if IsInInstance() then
@@ -491,8 +596,4 @@ function AD:ProfileUpdate()
         self:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
         self:ResetStatistic()
     end
-end
-
-function AD:GetActiveUser()
-    return ""
 end
