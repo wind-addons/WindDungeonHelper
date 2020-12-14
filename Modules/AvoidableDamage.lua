@@ -31,19 +31,136 @@ local C_Timer_After = C_Timer.After
 local LE_PARTY_CATEGORY_HOME = LE_PARTY_CATEGORY_HOME
 local LE_PARTY_CATEGORY_INSTANCE = LE_PARTY_CATEGORY_INSTANCE
 
--- Mistake Types
+--------------------------------------------
+-- Authority
+--------------------------------------------
+AD.prefix = "WDH_AD"
+local myServerID, myPlayerUID, authorityCache
+
+function AD:InitializeAuthority()
+    local successfulRequest = C_ChatInfo_RegisterAddonMessagePrefix(self.prefix)
+    assert(successfulRequest, L["The addon message prefix registration is failed."])
+
+    local guidSplitted = {strsplit("-", UnitGUID("player"))}
+    myServerID = tonumber(guidSplitted[2], 10)
+    myPlayerUID = tonumber(guidSplitted[3], 16)
+end
+
+function AD:CheckAuthority(key)
+    if IsInGroup() then
+        if authorityCache.playerUID ~= myPlayerUID or authorityCache.serverID ~= myServerID then
+            return false
+        end
+    end
+
+    return true
+end
+
+do
+    local channelLevel = {
+        SELF = 0,
+        EMOTE = 1,
+        PARTY = 2
+    }
+
+    function AD:SendMyLevel()
+        if IsInGroup(LE_PARTY_CATEGORY_HOME) then
+            local level = self.db.notification.channel and channelLevel[self.db.notification.channel] or 0
+            local message = format("%s;%d;%d", level, myServerID, myPlayerUID)
+            C_ChatInfo_SendAddonMessage(self.prefix, message, "PARTY")
+        end
+    end
+end
+
+function AD:ReceiveLevel(message)
+    if message == "RESET_AUTHORITY" then
+        self:UpdatePartyInfo()
+        return
+    end
+
+    local level, serverID, playerUID = strmatch(message, "^([0-9]-);([0-9]-);([0-9]+)")
+    level = tonumber(level)
+    serverID = tonumber(serverID)
+    playerUID = tonumber(playerUID)
+
+    if not authorityCache then
+        authorityCache = {
+            level = level,
+            serverID = serverID,
+            playerUID = playerUID
+        }
+        return
+    end
+
+    local needUpdate = false
+    if level > authorityCache.level then -- 等级比较
+        needUpdate = true
+    elseif level == authorityCache.level then
+        if serverID > authorityCache.serverID then -- 服务器 ID 比较
+            needUpdate = true
+        elseif serverID == authorityCache.serverID then
+            if playerUID > authorityCache.playerUID then -- 玩家 ID 比较
+                needUpdate = true
+            end
+        end
+    end
+
+    if needUpdate then
+        authorityCache.level = level
+        authorityCache.serverID = serverID
+        authorityCache.playerUID = playerUID
+    end
+end
+
+do
+    local waitSend = false
+    function AD:UpdatePartyInfo()
+        if waitSend or not IsInGroup(LE_PARTY_CATEGORY_HOME) then
+            return
+        end
+
+        authorityCache = nil
+        waitSend = true
+
+        C_Timer_After(
+            0.5,
+            function()
+                if IsInGroup(LE_PARTY_CATEGORY_HOME) then
+                    AD:SendMyLevel()
+                end
+                waitSend = false
+            end
+        )
+    end
+end
+
+function AD:SendChatMessage(message)
+    if not self.db.notification.enable or not IsInGroup(LE_PARTY_CATEGORY_HOME) then
+        return
+    end
+
+    if authorityCache and authorityCache.playerUID ~= myPlayerUID then
+        return
+    end
+
+    if self.db.notification.channel == "SELF" then
+        print(message)
+    elseif self.db.notification.channel == "PARTY" and IsInGroup() and not IsInGroup(LE_PARTY_CATEGORY_INSTANCE) then
+        SendChatMessage(message, "PARTY")
+    elseif self.db.notification.channel == "EMOTE" and IsInGroup() and not IsInGroup(LE_PARTY_CATEGORY_INSTANCE) then
+        SendChatMessage(": " .. message, "EMOTE")
+    end
+end
+
+--------------------------------------------
+-- Database
+--------------------------------------------
+-- Types
 local MISTAKE = {
     SPELL_DAMAGE = 1,
     MELEE = 2
 }
-
--- Get Map Name
-local MapID = {
-    [1666] = "The Necrotic Wake",
-    [1667] = "The Necrotic Wake",
-    [1668] = "The Necrotic Wake"
-}
-
+-- Data
 local MistakeData = {
     ["The Necrotic Wake"] = {
         -- [3] 縫補師縫肉
@@ -60,6 +177,7 @@ local MistakeData = {
         {
             -- 病態凝視
             Type = MISTAKE.MELEE,
+            NPCID = 162689,
             PlayerNeedDebuff = 343556
         },
         -- [4] 『霜縛者』納爾索
@@ -76,16 +194,18 @@ local MistakeData = {
     }
 }
 
-local Spells = {
-    -- 死靈戰地
-    -- [3] 縫補師縫肉
-    [327952] = MISTAKE.ALL, --肉鉤
-    [320366] = MISTAKE.ALL, --防腐黏液 (腳下污水)
-    -- [4] 『霜縛者』納爾索
-    [320784] = MISTAKE.ALL, --彗星風暴
-    [328212] = MISTAKE.ALL --
+--------------------------------------------
+-- Compile triggers
+--------------------------------------------
+local MapID = {
+    [1666] = "The Necrotic Wake",
+    [1667] = "The Necrotic Wake",
+    [1668] = "The Necrotic Wake"
 }
 
+local function GetIDByGUID(guid)
+    return tonumber(strmatch(guid or "", "Creature%-.-%-.-%-.-%-.-%-(.-)%-"))
+end
 
 local warningMessage
 local stacksMessage
@@ -99,17 +219,29 @@ local combinedFails = {}
 local activeUser
 local playerName = GetUnitName("player", true) .. "-" .. gsub(GetRealmName(), " ", "")
 
-local function SortTable(t)
-    sort(
-        t,
-        function(a, b)
-            return a.value > b.value
-        end
-    )
-end
+--------------------------------------------
+-- Message Functions
+--------------------------------------------
+function AD:FormatNumber(amount)
+    if not self.db or not self.db.notification then
+        return
+    end
 
-local function GetIDByGUID(guid)
-    return tonumber(strmatch(guid or "", "Creature%-.-%-.-%-.-%-.-%-(.-)%-"))
+    if self.db.notification.unit == "ASIA" then
+        if amount > math_pow(10, 4) then
+            return F.Round(amount / 10000, self.db.notification.accuracy) .. L["[UNIT] W"]
+        else
+            return amount
+        end
+    elseif self.db.notification.unit == "WESTERN" then
+        if amount > math_pow(10, 3) then
+            return F.Round(amount / 1000, self.db.notification.accuracy) .. L["[UNIT] K"]
+        else
+            return amount
+        end
+    end
+
+    return amount
 end
 
 function AD:SetNotificationText()
@@ -144,46 +276,16 @@ function AD:GenerateOutput(text, name, spell, stack, damage, percent)
     return text
 end
 
-function AD:GenerateNumber(amount)
-    if not self.db or not self.db.notification then
-        return
-    end
-
-    if self.db.notification.unit == "ASIA" then
-        if amount > math_pow(10, 4) then
-            return F.Round(amount / 10000, self.db.notification.accuracy) .. L["[UNIT] W"]
-        else
-            return amount
+--------------------------------------------
+-- Statistic Functions
+--------------------------------------------
+local function SortTable(t)
+    sort(
+        t,
+        function(a, b)
+            return a.value > b.value
         end
-    elseif self.db.notification.unit == "WESTERN" then
-        if amount > math_pow(10, 3) then
-            return F.Round(amount / 1000, self.db.notification.accuracy) .. L["[UNIT] K"]
-        else
-            return amount
-        end
-    end
-
-    return amount
-end
-
-function AD:SendAddonMessage(message)
-    if IsInGroup(LE_PARTY_CATEGORY_HOME) and not IsInRaid() then
-        C_ChatInfo_SendAddonMessage(W.AddonMsgPrefix, message, "PARTY")
-    end
-end
-
-function AD:SendChatMessage(message)
-    if not self.db.notification.enable or activeUser ~= playerName then
-        return
-    end
-
-    if self.db.notification.channel == "SELF" then
-        print(message)
-    elseif self.db.notification.channel == "PARTY" and IsInGroup() and not IsInGroup(LE_PARTY_CATEGORY_INSTANCE) then
-        SendChatMessage(message, "PARTY")
-    elseif self.db.notification.channel == "EMOTE" and IsInGroup() and not IsInGroup(LE_PARTY_CATEGORY_INSTANCE) then
-        SendChatMessage(": " .. message, "EMOTE")
-    end
+    )
 end
 
 function AD:SpellDamage(dstName, spellID, damageAmount, sourceGUID)
@@ -254,7 +356,7 @@ function AD:SpellDamageAnnouncer(player)
     timers[player] = nil
 
     local playerMaxHealth = UnitHealthMax(player)
-    local damageText = self:GenerateNumber(totalDamage)
+    local damageText = self:FormatNumber(totalDamage)
     local percentage = totalDamage / playerMaxHealth * 100
 
     if self.db.notification.enable and percentage >= self.db.notification.threshold then
@@ -275,17 +377,6 @@ function AD:AuraApply(dstName, spellID, auraAmount)
         else
             self:SendChatMessage(self:GenerateOutput(warningMessage, dstName, GetSpellLink(spellID)))
         end
-    end
-end
-
-function AD:ResetAuthority()
-    wipe(allUsers)
-    activeUser = nil
-
-    if IsInGroup(LE_PARTY_CATEGORY_HOME) then
-        self:SendAddonMessage("VREQ")
-    else
-        activeUser = playerName
     end
 end
 
@@ -322,7 +413,7 @@ function AD:CHALLENGE_MODE_COMPLETED()
     SortTable(damageTable)
 
     for index, data in pairs(damageTable) do
-        self:SendChatMessage(format("%d. %s %s", index, data.key, self:GenerateNumber(data["value"])))
+        self:SendChatMessage(format("%d. %s %s", index, data.key, self:FormatNumber(data["value"])))
     end
 
     if self.db.rank.worst then
@@ -337,26 +428,6 @@ function AD:CHALLENGE_MODE_START()
     self:SendChatMessage(L["[WDH] Avoidable damage notification enabled, glhf!"])
     self:ResetStatistic()
     self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
-end
-
-function AD:CHAT_MSG_ADDON(_, prefix, message, channel, sender)
-    if prefix ~= self.prefix then
-        return
-    end
-
-    if message == "VREQ" then
-        self:SendAddonMessage("VANS")
-    elseif message:match("^VANS") then
-        allUsers[sender] = true
-        for userName in pairs(allUsers) do
-            if activeUser == nil then
-                activeUser = userName
-            end
-            if userName < activeUser then
-                activeUser = userName
-            end
-        end
-    end
 end
 
 function AD:COMBAT_LOG_EVENT_UNFILTERED()
