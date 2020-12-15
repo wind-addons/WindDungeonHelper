@@ -224,6 +224,38 @@ local MistakeData = {
             type = MISTAKE.SPELL_DAMAGE,
             spell = 328212
         }
+    },
+    ["Theater of Pain"] = {
+        -- 小怪
+        {
+            -- 死亡之風 (會被吹下平台)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 333297
+        },
+        -- [3] 肉排
+        {
+            -- 鋸齒劈砍 (被勾上)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 323406
+        },
+        -- [4] 庫薩洛克
+        {
+            -- 幻魄寄生 (腳下圈)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 319765,
+            noPlayerDebuff = 319626
+        },
+        -- [5] 『不朽女皇』莫瑞莎
+        {
+            -- 鬼魅衝鋒
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 339751
+        },
+        {
+            -- 戰鬥殘影
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 339550
+        }
     }
 }
 
@@ -233,7 +265,12 @@ local MistakeData = {
 local MapTable = {
     [1666] = "The Necrotic Wake",
     [1667] = "The Necrotic Wake",
-    [1668] = "The Necrotic Wake"
+    [1668] = "The Necrotic Wake",
+    [1683] = "Theater of Pain",
+    [1684] = "Theater of Pain",
+    [1685] = "Theater of Pain",
+    [1686] = "Theater of Pain",
+    [1687] = "Theater of Pain"
 }
 
 local policy = {
@@ -355,6 +392,17 @@ local function SortTable(t)
     )
 end
 
+local function PlayerHasDebuff(player, spellID)
+    for i = 1, 40 do
+        local debuffID = select(10, UnitDebuff(player, i))
+        if debuffID == spellID then
+            return true
+        end
+    end
+
+    return false
+end
+
 function AD:COMBAT_LOG_EVENT_UNFILTERED()
     local _, event, _, sourceGUID, _, _, _, _, destName, _, _, param12, _, _, param15, param16, param17 =
         CombatLogGetCurrentEventInfo()
@@ -397,6 +445,14 @@ function AD:GetHit_Spell(player, spellID, amount)
         return
     end
 
+    if policy.spell[spellID].noPlayerDebuff then
+        if type(policy.spell[spellID].noPlayerDebuff) == "number" then
+            if PlayerHasDebuff(player, policy.spell[spellID].noPlayerDebuff) then
+                return
+            end
+        end
+    end
+
     if timerData[player] == nil then
         timerData[player] = {}
     end
@@ -423,18 +479,10 @@ function AD:GetHit_Swing(player, sourceGUID, amount)
 
     -- If debuff needed
     if policy.melee[sourceID].playerDebuff then
-        local hasDebuff = false
         if type(policy.melee[sourceID].playerDebuff) == "number" then
-            for i = 1, 40 do
-                local debuffID = select(10, UnitDebuff(player, i))
-                if debuffID == policy.melee[sourceID].playerDebuff then
-                    hasDebuff = true
-                    break
-                end
+            if not PlayerHasDebuff(player, policy.melee[sourceID].playerDebuff) then
+                return
             end
-        end
-        if not hasDebuff then
-            return
         end
     end
 
