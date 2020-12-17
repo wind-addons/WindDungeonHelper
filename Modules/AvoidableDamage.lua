@@ -263,14 +263,30 @@ local MistakeData = {
 -- Triggers
 --------------------------------------------
 local MapTable = {
+    [1663] = "Halls of Atonement",
+    [1664] = "Halls of Atonement",
+    [1665] = "Halls of Atonement",
     [1666] = "The Necrotic Wake",
     [1667] = "The Necrotic Wake",
     [1668] = "The Necrotic Wake",
+    [1669] = "Mists of Tirna Scithe",
+    [1674] = "Plaguefall",
+    [1675] = "Sanguine Depths",
+    [1676] = "Sanguine Depths",
+    [1677] = "De Other Side",
+    [1678] = "De Other Side",
+    [1679] = "De Other Side",
+    [1680] = "De Other Side",
     [1683] = "Theater of Pain",
     [1684] = "Theater of Pain",
     [1685] = "Theater of Pain",
     [1686] = "Theater of Pain",
-    [1687] = "Theater of Pain"
+    [1687] = "Theater of Pain",
+    [1692] = "Spires of Ascension",
+    [1693] = "Spires of Ascension",
+    [1694] = "Spires of Ascension",
+    [1695] = "Spires of Ascension",
+    [1697] = "Plaguefall"
 }
 
 local policy = {
