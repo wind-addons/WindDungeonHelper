@@ -838,6 +838,11 @@ function AD:OnInitialize()
     self:SetNotificationText()
 end
 
+function AD:ZONE_CHANGED_NEW_AREA()
+    self:UpdatePartyInfo()
+    self:Compile()
+end
+
 function AD:ProfileUpdate()
     self.db = W.db.avoidableDamage
 
@@ -846,7 +851,7 @@ function AD:ProfileUpdate()
         self:UpdatePartyInfo()
         self:RegisterEvent("CHAT_MSG_ADDON")
         self:RegisterEvent("GROUP_ROSTER_UPDATE", "UpdatePartyInfo")
-        self:RegisterEvent("ZONE_CHANGED_NEW_AREA", "Compile")
+        self:RegisterEvent("ZONE_CHANGED_NEW_AREA")
         self:RegisterEvent("CHALLENGE_MODE_START")
         self:RegisterEvent("CHALLENGE_MODE_COMPLETED")
         if IsInInstance() then
