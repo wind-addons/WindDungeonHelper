@@ -184,6 +184,28 @@ local MISTAKE = {
 }
 -- Data
 local MistakeData = {
+    ["General"] = {
+        {
+            -- 火山煙流
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 209862
+        },
+        {
+            -- 膿血
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 226512
+        },
+        {
+            -- 地震
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 240448
+        },
+        {
+            -- 風暴
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 343520
+        }
+    },
     ["The Necrotic Wake"] = {
         -- Debug (死靈進門右轉法術怪)
         -- {
@@ -299,6 +321,18 @@ local function GetIDByGUID(guid)
     return tonumber(strmatch(guid or "", "Creature%-.-%-.-%-.-%-.-%-(.-)%-"))
 end
 
+function AD:CompilePolicy()
+    for _, mistake in pairs(table) do
+        if mistake.type == MISTAKE.SPELL_DAMAGE then
+            policy.spell[mistake.spell] = mistake
+        elseif mistake.type == MISTAKE.AURA then
+            policy.aura[mistake.aura] = mistake
+        elseif mistake.type == MISTAKE.MELEE then
+            policy.melee[mistake.npc] = mistake
+        end
+    end
+end
+
 function AD:Compile()
     local mapID = C_Map.GetBestMapForUnit("player")
     local mapName = MapTable[mapID]
@@ -313,15 +347,8 @@ function AD:Compile()
         return
     end
 
-    for _, mistake in pairs(MistakeData[mapName]) do
-        if mistake.type == MISTAKE.SPELL_DAMAGE then
-            policy.spell[mistake.spell] = mistake
-        elseif mistake.type == MISTAKE.AURA then
-            policy.aura[mistake.aura] = mistake
-        elseif mistake.type == MISTAKE.MELEE then
-            policy.melee[mistake.npc] = mistake
-        end
-    end
+    self:CompilePolicy(MistakeData["General"])
+    self:CompilePolicy(MistakeData[mapName])
 
     wprint(mapName .. " compiled")
 end
