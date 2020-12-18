@@ -31,7 +31,9 @@ local C_Timer_After = C_Timer.After
 local LE_PARTY_CATEGORY_HOME = LE_PARTY_CATEGORY_HOME
 local LE_PARTY_CATEGORY_INSTANCE = LE_PARTY_CATEGORY_INSTANCE
 
-local wprint = function() return end
+local wprint = function()
+    return
+end
 --local wprint = print
 
 --------------------------------------------
@@ -185,6 +187,17 @@ local MISTAKE = {
 -- Data
 local MistakeData = {
     ["General"] = {
+        -- Debug (死靈進門右轉法術怪)
+        -- {
+        --     -- 近戰攻擊
+        --     type = MISTAKE.MELEE,
+        --     npc = 166302
+        -- },
+        -- {
+        --     -- 汲取體液
+        --     type = MISTAKE.SPELL_DAMAGE,
+        --     spell = 334749
+        -- },
         {
             -- 火山煙流
             type = MISTAKE.SPELL_DAMAGE,
@@ -207,17 +220,6 @@ local MistakeData = {
         }
     },
     ["The Necrotic Wake"] = {
-        -- Debug (死靈進門右轉法術怪)
-        -- {
-        --     -- 近戰攻擊
-        --     type = MISTAKE.MELEE,
-        --     npc = 166302
-        -- },
-        -- {
-        --     -- 汲取體液
-        --     type = MISTAKE.SPELL_DAMAGE,
-        --     spell = 334749
-        -- },
         -- [3] 縫補師縫肉
         {
             -- 肉鉤
@@ -278,6 +280,179 @@ local MistakeData = {
             type = MISTAKE.SPELL_DAMAGE,
             spell = 339550
         }
+    },
+    ["Mists of Tirna Scithe"] = {
+        -- 小怪
+        {
+            -- 刺藤爆發(佐司特斷枝者 緩速黑水)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 325027
+        },
+        -- [1] 英拉馬洛克
+        {
+            -- 靈魄之潭 (藍色污水)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 323250
+        },
+        -- [2] 喚霧者
+        {
+            -- 躲避球
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 336759
+        },
+        {
+            -- 冰凍衝擊
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 321893
+        },
+        -- [3] 崔朵瓦
+        {
+            -- 酸液滴
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 326021
+        }
+    },
+    ["Spires of Ascension"] = {
+        -- 小怪
+        {
+            -- 迅捷削切 (琪瑞安黑暗軍教官)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 323786
+        },
+        {
+            -- 橫掃攻擊 (棄誓者先鋒)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 317943
+        },
+        {
+            -- 充能之矛 (萊克西斯 3門神之一)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 328466
+        },
+        -- [1] 金塔拉
+        {
+            -- 離子電漿
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 324662
+        },
+        {
+            -- 深度連結 (連線)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 331251
+        },
+        {
+            -- 淵染毒液 (黑球)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 317626
+        },
+        -- [2] 溫圖納斯
+        {
+            -- 黑闇箭
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 324141
+        },
+        -- [3] 奧利菲翁
+        {
+            -- 蓄能踐踏
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 324608
+        },
+        -- [4]『猜疑楷模』德沃絲
+        {
+            -- 穿梭
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 323943
+        }
+    },
+    ["De Other Side"] = {
+        -- 小怪
+        {
+            -- 噴灑精華 (哈卡之子 大紅圈)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 323569
+        },
+        {
+            -- 近戰 (阿塔萊死亡行者的靈魂 追人)
+            type = MISTAKE.MELEE,
+            npc = 170483
+        },
+        {
+            -- 瘋狂鑽鑿 (損壞的鑽牙器 需卡視角)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 331933
+        },
+        -- [1]『奪魂者』哈卡
+
+        -- [2] 曼納斯頓夫婦
+        -- [3] 商人希夏
+        {
+            -- 爆炸裝置
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 320232
+        },
+        {
+            -- 位移衝擊
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 320723
+        },
+        -- [4] 繆薩拉
+        {
+            -- 宇宙崩壞
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 325691
+        },
+        {
+            -- 死亡主宰
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 334913
+        }
+    },
+    ["Sanguine Depths"] = {
+        -- 小怪
+        {
+            -- 橫掃揮擊 (監護長賈夫臨 面前放風)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 334615
+        },
+        {
+            -- 斷魂削砍 (大石像鬼正面順劈)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 322429,
+            playerIsNotTank = true
+        }
+        -- [1] 貪婪的奎西斯
+        -- [2] 處決者塔沃德
+        -- [3] 總監督者貝莉亞
+        -- [4] 凱厄將軍
+    },
+    ["Halls of Atonement"] = {
+        -- 小怪
+        {
+            -- 橫掃揮擊 (監護長賈夫臨 面前放風)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 334615
+        }
+        -- [1]『罪污巨人』哈奇厄斯
+        -- [2] 艾可隆
+        -- [3] 至高判決者阿利茲
+        -- [4] 宮務大臣
+    },
+    ["Plaguefall"] = {
+        -- 小怪
+        {
+            -- 瘟疫炸彈 (路上炸彈)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 328501
+        },
+        -- [1] 葛洛格羅
+        -- [2] 伊克思博士
+        -- [3] 多米娜‧毒刃
+        -- [4] 藩侯史特拉達瑪
+        {
+            -- 瘟疫撞擊
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 322475
+        }
     }
 }
 
@@ -321,8 +496,8 @@ local function GetIDByGUID(guid)
     return tonumber(strmatch(guid or "", "Creature%-.-%-.-%-.-%-.-%-(.-)%-"))
 end
 
-function AD:CompilePolicy()
-    for _, mistake in pairs(table) do
+function AD:CompilePolicy(policies)
+    for _, mistake in pairs(policies) do
         if mistake.type == MISTAKE.SPELL_DAMAGE then
             policy.spell[mistake.spell] = mistake
         elseif mistake.type == MISTAKE.AURA then
@@ -493,6 +668,12 @@ function AD:GetHit_Spell(player, spellID, amount)
             if PlayerHasDebuff(player, policy.spell[spellID].noPlayerDebuff) then
                 return
             end
+        end
+    end
+
+    if policy.spell[spellID].playerIsNotTank then
+        if UnitGroupRolesAssigned(player) == "TANK" then
+            return
         end
     end
 
