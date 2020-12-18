@@ -320,6 +320,16 @@ local MistakeData = {
             -- 酸液滴
             type = MISTAKE.SPELL_DAMAGE,
             spell = 326021
+        },
+        {
+            -- 消化酸
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 326309
+        },
+        {
+            -- 酸液噴吐
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 322655
         }
     },
     ["Spires of Ascension"] = {
@@ -437,15 +447,20 @@ local MistakeData = {
     },
     ["Halls of Atonement"] = {
         -- 小怪
-        {
-            -- 橫掃揮擊 (監護長賈夫臨 面前放風)
-            type = MISTAKE.SPELL_DAMAGE,
-            spell = 334615
-        }
         -- [1]『罪污巨人』哈奇厄斯
+        {
+            -- 玻璃裂片
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 323001
+        },
         -- [2] 艾可隆
         -- [3] 至高判決者阿利茲
         -- [4] 宮務大臣
+        {
+            -- 念力碰撞
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 323126
+        }
     },
     ["Plaguefall"] = {
         -- 小怪
