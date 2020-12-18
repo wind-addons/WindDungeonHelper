@@ -2,13 +2,19 @@
 local W, F, L, P = unpack(select(2, ...))
 local AD = W:NewModule("AvoidableDamage", "AceHook-3.0", "AceEvent-3.0")
 
+local assert = assert
 local format = format
 local gsub = gsub
-local pairs = pairs
 local math_pow = math.pow
+local pairs = pairs
+local print = print
+local select = select
 local sort = sort
-local tinsert = tinsert
 local strmatch = strmatch
+local strsplit = strsplit
+local tinsert = tinsert
+local tonumber = tonumber
+local type = type
 local wipe = wipe
 
 local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
@@ -16,8 +22,11 @@ local GetRealmName = GetRealmName
 local GetSpellLink = GetSpellLink
 local GetUnitName = GetUnitName
 local IsInGroup = IsInGroup
+local IsInInstance = IsInInstance
 local IsInRaid = IsInRaid
 local SendChatMessage = SendChatMessage
+local UnitDebuff = UnitDebuff
+local UnitGUID = UnitGUID
 local UnitGroupRolesAssigned = UnitGroupRolesAssigned
 local UnitHealthMax = UnitHealthMax
 local UnitIsGroupLeader = UnitIsGroupLeader
@@ -26,6 +35,7 @@ local UnitIsPlayer = UnitIsPlayer
 local C_ChatInfo_GetRegisteredAddonMessagePrefixes = C_ChatInfo.GetRegisteredAddonMessagePrefixes
 local C_ChatInfo_RegisterAddonMessagePrefix = C_ChatInfo.RegisterAddonMessagePrefix
 local C_ChatInfo_SendAddonMessage = C_ChatInfo.SendAddonMessage
+local C_Map_GetBestMapForUnit = C_Map.GetBestMapForUnit
 local C_Timer_After = C_Timer.After
 
 local LE_PARTY_CATEGORY_HOME = LE_PARTY_CATEGORY_HOME
@@ -509,7 +519,7 @@ function AD:CompilePolicy(policies)
 end
 
 function AD:Compile()
-    local mapID = C_Map.GetBestMapForUnit("player")
+    local mapID = C_Map_GetBestMapForUnit("player")
     local mapName = MapTable[mapID]
 
     policy = {
