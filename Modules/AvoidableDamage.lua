@@ -31,8 +31,8 @@ local C_Timer_After = C_Timer.After
 local LE_PARTY_CATEGORY_HOME = LE_PARTY_CATEGORY_HOME
 local LE_PARTY_CATEGORY_INSTANCE = LE_PARTY_CATEGORY_INSTANCE
 
--- local wprint = function() return end
-local wprint = print
+local wprint = function() return end
+--local wprint = print
 
 --------------------------------------------
 -- Authority
@@ -579,7 +579,7 @@ function AD:DamageAnnouncer(player)
     local damageText = self:FormatNumber(totalDamage)
     local percentage = totalDamage / playerMaxHealth * 100
 
-    if self.db.notification.enable and percentage >= 0 then -- self.db.notification.threshold then
+    if self.db.notification.enable and percentage >= self.db.notification.threshold then
         self:SendChatMessage(self:GenerateOutput(spellMessage, player, spellLinks, nil, damageText, percentage))
     end
 end
