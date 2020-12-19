@@ -387,6 +387,11 @@ local MistakeData = {
     ["De Other Side"] = {
         -- 小怪
         {
+            -- 黑暗蓮花 (延遲爆炸紫圈)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 328729
+        },
+        {
             -- 噴灑精華 (哈卡之子 大紅圈)
             type = MISTAKE.SPELL_DAMAGE,
             spell = 323569
@@ -400,6 +405,11 @@ local MistakeData = {
             -- 瘋狂鑽鑿 (損壞的鑽牙器 需卡視角)
             type = MISTAKE.SPELL_DAMAGE,
             spell = 331933
+        },
+        {
+            -- 靈魄星風暴 (去商人路上隨機出現的小圈)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 313236
         },
         -- [1]『奪魂者』哈卡
 
