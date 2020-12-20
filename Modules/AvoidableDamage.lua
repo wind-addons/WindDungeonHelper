@@ -164,6 +164,10 @@ do
     end
 end
 
+function AD:GetCache()
+    return authorityCache
+end
+
 function AD:GetActiveUser()
     return authorityCache and authorityCache.name or GetUnitName("player")
 end
@@ -1094,31 +1098,31 @@ function AD:COMBAT_LOG_EVENT_UNFILTERED()
     end
 end
 
-function AD:IsPolicyPassed(player, spellID, amount, policy)
-    if policy.spell[spellID].noPlayerDebuff then
-        if type(policy.spell[spellID].noPlayerDebuff) == "number" then
-            if PlayerHasDebuff(player, policy.spell[spellID].noPlayerDebuff) then
+function AD:IsPolicyPassed(player, amount, data)
+    if data.noPlayerDebuff then
+        if type(data.noPlayerDebuff) == "number" then
+            if PlayerHasDebuff(player, data.noPlayerDebuff) then
                 return false
             end
         end
     end
 
-    if policy.spell[spellID].noPlayerBuff then
-        if type(policy.spell[spellID].noPlayerBuff) == "number" then
-            if PlayerHasBuff(player, policy.spell[spellID].noPlayerBuff) then
+    if data.noPlayerBuff then
+        if type(data.noPlayerBuff) == "number" then
+            if PlayerHasBuff(player, data.noPlayerBuff) then
                 return false
             end
         end
     end
 
-    if policy.spell[spellID].playerIsNotTank then
+    if data.playerIsNotTank then
         if UnitGroupRolesAssigned(player) == "TANK" then
             return false
         end
     end
 
-    if policy.spell[spellID].damageThreshold then
-        if amount < policy.spell[spellID].damageThreshold then
+    if data.damageThreshold then
+        if amount < data.damageThreshold then
             return false
         end
     end
@@ -1131,7 +1135,7 @@ function AD:GetHit_Spell(player, spellID, amount)
         return
     end
 
-    if not self:IsPolicyPassed(player, spellID, amount, policy.spell[spellID]) then
+    if not self:IsPolicyPassed(player, amount, policy.spell[spellID]) then
         return
     end
 
@@ -1159,13 +1163,8 @@ function AD:GetHit_Swing(player, sourceGUID, amount)
         return
     end
 
-    -- If debuff needed
-    if policy.melee[sourceID].playerDebuff then
-        if type(policy.melee[sourceID].playerDebuff) == "number" then
-            if not PlayerHasDebuff(player, policy.melee[sourceID].playerDebuff) then
-                return
-            end
-        end
+    if not self:IsPolicyPassed(player, amount, policy.melee[sourceID]) then
+        return
     end
 
     if not timerData[player] then
