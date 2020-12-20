@@ -235,6 +235,29 @@ local MistakeData = {
         }
     },
     ["The Necrotic Wake"] = {
+        -- 小怪
+        {
+            -- 嚴寒尖刺
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 324391
+        },
+        {
+            -- 臟腑削切 (胖子)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 333477
+        },
+        -- [1] 荒骨
+        -- [2] 『收割者』亞瑪斯
+        {
+            -- 死靈吐息
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 333489
+        },
+        {
+            -- 死靈膿液
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 333492
+        },
         -- [3] 縫補師縫肉
         {
             -- 肉鉤
@@ -244,7 +267,17 @@ local MistakeData = {
         {
             -- 防腐黏液 (腳下污水)
             type = MISTAKE.SPELL_DAMAGE,
+            spell = 320365
+        },
+        {
+            -- 防腐黏液 (腳下污水)
+            type = MISTAKE.SPELL_DAMAGE,
             spell = 320366
+        },
+        {
+            -- 劇毒迷霧
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 327100
         },
         {
             -- 病態凝視 (追人)
@@ -267,15 +300,68 @@ local MistakeData = {
     ["Theater of Pain"] = {
         -- 小怪
         {
+            -- 骸骨風暴
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 331224
+        },
+        {
+            -- 地面潰擊 (『毀壞者』黑文)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 332708
+        },
+        {
+            -- 迴旋刀刃 (『割碎者』奈克薩拉)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 337037
+        },
+        {
             -- 死亡之風 (會被吹下平台)
             type = MISTAKE.SPELL_DAMAGE,
             spell = 333297
         },
-        -- [3] 肉排
+        {
+            -- 邪惡爆發 (腐臭肉囊)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 330608
+        },
+        {
+            -- 骸骨尖刺 (魂鑄削骨者)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 331243
+        },
+        -- [1] 蔑視挑戰者
+        {
+            -- 灼熱死亡 (腳下圈)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 333292,
+            noPlayerDebuff = 333231
+        },
+        -- [2] 肉排
+        {
+            -- 搗肉猛擊
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 318406
+        },
         {
             -- 鋸齒劈砍 (被勾上)
             type = MISTAKE.SPELL_DAMAGE,
             spell = 323406
+        },
+        -- [3] 『未逝者』薩夫
+        {
+            -- 震耳衝擊
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 339415
+        },
+        {
+            -- 巨力猛劈
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 320729
+        },
+        {
+            -- 粉碎猛擊
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 317231
         },
         -- [4] 庫薩洛克
         {
@@ -286,9 +372,19 @@ local MistakeData = {
         },
         -- [5] 『不朽女皇』莫瑞莎
         {
+            -- 黑暗破滅
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 323681
+        },
+        {
             -- 鬼魅衝鋒
             type = MISTAKE.SPELL_DAMAGE,
             spell = 339751
+        },
+        {
+            -- 屠殺殘影
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 339573
         },
         {
             -- 戰鬥殘影
@@ -322,6 +418,12 @@ local MistakeData = {
             -- 毒性分泌物 (青蛙怪)
             type = MISTAKE.SPELL_DAMAGE,
             spell = 340304
+        },
+        {
+            -- 長矛亂舞
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 331721,
+            playerIsNotTank = true
         },
         -- [1] 英拉馬洛克
         {
@@ -397,7 +499,8 @@ local MistakeData = {
         {
             -- 強音 (棄誓者惡徒 4方向AoE)
             type = MISTAKE.SPELL_DAMAGE,
-            spell = 336444
+            spell = 336444,
+            playerIsNotTank = true
         },
         -- [1] 金塔拉
         {
@@ -552,6 +655,21 @@ local MistakeData = {
     ["Sanguine Depths"] = {
         -- 小怪
         {
+            -- 回音戳刺 (本體)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 320999
+        },
+        {
+            -- 回音戳刺 (鏡像)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 320991
+        },
+        {
+            -- 易爆陷阱 (恐怖神獵手)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 334563
+        },
+        {
             -- 橫掃揮擊 (監護長賈夫臨 面前放風)
             type = MISTAKE.SPELL_DAMAGE,
             spell = 334615
@@ -561,38 +679,176 @@ local MistakeData = {
             type = MISTAKE.SPELL_DAMAGE,
             spell = 322429,
             playerIsNotTank = true
-        }
+        },
+        {
+            -- 峭岩裂石
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 322418
+        },
         -- [1] 貪婪的奎西斯
         -- [2] 處決者塔沃德
+        {
+            -- 罪觸靈魄
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 328494
+        },
+        {
+            -- 殘渣
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 323573
+        },
         -- [3] 總監督者貝莉亞
+        {
+            -- 苦痛狂嚎
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 325885
+        },
+        {
+            -- 滋長的猜忌
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 322212
+        },
         -- [4] 凱厄將軍
+        {
+            -- 穿透殘影
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 323810
+        }
     },
     ["Halls of Atonement"] = {
         -- 小怪
+        {
+            -- 爆發折磨
+            -- TODO: Check this
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 327885
+        },
+        {
+            -- 致命推進 (墮落的暗刃兵)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 325523
+        },
+        {
+            -- 罪孽震盪 (哈奇厄斯裂片)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 326440
+        },
+        {
+            -- 急速射擊 (墮落的馴犬者)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 325799
+        },
+        {
+            -- 岩石之息
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 346866,
+            playerIsNotTank = true
+        },
+        {
+            -- 強力揮擊 (石源魔斬擊者)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 326997,
+            playerIsNotTank = true
+        },
         -- [1]『罪污巨人』哈奇厄斯
+        {
+            -- 拋擲殘骸
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 322945
+        },
         {
             -- 玻璃裂片
             type = MISTAKE.SPELL_DAMAGE,
             spell = 323001
         },
+        {
+            -- 折射罪光
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 324044
+        },
         -- [2] 艾可隆
+        {
+            -- 血腥洪流
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 319702
+        },
         -- [3] 至高判決者阿利茲
         -- [4] 宮務大臣
         {
             -- 念力碰撞
             type = MISTAKE.SPELL_DAMAGE,
             spell = 323126
+        },
+        {
+            -- 念力猛襲
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 329113
         }
     },
     ["Plaguefall"] = {
         -- 小怪
         {
+            -- 黏著寄生 (沼地怪幼體)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 335882
+        },
+        {
+            -- 振翅攻擊
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 330404
+        },
+        {
+            -- 腐臭膽汁 (噴湧軟泥)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 319120
+        },
+        {
             -- 瘟疫炸彈 (路上炸彈)
             type = MISTAKE.SPELL_DAMAGE,
             spell = 328501
         },
+        {
+            -- 毒液池 (腐爛的血肉巨人)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 320072
+        },
+        {
+            -- 鋸齒脊刺 (荒蕪斷脊者)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 320519
+        },
+        {
+            -- 膿瘡噴射 (荒蕪斷脊者)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 318949
+        },
+        {
+            -- 嘔吐瘟疫
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 327233
+        },
         -- [1] 葛洛格羅
+        {
+            -- 軟泥波
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 324667
+        },
+        {
+            -- 軟泥波
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 326242
+        },
         -- [2] 伊克思博士
+        {
+            -- 黏液爆發
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 333808
+        },
+        {
+            -- 軟泥突擊
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 329217
+        },
         -- [3] 多米娜‧毒刃
         -- [4] 藩侯史特拉達瑪
         {
