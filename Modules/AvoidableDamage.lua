@@ -227,6 +227,11 @@ local MistakeData = {
             -- 風暴
             type = MISTAKE.SPELL_DAMAGE,
             spell = 343520
+        },
+        {
+            -- 逞凶鬥狠 (第一賽季)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 342494
         }
     },
     ["The Necrotic Wake"] = {
@@ -294,9 +299,29 @@ local MistakeData = {
     ["Mists of Tirna Scithe"] = {
         -- 小怪
         {
+            -- 困惑花粉 (面前衝擊)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 321968
+        },
+        {
             -- 刺藤爆發(佐司特斷枝者 緩速黑水)
             type = MISTAKE.SPELL_DAMAGE,
             spell = 325027
+        },
+        {
+            -- 後背踢 (霧紗守護者)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 331748
+        },
+        {
+            -- 長舌鞭笞 (青蛙怪)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 340300
+        },
+        {
+            -- 毒性分泌物 (青蛙怪)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 340304
         },
         -- [1] 英拉馬洛克
         {
@@ -304,7 +329,17 @@ local MistakeData = {
             type = MISTAKE.SPELL_DAMAGE,
             spell = 323250
         },
+        {
+            -- 困惑花粉 (面前衝擊)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 323137
+        },
         -- [2] 喚霧者
+        {
+            -- 拍蛋糕
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 321828
+        },
         {
             -- 躲避球
             type = MISTAKE.SPELL_DAMAGE,
@@ -345,11 +380,37 @@ local MistakeData = {
             spell = 317943
         },
         {
-            -- 充能之矛 (萊克西斯 3門神之一)
+            -- 漸弱 (萊克西斯 左邊門神)
             type = MISTAKE.SPELL_DAMAGE,
-            spell = 328466
+            spell = 336420
+        },
+        {
+            -- 衝擊 (棄誓者小隊長)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 323740
+        },
+        {
+            -- 粉碎重擊 (棄誓者小隊長)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 336447
+        },
+        {
+            -- 強音 (棄誓者惡徒 4方向AoE)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 336444
         },
         -- [1] 金塔拉
+        {
+            -- 充能之矛
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 321034
+        },
+        {
+            -- 巨力斬擊
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 320966,
+            playerIsNotTank = true
+        },
         {
             -- 離子電漿
             type = MISTAKE.SPELL_DAMAGE,
@@ -361,11 +422,21 @@ local MistakeData = {
             spell = 331251
         },
         {
-            -- 淵染毒液 (黑球)
+            -- 淵染毒液 (午睡)
             type = MISTAKE.SPELL_DAMAGE,
             spell = 317626
         },
+        {
+            -- 弱化彈幕 (黑球)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 324370
+        },
         -- [2] 溫圖納斯
+        {
+            -- 黑暗闊步
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 324154
+        },
         {
             -- 黑闇箭
             type = MISTAKE.SPELL_DAMAGE,
@@ -382,6 +453,12 @@ local MistakeData = {
             -- 穿梭
             type = MISTAKE.SPELL_DAMAGE,
             spell = 323943
+        },
+        {
+            -- 冥淵引爆
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 334625,
+            damageThreshold = 10000
         }
     },
     ["De Other Side"] = {
@@ -390,6 +467,26 @@ local MistakeData = {
             -- 黑暗蓮花 (延遲爆炸紫圈)
             type = MISTAKE.SPELL_DAMAGE,
             spell = 328729
+        },
+        {
+            -- 黑暗爆發 (亡語者)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 334051
+        },
+        {
+            -- 狂怒面具
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 342869
+        },
+        {
+            -- 狂怒面具
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 333790
+        },
+        {
+            -- 斬掠 (遠處旋風斬)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 333250
         },
         {
             -- 噴灑精華 (哈卡之子 大紅圈)
@@ -405,6 +502,11 @@ local MistakeData = {
             -- 瘋狂鑽鑿 (損壞的鑽牙器 需卡視角)
             type = MISTAKE.SPELL_DAMAGE,
             spell = 331933
+        },
+        {
+            -- 機械炸彈松鼠
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 320830
         },
         {
             -- 靈魄星風暴 (去商人路上隨機出現的小圈)
@@ -427,9 +529,19 @@ local MistakeData = {
         },
         -- [4] 繆薩拉
         {
+            -- 星能雲霧
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 335000
+        },
+        {
             -- 宇宙崩壞
             type = MISTAKE.SPELL_DAMAGE,
             spell = 325691
+        },
+        {
+            -- 破碎領域
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 327427
         },
         {
             -- 死亡主宰
@@ -708,6 +820,12 @@ function AD:GetHit_Spell(player, spellID, amount)
 
     if policy.spell[spellID].playerIsNotTank then
         if UnitGroupRolesAssigned(player) == "TANK" then
+            return
+        end
+    end
+
+    if policy.spell[spellID].damageThreshold then
+        if amount < policy.spell[spellID].damageThreshold then
             return
         end
     end
