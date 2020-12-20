@@ -25,6 +25,7 @@ local IsInGroup = IsInGroup
 local IsInInstance = IsInInstance
 local IsInRaid = IsInRaid
 local SendChatMessage = SendChatMessage
+local UnitBuff = UnitBuff
 local UnitDebuff = UnitDebuff
 local UnitGUID = UnitGUID
 local UnitGroupRolesAssigned = UnitGroupRolesAssigned
@@ -300,6 +301,11 @@ local MistakeData = {
     ["Theater of Pain"] = {
         -- 小怪
         {
+            -- 死靈箭雨
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 317367
+        },
+        {
             -- 骸骨風暴
             type = MISTAKE.SPELL_DAMAGE,
             spell = 331224
@@ -321,6 +327,11 @@ local MistakeData = {
         },
         {
             -- 邪惡爆發 (腐臭肉囊)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 330592
+        },
+        {
+            -- 邪惡爆發 (腐臭肉囊 前後雙噴)
             type = MISTAKE.SPELL_DAMAGE,
             spell = 330608
         },
@@ -713,6 +724,12 @@ local MistakeData = {
             -- 穿透殘影
             type = MISTAKE.SPELL_DAMAGE,
             spell = 323810
+        },
+        {
+            -- 沉鬱疾風
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 323810,
+            noPlayerBuff = 324092
         }
     },
     ["Halls of Atonement"] = {
@@ -855,6 +872,11 @@ local MistakeData = {
             -- 瘟疫撞擊
             type = MISTAKE.SPELL_DAMAGE,
             spell = 322475
+        },
+        {
+            -- 瘟疫泉源
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 330135
         }
     }
 }
@@ -1013,6 +1035,17 @@ local function SortTable(t)
     )
 end
 
+local function PlayerHasBuff(player, spellID)
+    for i = 1, 40 do
+        local debuffID = select(10, UnitBuff(player, i))
+        if debuffID == spellID then
+            return true
+        end
+    end
+
+    return false
+end
+
 local function PlayerHasDebuff(player, spellID)
     for i = 1, 40 do
         local debuffID = select(10, UnitDebuff(player, i))
@@ -1061,29 +1094,45 @@ function AD:COMBAT_LOG_EVENT_UNFILTERED()
     end
 end
 
-function AD:GetHit_Spell(player, spellID, amount)
-    if not policy.spell[spellID] then
-        return
-    end
-
+function AD:IsPolicyPassed(player, spellID, amount, policy)
     if policy.spell[spellID].noPlayerDebuff then
         if type(policy.spell[spellID].noPlayerDebuff) == "number" then
             if PlayerHasDebuff(player, policy.spell[spellID].noPlayerDebuff) then
-                return
+                return false
+            end
+        end
+    end
+
+    if policy.spell[spellID].noPlayerBuff then
+        if type(policy.spell[spellID].noPlayerBuff) == "number" then
+            if PlayerHasBuff(player, policy.spell[spellID].noPlayerBuff) then
+                return false
             end
         end
     end
 
     if policy.spell[spellID].playerIsNotTank then
         if UnitGroupRolesAssigned(player) == "TANK" then
-            return
+            return false
         end
     end
 
     if policy.spell[spellID].damageThreshold then
         if amount < policy.spell[spellID].damageThreshold then
-            return
+            return false
         end
+    end
+
+    return true
+end
+
+function AD:GetHit_Spell(player, spellID, amount)
+    if not policy.spell[spellID] then
+        return
+    end
+
+    if not self:IsPolicyPassed(player, spellID, amount, policy.spell[spellID]) then
+        return
     end
 
     if timerData[player] == nil then
