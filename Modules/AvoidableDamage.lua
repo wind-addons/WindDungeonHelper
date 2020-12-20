@@ -326,7 +326,7 @@ local MistakeData = {
             spell = 333297
         },
         {
-            -- 邪惡爆發 (腐臭肉囊)
+            -- 邪惡爆發 (腐臭肉囊 前後雙噴)
             type = MISTAKE.SPELL_DAMAGE,
             spell = 330592
         },
