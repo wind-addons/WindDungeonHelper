@@ -164,10 +164,6 @@ do
     end
 end
 
-function AD:GetCache()
-    return authorityCache
-end
-
 function AD:GetActiveUser()
     return authorityCache and authorityCache.name or GetUnitName("player")
 end
@@ -972,13 +968,6 @@ function AD:Compile()
 
     self:CompilePolicy(MistakeData.General)
     self:CompilePolicy(MistakeData[mapName])
-
-    wprint(mapName .. " compiled")
-end
-
--- DEBUG
-function AD:GetPolicy()
-    return policy
 end
 
 --------------------------------------------
@@ -1250,7 +1239,6 @@ end
 --------------------------------------------
 -- Toggling
 --------------------------------------------
-
 function AD:CHALLENGE_MODE_COMPLETED()
     self:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 
