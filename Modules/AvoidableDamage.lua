@@ -190,6 +190,14 @@ function AD:SendChatMessage(message)
     end
 end
 
+function AD:ResetAuthority()
+    if not IsInGroup() then
+        return
+    end
+
+    C_ChatInfo_SendAddonMessage(self.prefix, "RESET_AUTHORITY", "PARTY")
+end
+
 --------------------------------------------
 -- Database
 --------------------------------------------
@@ -1301,7 +1309,7 @@ function AD:OnInitialize()
 end
 
 function AD:ZONE_CHANGED_NEW_AREA()
-    self:UpdatePartyInfo()
+    self:ResetAuthority()
     self:Compile()
 end
 
@@ -1312,7 +1320,7 @@ function AD:ProfileUpdate()
         self:Compile()
         self:UpdatePartyInfo()
         self:RegisterEvent("CHAT_MSG_ADDON")
-        self:RegisterEvent("GROUP_ROSTER_UPDATE", "UpdatePartyInfo")
+        self:RegisterEvent("GROUP_ROSTER_UPDATE", "ResetAuthority")
         self:RegisterEvent("ZONE_CHANGED_NEW_AREA")
         self:RegisterEvent("CHALLENGE_MODE_START")
         self:RegisterEvent("CHALLENGE_MODE_COMPLETED")
