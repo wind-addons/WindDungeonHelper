@@ -1,4 +1,4 @@
--- Based on ElitismHelper
+-- Modified from ElitismHelper
 local W, F, L, P = unpack(select(2, ...))
 local AD = W:NewModule("AvoidableDamage", "AceHook-3.0", "AceEvent-3.0")
 
@@ -696,6 +696,11 @@ local MistakeData = {
             playerIsNotTank = true
         },
         {
+            -- 爆裂皮紙 (研究紀錄者)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 334378
+        },
+        {
             -- 峭岩裂石
             type = MISTAKE.SPELL_DAMAGE,
             spell = 322418
@@ -888,32 +893,40 @@ local MistakeData = {
 --------------------------------------------
 -- Triggers
 --------------------------------------------
-local MapTable = {
-    [1663] = "Halls of Atonement",
-    [1664] = "Halls of Atonement",
-    [1665] = "Halls of Atonement",
-    [1666] = "The Necrotic Wake",
-    [1667] = "The Necrotic Wake",
-    [1668] = "The Necrotic Wake",
-    [1669] = "Mists of Tirna Scithe",
-    [1674] = "Plaguefall",
-    [1675] = "Sanguine Depths",
-    [1676] = "Sanguine Depths",
-    [1677] = "De Other Side",
-    [1678] = "De Other Side",
-    [1679] = "De Other Side",
-    [1680] = "De Other Side",
-    [1683] = "Theater of Pain",
-    [1684] = "Theater of Pain",
-    [1685] = "Theater of Pain",
-    [1686] = "Theater of Pain",
-    [1687] = "Theater of Pain",
-    [1692] = "Spires of Ascension",
-    [1693] = "Spires of Ascension",
-    [1694] = "Spires of Ascension",
-    [1695] = "Spires of Ascension",
-    [1697] = "Plaguefall"
-}
+
+do
+    local MapTable = {
+        [1663] = "Halls of Atonement",
+        [1664] = "Halls of Atonement",
+        [1665] = "Halls of Atonement",
+        [1666] = "The Necrotic Wake",
+        [1667] = "The Necrotic Wake",
+        [1668] = "The Necrotic Wake",
+        [1669] = "Mists of Tirna Scithe",
+        [1674] = "Plaguefall",
+        [1675] = "Sanguine Depths",
+        [1676] = "Sanguine Depths",
+        [1677] = "De Other Side",
+        [1678] = "De Other Side",
+        [1679] = "De Other Side",
+        [1680] = "De Other Side",
+        [1683] = "Theater of Pain",
+        [1684] = "Theater of Pain",
+        [1685] = "Theater of Pain",
+        [1686] = "Theater of Pain",
+        [1687] = "Theater of Pain",
+        [1692] = "Spires of Ascension",
+        [1693] = "Spires of Ascension",
+        [1694] = "Spires of Ascension",
+        [1695] = "Spires of Ascension",
+        [1697] = "Plaguefall"
+    }
+
+    function AD:GetCurrentDungeonName()
+        local mapID = C_Map_GetBestMapForUnit("player")
+        return mapID and MapTable[mapID]
+    end
+end
 
 local policy = {
     spell = {},
@@ -938,20 +951,18 @@ function AD:CompilePolicy(policies)
 end
 
 function AD:Compile()
-    local mapID = C_Map_GetBestMapForUnit("player")
-    local mapName = MapTable[mapID]
-
     policy = {
         spell = {},
         aura = {},
         melee = {}
     }
 
+    local mapName = self:GetCurrentDungeonName()
     if not mapName or not MistakeData[mapName] then
         return
     end
 
-    self:CompilePolicy(MistakeData["General"])
+    self:CompilePolicy(MistakeData.General)
     self:CompilePolicy(MistakeData[mapName])
 
     wprint(mapName .. " compiled")
@@ -1272,6 +1283,10 @@ function AD:CHALLENGE_MODE_COMPLETED()
 end
 
 function AD:CHALLENGE_MODE_START()
+    if not self:GetCurrentDungeonName() then
+        return
+    end
+
     self:SendChatMessage(L["[WDH] Avoidable damage notification enabled, glhf!"])
     self:Compile()
     self:ResetStatistic()
