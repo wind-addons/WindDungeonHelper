@@ -555,11 +555,6 @@ local MistakeData = {
         },
         -- [2] 溫圖納斯
         {
-            -- 黑暗闊步
-            type = MISTAKE.SPELL_DAMAGE,
-            spell = 324154
-        },
-        {
             -- 黑闇箭
             type = MISTAKE.SPELL_DAMAGE,
             spell = 324141
