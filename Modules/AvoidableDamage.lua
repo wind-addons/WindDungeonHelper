@@ -1121,6 +1121,11 @@ function AD:COMBAT_LOG_EVENT_UNFILTERED()
 end
 
 function AD:IsPolicyPassed(player, amount, data)
+    -- Windwalker monk karma
+    if PlayerHasBuff(player, 125174) then
+        return false
+    end
+
     if data.noPlayerDebuff then
         if type(data.noPlayerDebuff) == "number" then
             if PlayerHasDebuff(player, data.noPlayerDebuff) then
