@@ -251,6 +251,11 @@ local MistakeData = {
             -- 逞凶鬥狠 (第一賽季)
             type = MISTAKE.SPELL_DAMAGE,
             spell = 342494
+        },
+        {
+            -- 懷恨幽影 (惡意詞綴)
+            type = MISTAKE.MELEE,
+            npc = 174773
         }
     },
     ["The Necrotic Wake"] = {
