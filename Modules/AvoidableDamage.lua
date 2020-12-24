@@ -411,11 +411,6 @@ local MistakeData = {
             spell = 339751
         },
         {
-            -- 屠殺殘影
-            type = MISTAKE.SPELL_DAMAGE,
-            spell = 339573
-        },
-        {
             -- 戰鬥殘影
             type = MISTAKE.SPELL_DAMAGE,
             spell = 339550
