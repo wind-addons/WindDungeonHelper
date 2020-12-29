@@ -72,16 +72,6 @@ function AD:InitializeAuthority()
     myPlayerUID = tonumber(guidSplitted[3], 16)
 end
 
-function AD:CheckAuthority(key)
-    if IsInGroup() then
-        if authorityCache.playerUID ~= myPlayerUID or authorityCache.serverID ~= myServerID then
-            return false
-        end
-    end
-
-    return true
-end
-
 do
     local channelLevel = {
         SELF = 0,
@@ -90,7 +80,7 @@ do
     }
 
     function AD:SendMyLevel()
-        if IsInGroup(LE_PARTY_CATEGORY_HOME) then
+        if IsInGroup() then
             local level = self.db.notification.channel and channelLevel[self.db.notification.channel] or 0
 
             -- If reload the ui, the data is cleared
@@ -179,7 +169,7 @@ function AD:GetActiveUser()
 end
 
 function AD:SendChatMessage(message)
-    if not self.db.notification.enable or not IsInGroup(LE_PARTY_CATEGORY_HOME) then
+    if not self.db.notification.enable or not IsInGroup() then
         return
     end
 
@@ -190,7 +180,7 @@ function AD:SendChatMessage(message)
     if self.db.notification.channel == "SELF" then
         print(message)
     elseif self.db.notification.channel == "PARTY" and IsInGroup() and not IsInGroup(LE_PARTY_CATEGORY_INSTANCE) then
-        SendChatMessage(message, GetBestChannel())
+        SendChatMessage(message, "PARTY")
     elseif self.db.notification.channel == "EMOTE" and IsInGroup() and not IsInGroup(LE_PARTY_CATEGORY_INSTANCE) then
         SendChatMessage(": " .. message, "EMOTE")
     end
@@ -1255,7 +1245,9 @@ function AD:DamageAnnouncer(player)
     local percentage = totalDamage / playerMaxHealth * 100
 
     if self.db.notification.enable and percentage >= self.db.notification.threshold then
-        self:SendChatMessage(self:GenerateOutput(spellMessage, player, spellLinks, nil, damageText, percentage))
+        if self.db.rank.onlyRanking then
+            self:SendChatMessage(self:GenerateOutput(spellMessage, player, spellLinks, nil, damageText, percentage))
+        end
     end
 end
 

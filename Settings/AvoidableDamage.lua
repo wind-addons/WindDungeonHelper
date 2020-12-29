@@ -12,6 +12,7 @@ P.avoidableDamage = {
     rank = {
         enable = true,
         worst = false,
+        onlyRanking = false,
         customWorst = L["Need improve"]
     },
     custom = {
