@@ -1245,9 +1245,10 @@ function AD:DamageAnnouncer(player)
     local percentage = totalDamage / playerMaxHealth * 100
 
     if self.db.notification.enable and percentage >= self.db.notification.threshold then
-        if self.db.rank.onlyRanking then
-            self:SendChatMessage(self:GenerateOutput(spellMessage, player, spellLinks, nil, damageText, percentage))
+        if self.db.rank.enable and self.db.rank.onlyRanking then
+            return
         end
+        self:SendChatMessage(self:GenerateOutput(spellMessage, player, spellLinks, nil, damageText, percentage))
     end
 end
 
