@@ -563,7 +563,8 @@ local MistakeData = {
         {
             -- 蓄能踐踏
             type = MISTAKE.SPELL_DAMAGE,
-            spell = 324608
+            spell = 324608,
+            playerIsNotTank = true
         },
         -- [4]『猜疑楷模』德沃絲
         {
