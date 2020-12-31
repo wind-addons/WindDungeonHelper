@@ -1,30 +1,32 @@
 local W, F, L, _, O = unpack(select(2, ...))
 local MH = W:GetModule("MDTHelper")
 
-O.mdhHelper = {
+O.mdtHelper = {
     order = 6,
     name = L["MDT Helper"],
     type = "group",
+    get = function(info)
+        return W.db[info[#info - 1]][info[#info]]
+    end,
+    set = function(info, value)
+        W.db[info[#info - 1]][info[#info]] = value
+        MH:ProfileUpdate()
+        ReloadUI()
+    end,
     args = {
-        importProfile = {
+        enable = {
             order = 1,
-            type = "execute",
-            name = L["Import Enemy Data"],
-            desc = L["Import the enemy data from Github repo."],
-            width = 2,
-            func = function()
-                MH:ImportEnemyData()
-            end
+            type = "toggle",
+            name = L["Enable"],
+            desc = L["Put the keystone from bag automatically."],
+            width = "full"
         },
-        translateExistingProfile = {
+        translate = {
             order = 2,
-            type = "execute",
+            type = "toggle",
             name = L["Translate Existing Data"],
-            desc = L["Translate NPC names and types with your language."],
-            width = 2,
-            func = function()
-                MH:Translate()
-            end
+            desc = L["Translate NPC names and types with your language."] .. "\n|cffff0000" .. L["Need reload"] .. "|r",
+            width = "full"
         }
     }
 }
