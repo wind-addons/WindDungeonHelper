@@ -11,6 +11,7 @@ P.avoidableDamage = {
     },
     rank = {
         enable = true,
+        addonInfo = true,
         worst = false,
         onlyRanking = false,
         customWorst = L["Need improve"]

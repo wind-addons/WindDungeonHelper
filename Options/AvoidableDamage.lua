@@ -152,14 +152,20 @@ O.avoidableDamage = {
                     desc = L["Send the ranking after the dungeon completed."],
                     type = "toggle"
                 },
-                onlyRanking = {
+                addonInfo = {
                     order = 2,
+                    name = L["Addon Infomation"],
+                    desc = L["Add a message contains addon information."],
+                    type = "toggle"
+                },
+                onlyRanking = {
+                    order = 3,
                     name = L["Only Ranking"],
                     desc = L["Disable normal notification in mythic dungeon."],
                     type = "toggle"
                 },
                 worst = {
-                    order = 3,
+                    order = 4,
                     name = L["The worst player"],
                     desc = L["Notice the worst player in ranking."],
                     type = "toggle",
@@ -168,7 +174,7 @@ O.avoidableDamage = {
                     end
                 },
                 customWorstDefault = {
-                    order = 4,
+                    order = 5,
                     name = L["Defaults"],
                     type = "execute",
                     func = function()
@@ -179,7 +185,7 @@ O.avoidableDamage = {
                     end
                 },
                 customWorst = {
-                    order = 5,
+                    order = 6,
                     type = "input",
                     name = L["The worst player text"],
                     width = "full",
@@ -188,7 +194,7 @@ O.avoidableDamage = {
                     end
                 },
                 customWorstExample = {
-                    order = 6,
+                    order = 7,
                     type = "description",
                     name = function()
                         local text = F.CreateColorString(L["Example"])
