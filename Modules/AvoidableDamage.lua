@@ -576,7 +576,7 @@ local MistakeData = {
             -- 冥淵引爆
             type = MISTAKE.SPELL_DAMAGE,
             spell = 334625,
-            damageThreshold = 10000
+            noPlayerDebuff = 335805
         }
     },
     ["De Other Side"] = {
