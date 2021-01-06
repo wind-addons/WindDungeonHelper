@@ -1,6 +1,6 @@
 <div align="center">
 <img src="Title.png"/><br>
-<img src="https://img.shields.io/badge/版本-1.5.4-green.svg?longCache=true&style=for-the-badge"/>
+<img src="https://img.shields.io/badge/版本-1.5.5-green.svg?longCache=true&style=for-the-badge"/>
 </div>
 
 # ✅ 状态
@@ -20,6 +20,7 @@
     - 支持自定义喊话文本.
     - 支持自定义喊话频道.
     - 在地下城结束后生成一个排行榜.
+    - 支持复杂的战斗状况判断.
 
 2. **怪物进度**
 
@@ -32,6 +33,10 @@
 4. **快速钥石**
 
     自动放置背包内的传奇地下城钥石.
+
+5. **MDT 助手**
+
+    翻译 NPC 名到你的客户端语言.
 
 ## ❤️ 鸣谢
 [完整鸣谢名单](CREDITS.md)
