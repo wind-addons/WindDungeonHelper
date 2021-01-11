@@ -7,6 +7,7 @@ local pairs = pairs
 
 local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
+local ReloadUI = ReloadUI
 
 local C_Timer_After = C_Timer.After
 
