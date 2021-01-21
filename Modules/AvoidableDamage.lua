@@ -444,6 +444,11 @@ local MistakeData = {
             spell = 331721,
             playerIsNotTank = true
         },
+        {
+            -- 璀璨之息
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 340160
+        },
         -- [1] 英拉馬洛克
         {
             -- 靈魄之潭 (藍色污水)
