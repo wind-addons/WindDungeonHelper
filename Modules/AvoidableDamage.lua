@@ -549,7 +549,7 @@ local MistakeData = {
             spell = 331251
         },
         {
-            -- 淵染毒液 (午睡)
+            -- 淵染毒液 (污水)
             type = MISTAKE.SPELL_DAMAGE,
             spell = 317626
         },
