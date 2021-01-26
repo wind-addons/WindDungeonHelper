@@ -149,13 +149,13 @@ do
             return
         end
 
-        authorityCache = nil
         waitSend = true
 
         C_Timer_After(
             0.5,
             function()
                 if IsInGroup(LE_PARTY_CATEGORY_HOME) then
+                    authorityCache = nil
                     AD:SendMyLevel()
                 end
                 waitSend = false
