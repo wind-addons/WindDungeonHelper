@@ -10,11 +10,13 @@ local pairs = pairs
 local print = print
 local select = select
 local sort = sort
+local strjoin = strjoin
 local strmatch = strmatch
 local strsplit = strsplit
 local tinsert = tinsert
 local tonumber = tonumber
 local type = type
+local unpack = unpack
 local wipe = wipe
 
 local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
@@ -1091,7 +1093,7 @@ local function PlayerHasDebuff(player, spellID)
 end
 
 function AD:COMBAT_LOG_EVENT_UNFILTERED()
-    local _, event, _, sourceGUID, _, _, _, _, destName, _, _, param12, _, _, param15, param16, param17 =
+    local _, event, _, sourceGUID, sourceName, _, _, _, destName, _, _, param12, _, _, param15, param16, param17 =
         CombatLogGetCurrentEventInfo()
 
     if not UnitIsPlayer(destName) then
@@ -1108,7 +1110,7 @@ function AD:COMBAT_LOG_EVENT_UNFILTERED()
     elseif eventPrefix == "SWING" and eventSuffix == "DAMAGE" then
         -- SWING_DAMAGE
         -- amount: 12th
-        self:GetHit_Swing(destName, sourceGUID, param12)
+        self:GetHit_Swing(destName, sourceGUID, sourceName, param12)
     elseif eventPrefix:match("^SPELL") and eventSuffix == "MISSED" then
         -- SPELL_MISSED | SPELL_PERIODIC_MISSED
         -- spell: 12th
@@ -1191,7 +1193,7 @@ function AD:GetHit_Spell(player, spellID, amount)
     self:AnnounceAfterSeconds(4, player)
 end
 
-function AD:GetHit_Swing(player, sourceGUID, amount)
+function AD:GetHit_Swing(player, sourceGUID, sourceName, amount)
     local sourceID = GetIDByGUID(sourceGUID)
     if not sourceID or not policy.melee[sourceID] then
         return
@@ -1218,7 +1220,7 @@ function AD:GetHit_Swing(player, sourceGUID, amount)
     if not meleeNPCs[player] then
         meleeNPCs[player] = {}
     end
-    meleeNPCs[player][sourceGUID] = true
+    meleeNPCs[player][sourceName] = true
 
     self:AnnounceAfterSeconds(4, player)
 end
@@ -1246,8 +1248,8 @@ function AD:DamageAnnouncer(player)
     for spellID, damage in pairs(timerData[player]) do
         if spellID == 6603 then
             local names = {}
-            for id in pairs(meleeNPCs[player]) do
-                names[#names + 1] = F.GetNPCNameByID(id)
+            for name in pairs(meleeNPCs[player]) do
+                tinsert(names, name)
             end
             spellLinks = spellLinks .. GetSpellLink(spellID) .. "(" .. strjoin(",", unpack(names)) .. ") "
         else
