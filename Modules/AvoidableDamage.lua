@@ -1217,6 +1217,7 @@ function AD:GetHit_Swing(player, sourceGUID, sourceName, amount)
     else
         timerData[player][6603] = timerData[player][6603] + amount
     end
+
     if not meleeNPCs[player] then
         meleeNPCs[player] = {}
     end
