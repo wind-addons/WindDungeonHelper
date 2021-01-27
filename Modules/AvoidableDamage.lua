@@ -1057,6 +1057,7 @@ end
 local timers = {}
 local timerData = {}
 local combinedFails = {}
+local meleeNPCs = {}
 
 local function SortTable(t)
     sort(
@@ -1214,6 +1215,10 @@ function AD:GetHit_Swing(player, sourceGUID, amount)
     else
         timerData[player][6603] = timerData[player][6603] + amount
     end
+    if not meleeNPCs[player] then
+        meleeNPCs[player] = {}
+    end
+    meleeNPCs[player][sourceGUID] = true
 
     self:AnnounceAfterSeconds(4, player)
 end
@@ -1239,12 +1244,21 @@ function AD:DamageAnnouncer(player)
     local totalDamage = 0
 
     for spellID, damage in pairs(timerData[player]) do
-        spellLinks = spellLinks .. GetSpellLink(spellID) .. " "
+        if spellID == 6603 then
+            local names = {}
+            for id in pairs(meleeNPCs[player]) do
+                names[#names + 1] = F.GetNPCNameByID(id)
+            end
+            spellLinks = spellLinks .. GetSpellLink(spellID) .. "(" .. strjoin(",", unpack(names)) .. ") "
+        else
+            spellLinks = spellLinks .. GetSpellLink(spellID) .. " "
+        end
         totalDamage = totalDamage + damage
     end
 
     timerData[player] = nil
     timers[player] = nil
+    meleeNPCs[player] = nil
 
     local playerMaxHealth = UnitHealthMax(player)
     local damageText = self:FormatNumber(totalDamage)
@@ -1259,6 +1273,7 @@ function AD:DamageAnnouncer(player)
 end
 
 function AD:ResetStatistic()
+    wipe(meleeNPCs)
     wipe(combinedFails)
     wipe(timerData)
     wipe(timers)
