@@ -321,6 +321,11 @@ local MistakeData = {
             spell = 317367
         },
         {
+            -- 噁心爆發 (染疫嘔泥者死亡綠圈)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 321041
+        },
+        {
             -- 骸骨風暴
             type = MISTAKE.SPELL_DAMAGE,
             spell = 331224
@@ -329,6 +334,17 @@ local MistakeData = {
             -- 地面潰擊 (『毀壞者』黑文)
             type = MISTAKE.SPELL_DAMAGE,
             spell = 332708
+        },
+        {
+            -- 蠻橫跳躍 (『殘暴者』多奇格)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 342125
+        },
+        {
+            -- TODO: 和上面技能應該只有一個是對的
+            -- 蠻橫跳躍 (『殘暴者』多奇格)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 342126
         },
         {
             -- 迴旋刀刃 (『割碎者』奈克薩拉)
@@ -722,6 +738,11 @@ local MistakeData = {
             playerIsNotTank = true
         },
         {
+            -- 粉碎打擊 (深淵看守者, 坦克可以通過離開近戰區域躲避)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 335308
+        },
+        {
             -- 爆裂皮紙 (研究紀錄者)
             type = MISTAKE.SPELL_DAMAGE,
             spell = 334378
@@ -770,12 +791,6 @@ local MistakeData = {
     ["Halls of Atonement"] = {
         -- 小怪
         {
-            -- 爆發折磨
-            -- TODO: Check this
-            type = MISTAKE.SPELL_DAMAGE,
-            spell = 327885
-        },
-        {
             -- 致命推進 (墮落的暗刃兵)
             type = MISTAKE.SPELL_DAMAGE,
             spell = 325523
@@ -811,7 +826,8 @@ local MistakeData = {
         {
             -- 玻璃裂片
             type = MISTAKE.SPELL_DAMAGE,
-            spell = 323001
+            spell = 323001,
+            playerIsNotTank = true
         },
         {
             -- 折射罪光
@@ -825,6 +841,11 @@ local MistakeData = {
             spell = 319702
         },
         -- [3] 至高判決者阿利茲
+        {
+            -- 靈魂泉
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 338013
+        },
         -- [4] 宮務大臣
         {
             -- 念力碰撞
@@ -835,6 +856,16 @@ local MistakeData = {
             -- 念力猛襲
             type = MISTAKE.SPELL_DAMAGE,
             spell = 329113
+        },
+        {
+            -- 釋放磨難
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 323236
+        },
+        {
+            -- 爆發折磨
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 327885
         }
     },
     ["Plaguefall"] = {
