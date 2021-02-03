@@ -65,6 +65,7 @@ O.avoidableDamage = {
                     type = "execute",
                     func = function()
                         AD:SendMyLevel(true)
+                        W:RefreshOptionsAfter(1)
                     end
                 }
             }
