@@ -57,6 +57,15 @@ O.avoidableDamage = {
                         local activeUser = AD:GetActiveUser()
                         return text .. ": " .. activeUser
                     end
+                },
+                forceToActive = {
+                    order = 2,
+                    name = L["Elevated Privileges"],
+                    desc = L["Become the active user that reports avoidable damage."],
+                    type = "execute",
+                    func = function()
+                        AD:SendMyLevel(true)
+                    end
                 }
             }
         },

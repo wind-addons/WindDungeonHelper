@@ -81,13 +81,23 @@ do
         PARTY = 2
     }
 
-    function AD:SendMyLevel()
+    function AD:SendMyLevel(force)
+        if not self.db then
+            return
+        end
+
         if IsInGroup() then
             local level = self.db.notification.channel and channelLevel[self.db.notification.channel] or 0
 
             -- If reload the ui, the data is cleared
             if self.inRecording then
                 level = level + 100
+            end
+
+            if level ~= 0 and force then
+                if authorityCache then
+                    level = authorityCache.level + 1
+                end
             end
 
             local message = format("%s;%d;%d", level, myServerID, myPlayerUID)
