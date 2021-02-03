@@ -1377,13 +1377,19 @@ function AD:CHALLENGE_MODE_START()
 end
 
 function AD:OnInitialize()
-    self:InitializeAuthority()
-    self:ProfileUpdate()
-    self:SetNotificationText()
+    AD:InitializeAuthority()
+    AD:ProfileUpdate()
+    AD:SetNotificationText()
+    self:RegisterEvent("PLAYER_ENTERING_WORLD")
+end
+
+function AD:PLAYER_ENTERING_WORLD(event, isLogin, isReload)
+    if isLogin or isReload then
+        self:ResetAuthority()
+    end
 end
 
 function AD:ZONE_CHANGED_NEW_AREA()
-    self:ResetAuthority()
     self:Compile()
 end
 
