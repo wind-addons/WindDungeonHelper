@@ -738,11 +738,6 @@ local MistakeData = {
             playerIsNotTank = true
         },
         {
-            -- 粉碎打擊 (深淵看守者, 坦克可以通過離開近戰區域躲避)
-            type = MISTAKE.SPELL_DAMAGE,
-            spell = 335308
-        },
-        {
             -- 爆裂皮紙 (研究紀錄者)
             type = MISTAKE.SPELL_DAMAGE,
             spell = 334378
