@@ -313,9 +313,14 @@ local MistakeData = {
         },
         -- [4] 『霜縛者』納爾索
         {
-            -- 彗星風暴
+            -- 彗星風暴 (楼上的)
             type = MISTAKE.SPELL_DAMAGE,
             spell = 320784
+        },
+        {
+            -- 彗星風暴 (楼下的)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 321956
         },
         {
             -- 鋒利碎冰 (大冰圈)
