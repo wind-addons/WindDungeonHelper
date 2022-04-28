@@ -7,6 +7,9 @@ externals:
   Libraries/LibDBIcon-1.0:
     url: https://repos.wowace.com/wow/libdbicon-1-0/trunk
     type: svn
+  Libraries/LibNPCInfo:
+    url: https://github.com/fang2hou/LibNPCInfo
+    branch: main
 
 ignore:
   - .gitignore
