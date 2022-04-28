@@ -1,0 +1,3 @@
+[submodule "Libraries/LibNPCInfo"]
+	path = Libraries/LibNPCInfo
+	url = https://github.com/fang2hou/LibNPCInfo

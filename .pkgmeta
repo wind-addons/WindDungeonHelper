@@ -10,6 +10,8 @@ externals:
 
 ignore:
   - .gitignore
+  - .gitmodules
+  - .gitattributes
   - .github/*
   - README.md
   - README_zhCN.md
