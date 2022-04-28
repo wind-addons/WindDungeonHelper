@@ -1,4 +1,3 @@
-Libraries/*
-!Libraries/Load_Libraries.xml
-!Libraries/LibObjectiveProgress-1.0
+Libraries/Ace3/*
+Libraries/LibDBIcon-1.0/*
 .DS_Store
