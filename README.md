@@ -8,7 +8,7 @@
 # ✅ Status
 ![](https://img.shields.io/github/workflow/status/fang2hou/WindDungeonHelper/publish_stable) [![](https://img.shields.io/badge/Wind%20Plugins-Join-grey.svg?longCache=true&color=7289DA&logo=discord)](https://discord.gg/nA44TeZ)
 
-Download Sites: [Curse](https://www.curseforge.com/wow/addons/wind-dungeon-helper) | [WoWInterface](https://www.wowinterface.com/downloads/info25532-WindDungeonHelper.html) | [Github Release](https://github.com/fang2hou/WindDungeonHelper/releases)
+Download Sites: [Curse](https://www.curseforge.com/wow/addons/wind-dungeon-helper) | [Wago](https://addons.wago.io/addons/winddungeonhelper) | [WoWInterface](https://www.wowinterface.com/downloads/info25532-WindDungeonHelper.html) | [Github Release](https://github.com/fang2hou/WindDungeonHelper/releases)
 
 ## ⚔️ Introduction
 **Wind Dungeon Helper** is a plugin designed for dungeon combats.  

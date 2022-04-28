@@ -11,6 +11,7 @@
 ## OptionalDeps: ElvUI_WindTools
 ## X-Curse-Project-ID: 304072
 ## X-WoWI-ID: 25532
+## X-Wago-ID: kRNLYX6o
 
 Libraries\Load_Libraries.xml
 Locales\Load_Locales.xml
