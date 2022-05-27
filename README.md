@@ -1,6 +1,6 @@
 <div align="center">
-<img src="Title.png"/><br>
-<img src="https://img.shields.io/badge/Version-1.6.9-green.svg?longCache=true&style=for-the-badge"/>
+<img width="512" src="Title.svg"/><br><br>
+<img src="https://img.shields.io/badge/Version-1.7.1-green.svg?longCache=true&style=for-the-badge"/>
 
 [简体中文 (zhCN)](README_zhCN.md) | [繁體中文 (zhTW)](README_zhTW.md)
 </div>
