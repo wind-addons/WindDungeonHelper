@@ -17,4 +17,5 @@ _G["WindDungeonHelper"] = addon
 Engine.AddonName = Locale["Wind Dungeon Helper"]
 Engine.Version = GetAddOnMetadata(addonName, "Version")
 Engine.AddonMsgPrefix = "WINDDH"
-Engine.Locale = GetLocale()
+-- Engine.Locale = GetLocale()
+Engine.Locale = "zhCN"
