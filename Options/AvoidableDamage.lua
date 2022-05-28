@@ -112,7 +112,7 @@ O.avoidableDamage = {
                     name = L["Numeral System"],
                     type = "select",
                     values = {
-                        WESTERN = L["Western - K"],
+                        WESTERN = L["Western - k"],
                         ASIA = L["Asia - W"],
                         NONE = L["None"]
                     }
