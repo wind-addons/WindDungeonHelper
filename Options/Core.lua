@@ -52,10 +52,11 @@ ns[5] = options.args
 
 function W:BuildOptions()
     local name = "WindDungeonHelper"
+    options.args.profiles = ADBO:GetOptionsTable(W.Database)
+    options.args.profiles.order = 1000
+
     ACR:RegisterOptionsTable(name, options)
-    ACR:RegisterOptionsTable(name .. "Profiles", ADBO:GetOptionsTable(W.Database))
     self.OptionFrame = ACD:AddToBlizOptions(name, W.AddonName)
-    self.OptionFrame.ProfilesFrame = ACD:AddToBlizOptions(name .. "Profiles", L["Profiles"], W.AddonName)
     self.DataBroker =
         LDB:NewDataObject(
         L["Wind Dungeon Helper"],
