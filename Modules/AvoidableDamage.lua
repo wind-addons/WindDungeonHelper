@@ -546,7 +546,7 @@ local MistakeData = {
     ["Theater of Pain"] = {
         -- 小怪
         {
-            -- 死靈箭雨
+            -- 死靈箭雨 (癲狂縛魂者, [4] 庫薩洛克)
             type = MISTAKE.SPELL_DAMAGE,
             spell = 317367
         },
@@ -556,7 +556,7 @@ local MistakeData = {
             spell = 321041
         },
         {
-            -- 骸骨風暴
+            -- 骸骨風暴 (魂鑄削骨者)
             type = MISTAKE.SPELL_DAMAGE,
             spell = 331224
         },
@@ -566,12 +566,6 @@ local MistakeData = {
             spell = 332708
         },
         {
-            -- 蠻橫跳躍 (『殘暴者』多奇格)
-            type = MISTAKE.SPELL_DAMAGE,
-            spell = 342125
-        },
-        {
-            -- TODO: 和上面技能應該只有一個是對的
             -- 蠻橫跳躍 (『殘暴者』多奇格)
             type = MISTAKE.SPELL_DAMAGE,
             spell = 342126
@@ -587,12 +581,12 @@ local MistakeData = {
             spell = 333297
         },
         {
-            -- 邪惡爆發 (腐臭肉囊 前後雙噴)
+            -- 邪惡爆發 (腐臭肉囊 後噴)
             type = MISTAKE.SPELL_DAMAGE,
             spell = 330592
         },
         {
-            -- 邪惡爆發 (腐臭肉囊 前後雙噴)
+            -- 邪惡爆發 (腐臭肉囊 前噴)
             type = MISTAKE.SPELL_DAMAGE,
             spell = 330608
         },
@@ -641,6 +635,11 @@ local MistakeData = {
             type = MISTAKE.SPELL_DAMAGE,
             spell = 319765,
             noPlayerDebuff = 319626
+        },
+        {
+            -- 抓握之手
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 319639
         },
         -- [5] 『不朽女皇』莫瑞莎
         {
@@ -813,6 +812,16 @@ local MistakeData = {
             spell = 324141
         },
         -- [3] 奧利菲翁
+        {
+            -- 蒼穹砲
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 323372
+        },
+        {
+            -- 靈魄力場
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 323792
+        },
         {
             -- 蓄能踐踏
             type = MISTAKE.SPELL_DAMAGE,
