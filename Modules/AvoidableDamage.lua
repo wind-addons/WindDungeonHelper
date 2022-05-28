@@ -1053,7 +1053,7 @@ function AD:FormatNumber(amount)
         end
     elseif self.db.notification.unit == "WESTERN" then
         if amount > math_pow(10, 3) then
-            return F.Round(amount / 1000, self.db.notification.accuracy) .. L["[UNIT] K"]
+            return F.Round(amount / 1000, self.db.notification.accuracy) .. L["[UNIT] k"]
         else
             return amount
         end
