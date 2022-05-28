@@ -1,7 +1,4 @@
 -- Modified from ElitismHelper
----------------------------------
--- 9.2 部分数据提供: 水晶瓶 @ NGA
--- https://bbs.nga.cn/read.php?tid=31683156
 local W, F, L, P = unpack(select(2, ...))
 local AD = W:NewModule("AvoidableDamage", "AceHook-3.0", "AceEvent-3.0")
 
