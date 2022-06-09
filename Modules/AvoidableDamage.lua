@@ -437,8 +437,7 @@ local MistakeData = {
         {
             -- 無限吐息
             type = MISTAKE.SPELL_DAMAGE,
-            spell = 347149,
-            playerIsNotTank = true -- 朝向是否需要坦克調整?
+            spell = 347149
         },
         {
             -- 鉤尾掃擊
