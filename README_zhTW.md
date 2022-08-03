@@ -4,15 +4,18 @@
 </div>
 
 # ✅ 狀態
-![](https://img.shields.io/github/workflow/status/fang2hou/WindDungeonHelper/publish_stable) [![](https://img.shields.io/badge/Wind%20Plugins-加入-grey.svg?longCache=true&color=7289DA&logo=discord)](https://discord.gg/wvV5rQy)
+
+![發布狀態](https://img.shields.io/github/workflow/status/fang2hou/WindDungeonHelper/publish_stable) [![加入 Discord 伺服器](https://img.shields.io/badge/Wind%20Plugins-加入-grey.svg?longCache=true&color=7289DA&logo=discord)](https://discord.gg/wvV5rQy)
 
 下載點: [Curse](https://www.curseforge.com/wow/addons/wind-dungeon-helper) | [Wago](https://addons.wago.io/addons/winddungeonhelper) | [WoWInterface](https://www.wowinterface.com/downloads/info25532-WindDungeonHelper.html) | [Github 發布](https://github.com/fang2hou/WindDungeonHelper/releases)
 
 ## ⚔️ 介紹
+
 **Wind 地城助手** 是一個面向地城戰鬥的插件.
 這個插件旨在於提升你的技巧以及讓遊戲生活更加便利.
 
 ## 💦 功能
+
 1. **可規避傷害** ([ElitismHelper](https://wow.curseforge.com/projects/elitismhelper) 的一個分支)
 
     這個模組將在玩家承受可規避傷害之後發送一個包含法術名的消息.
@@ -39,4 +42,5 @@
     翻譯 NPC 名到你的客戶端語言.
 
 ## ❤️ 鳴謝
+
 [完整鳴謝名单](CREDITS.md)
