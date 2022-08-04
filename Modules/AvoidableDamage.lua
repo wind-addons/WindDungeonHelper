@@ -1535,6 +1535,73 @@ local MistakeData = {
             type = MISTAKE.SPELL_DAMAGE,
             spell = 229285
         }
+    },
+    ["Iron Docks"] = {
+        -- [1] 『血肉撕裂者』諾加爾
+        {
+            -- 燃燒箭
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 164632
+        },
+        {
+            -- 倒鉤箭雨
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 164648
+        },
+        -- [2] 恐軌執行者
+        {
+            -- 撕碎肌腱
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 163276
+        },
+        {
+            -- 熔岩掃擊
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 165152
+        },
+        -- [3] 歐席爾
+        {
+            --  原始突襲
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 161256
+        },
+        -- [4] 史庫洛克
+        {
+            -- 急速射擊
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 168348,
+            noPlayerDebuff = 168398
+        },
+        {
+            -- 火砲彈幕
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 168390
+        }
+    },
+    ["Grimrail Depot"] = {
+        -- [1] 火箭光和波爾卡
+        {
+            -- 瘋狂衝刺
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 161089
+        },
+        {
+            -- VX18-B目標殲滅者
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 162513
+        },
+        -- [2] 奈楚格‧雷塔
+        -- [3] 傲天者托芙菈
+        {
+            -- 散射能量
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 161588
+        },
+        {
+            -- 冰凍陷阱
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 162065
+        }
     }
 }
 
