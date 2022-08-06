@@ -251,24 +251,19 @@ local MistakeData = {
             spell = 343520
         },
         {
-            -- 逞凶鬥狠 (第一賽季)
-            type = MISTAKE.SPELL_DAMAGE,
-            spell = 342494
-        },
-        {
-            -- 懷恨幽影 (惡意詞綴)
+            -- 懷恨幽影
             type = MISTAKE.MELEE,
             npc = 174773
         },
         {
-            -- 強力猛擊 (厄拆解者)
-            type = MISTAKE.SPELL_DAMAGE,
-            spell = 366288
+            -- 夢魘 (S4 納斯雷茲姆滲透者)
+            type = MISTAKE.AURA,
+            aura = 373391
         },
         {
-            -- 融合光束 (維攔截者)
+            -- 腐屍蟲群 (S4 納斯雷茲姆滲透者)
             type = MISTAKE.SPELL_DAMAGE,
-            spell = 366409
+            spell = 373429
         }
     },
     ["Tazavesh: Streets of Wonder"] = {
@@ -1621,6 +1616,52 @@ local MistakeData = {
         }
     },
     ["Grimrail Depot"] = {
+        -- 小怪
+        {
+            -- 黑石炸彈 (恐軌投彈手)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 164188
+        },
+        {
+            -- 破片射擊 (格羅姆卡槍手)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 156303
+        },
+        {
+            -- 黑石迫擊炮 (格羅姆卡砲手)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 160963
+        },
+        {
+            -- 黑石手榴彈 (格羅姆卡擲彈手)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 161153
+        },
+        {
+            -- 風暴之盾 (格羅姆卡先知)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 166336
+        },
+        {
+            -- 雷獄 (格羅姆卡先知)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 166340
+        },
+        {
+            -- 火舌 (格羅姆卡識燼者)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 176033
+        },
+        {
+            -- 火舌 (格羅姆卡識燼者)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 176039
+        },
+        {
+            -- 火砲彈幕 (格羅姆卡砲手)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 176131
+        },
         -- [1] 火箭光和波爾卡
         {
             -- 瘋狂衝刺
@@ -1633,6 +1674,16 @@ local MistakeData = {
             spell = 162513
         },
         -- [2] 奈楚格‧雷塔
+        {
+            -- 壓制射擊
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 161220
+        },
+        {
+            -- 黑石迫擊炮
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 163741
+        },
         -- [3] 傲天者托芙菈
         {
             -- 散射能量
@@ -1643,6 +1694,11 @@ local MistakeData = {
             -- 冰凍陷阱
             type = MISTAKE.SPELL_DAMAGE,
             spell = 162065
+        },
+        {
+            -- 旋轉長矛
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 162057
         }
     }
 }
