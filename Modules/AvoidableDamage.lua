@@ -1600,6 +1600,11 @@ local MistakeData = {
             spell = 164632
         },
         {
+            -- 投擲短斧 (格羅姆卡水手)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 173113
+        },
+        {
             -- 劍刃風暴 (格羅姆卡戰場軍官)
             type = MISTAKE.SPELL_DAMAGE,
             spell = 167233
@@ -1618,6 +1623,11 @@ local MistakeData = {
             -- 熔岩衝擊 (鐵翼噴火者)
             type = MISTAKE.SPELL_DAMAGE,
             spell = 173517
+        },
+        {
+            -- 熔岩彈幕 (鐵翼噴火者)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 173489
         },
         -- [1] 『血肉撕裂者』諾加爾
         {
@@ -1683,7 +1693,7 @@ local MistakeData = {
             -- 火炮彈幕
             type = MISTAKE.SPELL_DAMAGE,
             spell = 168148
-        },
+        }
     },
     ["Grimrail Depot"] = {
         -- 小怪
