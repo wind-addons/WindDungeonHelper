@@ -1574,6 +1574,51 @@ local MistakeData = {
         }
     },
     ["Iron Docks"] = {
+        {
+            -- 火炮彈幕
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 168514
+        },
+        {
+            -- 火炮彈幕
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 168540
+        },
+        {
+            -- 高爆榴彈 (格羅姆卡技師)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 178299
+        },
+        {
+            -- 燃焰之箭 (格羅姆卡火箭手)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 173149
+        },
+        {
+            -- 燃燒箭 (格羅姆卡火箭手)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 164632
+        },
+        {
+            -- 劍刃風暴 (格羅姆卡戰場軍官)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 167233
+        },
+        {
+            -- 裂空順劈斬 (雷霆王牧者)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 167815
+        },
+        {
+            -- 鋸齒釘爪刺 (雷霆王牧者)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 173324
+        },
+        {
+            -- 熔岩衝擊 (鐵翼噴火者)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 173517
+        },
         -- [1] 『血肉撕裂者』諾加爾
         {
             -- 燃燒箭
@@ -1585,6 +1630,11 @@ local MistakeData = {
             type = MISTAKE.SPELL_DAMAGE,
             spell = 164648
         },
+        {
+            -- 撕碎掃擊
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 164734
+        },
         -- [2] 恐軌執行者
         {
             -- 撕碎肌腱
@@ -1595,6 +1645,11 @@ local MistakeData = {
             -- 熔岩掃擊
             type = MISTAKE.SPELL_DAMAGE,
             spell = 165152
+        },
+        {
+            -- 熔岩掃擊
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 163668
         },
         -- [3] 歐席爾
         {
@@ -1610,10 +1665,25 @@ local MistakeData = {
             noPlayerDebuff = 168398
         },
         {
+            -- 爆燃
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 169129
+        },
+        {
+            -- 劍刃風暴
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 168401
+        },
+        {
             -- 火砲彈幕
             type = MISTAKE.SPELL_DAMAGE,
             spell = 168390
-        }
+        },
+        {
+            -- 火炮彈幕
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 168148
+        },
     },
     ["Grimrail Depot"] = {
         -- 小怪
