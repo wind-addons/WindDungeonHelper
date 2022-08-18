@@ -1528,7 +1528,28 @@ local MistakeData = {
             type = MISTAKE.SPELL_DAMAGE,
             spell = 242894
         },
-        -- 館長
+        {
+            -- 奔竄 (老鼠)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 229696
+        },
+        {
+            -- 魔化炸彈 (溢能火占師)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 229678
+        },
+        {
+            -- 魔化迫擊砲 (魔化蝙蝠)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 229597
+        },
+        {
+            -- 順劈斬 (憤怒守衛烈焰使者)
+            type = MISTAKE.SPELL_DAMAGE,
+            spell = 230044,
+            playerIsNotTank = true
+        },
+        -- [1] 館長
         {
             -- 能量釋放
             type = MISTAKE.SPELL_DAMAGE,
@@ -1539,19 +1560,19 @@ local MistakeData = {
             type = MISTAKE.SPELL_DAMAGE,
             spell = 227465
         },
-        -- 麥迪文之影
+        -- [2] 麥迪文之影
         {
             -- 不絕寒冬
             type = MISTAKE.SPELL_DAMAGE,
             spell = 227806
         },
-        -- 法力吞噬者
+        -- [3] 法力吞噬者
         {
             -- 秘法炸彈
             type = MISTAKE.SPELL_DAMAGE,
             spell = 227620
         },
-        -- 『監視者』維茲亞頓
+        -- [4] 『監視者』維茲亞頓
         {
             -- 崩解
             type = MISTAKE.SPELL_DAMAGE,
