@@ -65,9 +65,10 @@ AddMedia("sunUIHealer", "SunUI/Healer.tga", "Icons")
 AddMedia("sunUIDPS", "SunUI/DPS.tga", "Icons")
 
 AddMedia("discord", "Discord.tga", "Icons")
-AddMedia("qq", "QQ.tga", "Icons")
 AddMedia("github", "Github.tga", "Icons")
 AddMedia("nga", "NGA.tga", "Icons")
+AddMedia("qq", "QQ.tga", "Icons")
+AddMedia("kook", "KOOK.tga", "Icons")
 
 AddMedia("donateKofi", "Ko-fi.tga", "Icons")
 AddMedia("donateAiFaDian", "AiFaDian.tga", "Icons")
