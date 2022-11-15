@@ -24,7 +24,7 @@ local Enum_TooltipDataType_Unit = Enum.TooltipDataType.Unit
 local function isWindToolsLoaded()
 	if IsAddOnLoaded("ElvUI_WindTools") then
 		local E = _G.ElvUI and _G.ElvUI[1]
-		if E and E.private.WT.tooltips.objectiveProgress then
+		if E and E.private and E.private.WT and E.private.WT.tooltips and E.private.WT.tooltips.objectiveProgress then
 			return true
 		end
 	end
