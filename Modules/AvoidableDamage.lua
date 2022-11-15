@@ -186,6 +186,10 @@ function AD:SendChatMessage(message)
     end
 
     if authorityCache and authorityCache.playerUID ~= myPlayerUID then
+        if self.db.alwaysOutputToChat then
+            print(message)
+        end
+
         return
     end
 
