@@ -5,7 +5,7 @@
 
 # ✅ 狀態
 
-![發布狀態](https://img.shields.io/github/actions/workflow/status/fang2hou/WindDungeonHelper/publish_stable.yml?branch=master) [![加入 Discord 伺服器](https://img.shields.io/badge/Wind%20Plugins-加入-grey.svg?longCache=true&color=7289DA&logo=discord)](https://discord.gg/wvV5rQy)
+![發布狀態](https://img.shields.io/github/actions/workflow/status/fang2hou/WindDungeonHelper/publish_stable.yml?branch=1.8.9) [![加入 Discord 伺服器](https://img.shields.io/badge/Wind%20Plugins-加入-grey.svg?longCache=true&color=7289DA&logo=discord)](https://discord.gg/wvV5rQy)
 
 下載點: [Curse](https://www.curseforge.com/wow/addons/wind-dungeon-helper) | [Wago](https://addons.wago.io/addons/winddungeonhelper) | [WoWInterface](https://www.wowinterface.com/downloads/info25532-WindDungeonHelper.html) | [Github 發布](https://github.com/fang2hou/WindDungeonHelper/releases)
 
