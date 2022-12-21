@@ -226,48 +226,58 @@ local MistakeData = {
         -- Debug (死靈進門右轉法術怪)
         -- {
         --     -- 近戰攻擊
-        --     type = MISTAKE.MELEE,
+        --     type = AD.MISTAKE.MELEE,
         --     npc = 166302
         -- },
         -- {
         --     -- 汲取體液
-        --     type = MISTAKE.SPELL_DAMAGE,
+        --     type = AD.MISTAKE.SPELL_DAMAGE,
         --     spell = 334749
         -- },
         {
             -- 火山煙流
-            type = MISTAKE.SPELL_DAMAGE,
+            type = AD.MISTAKE.SPELL_DAMAGE,
             spell = 209862
         },
         {
             -- 膿血
-            type = MISTAKE.SPELL_DAMAGE,
+            type = AD.MISTAKE.SPELL_DAMAGE,
             spell = 226512
         },
         {
             -- 地震
-            type = MISTAKE.SPELL_DAMAGE,
+            type = AD.MISTAKE.SPELL_DAMAGE,
             spell = 240448
         },
         {
             -- 風暴
-            type = MISTAKE.SPELL_DAMAGE,
+            type = AD.MISTAKE.SPELL_DAMAGE,
             spell = 343520
         },
         {
             -- 懷恨幽影
-            type = MISTAKE.MELEE,
+            type = AD.MISTAKE.MELEE,
             npc = 174773
         },
         {
             -- 夢魘 (S4 納斯雷茲姆滲透者)
-            type = MISTAKE.AURA,
+            type = AD.MISTAKE.AURA,
             aura = 373391
         },
         {
             -- 腐屍蟲群 (S4 納斯雷茲姆滲透者)
-            type = MISTAKE.SPELL_DAMAGE,
+            type = AD.MISTAKE.SPELL_DAMAGE,
             spell = 373429
+        },
+        {
+            -- 閃電之擊 (S1 雷霆詞綴環境傷害)
+            type = AD.MISTAKE.SPELL_DAMAGE,
+            spell = 394873
+        },
+        {
+            -- 洪荒超載 (S1 雷霆詞綴強暈傷害 拉薩葛斯)
+            type = AD.MISTAKE.SPELL_DAMAGE,
+            spell = 396411
         }
     }
 }
