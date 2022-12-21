@@ -69,6 +69,12 @@ local mistakes = {
         type = AD.MISTAKE.SPELL_DAMAGE,
         spell = 388546
     },
+    {
+        -- 魔爆術
+        type = AD.MISTAKE.SPELL_DAMAGE,
+        spell = 385958,
+        playerIsNotTank = true
+    },
     -- [2] 克若絲
     {
         -- 壓制狂風

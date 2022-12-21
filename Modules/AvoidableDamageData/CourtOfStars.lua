@@ -20,7 +20,14 @@ local mistakes = {
     {
         -- 干擾能量 (守護者傀儡)
         type = AD.MISTAKE.SPELL_DAMAGE,
-        spell = 209512
+        spell = 209512,
+        playerIsNotTank = true
+    },
+    {
+        -- 蓄力潰擊 (守護者傀儡)
+        type = AD.MISTAKE.SPELL_DAMAGE,
+        spell = 209495,
+        playerIsNotTank = true
     },
     {
         -- 鎮壓猛襲 (暮衛守衛)
