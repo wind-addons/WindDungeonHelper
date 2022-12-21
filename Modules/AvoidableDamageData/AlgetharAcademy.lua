@@ -118,6 +118,7 @@ local mistakes = {
         spell = 388996
     }
 }
+
 local mapIds = {2097, 2098, 2099}
 
 AD:AddData("Algeth'ar Academy", mistakes, mapIds)
