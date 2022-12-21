@@ -21,11 +21,11 @@ local mistakes = {
         noPlayerDebuff = 162652
     },
     -- [2] 納里旭
-    -- {
-    --     -- 虛無漩渦
-    --     type = AD.MISTAKE.SPELL_DAMAGE,
-    --     spell = TODO
-    -- },
+    {
+        -- 虛無漩渦
+        type = AD.MISTAKE.SPELL_DAMAGE,
+        spell = 152800
+    },
     {
         -- 虛無破壞
         type = AD.MISTAKE.SPELL_DAMAGE,
@@ -34,13 +34,19 @@ local mistakes = {
     {
         -- 虛無衝擊
         type = AD.MISTAKE.SPELL_DAMAGE,
-        spell = 153501
+        spell = 153501,
+        playerIsNotTank = true
     },
     -- [3] 骨喉
     {
         -- 猛撞
         type = AD.MISTAKE.SPELL_DAMAGE,
         spell = 153395
+    },
+    {
+        -- 吸入
+        type = AD.MISTAKE.SPELL_DAMAGE,
+        spell = 153908
     },
     -- [4] 耐祖奧
     {
