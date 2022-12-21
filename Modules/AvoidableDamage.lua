@@ -627,6 +627,10 @@ end
 function AD:CHALLENGE_MODE_COMPLETED()
     self:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 
+    if not self.inRecording then
+        return
+    end
+
     if not self.db.rank.enable then
         return
     end
