@@ -13,12 +13,22 @@ local mistakes = {
         type = AD.MISTAKE.SPELL_DAMAGE,
         spell = 365201
     },
+    {
+        -- 暗影符文 (地板)
+        type = AD.MISTAKE.SPELL_DAMAGE,
+        spell = 152696
+    },
     -- [1] 莎妲娜‧血怒
     {
         -- 黑暗之蝕
         type = AD.MISTAKE.SPELL_DAMAGE,
         spell = 164686,
         noPlayerDebuff = 162652
+    },
+    {
+        -- 暗影燃烧
+        type = AD.MISTAKE.SPELL_DAMAGE,
+        spell = 153224
     },
     -- [2] 納里旭
     {
