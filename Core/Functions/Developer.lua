@@ -64,7 +64,7 @@ end
 ]]
 function F.Developer.ThrowError(...)
     local message = strjoin(" ", ...)
-    _G.geterrorhandler()(format("%s |cffff3860[ERROR]|r\n%s", W.Title, message))
+    _G.geterrorhandler()(format("%s |cffff3860[ERROR]|r\n%s", W.AddonName, message))
 end
 
 --[[
@@ -77,7 +77,7 @@ function F.Developer.LogWarning(...)
     end
 
     local message = strjoin(" ", ...)
-    print(format("%s |cffffdd57[WARNING]|r %s", W.Title, message))
+    print(format("%s |cffffdd57[WARNING]|r %s", W.AddonName, message))
 end
 
 --[[
@@ -90,7 +90,7 @@ function F.Developer.LogInfo(...)
     end
 
     local message = strjoin(" ", ...)
-    print(format("%s |cff209cee[INFO]|r %s", W.Title, message))
+    print(format("%s |cff209cee[INFO]|r %s", W.AddonName, message))
 end
 
 --[[
@@ -103,7 +103,7 @@ function F.Developer.LogDebug(...)
     end
 
     local message = strjoin(" ", ...)
-    print(format("%s |cff00d1b2[DEBUG]|r %s", W.Title, message))
+    print(format("%s |cff00d1b2[DEBUG]|r %s", W.AddonName, message))
 end
 
 --[[
