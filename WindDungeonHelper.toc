@@ -7,6 +7,7 @@
 ## Notes: Help you fight in dungeon easier.
 ## Notes-zhCN: 帮助你在地下城中的战斗更加简单。
 ## Notes-zhTW: 幫助你在地城中的戰鬥更加簡單。
+## Notes-ruRU: Помогает Вам легче сражаться в подземельях.
 ## SavedVariables: WindDungeonHelperDB
 ## OptionalDeps: ElvUI_WindTools
 ## X-Curse-Project-ID: 304072
