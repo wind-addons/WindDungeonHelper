@@ -62,7 +62,7 @@ function F.Print(text)
         return
     end
 
-    local message = format("%s: %s", W.Title, text)
+    local message = format("%s: %s", W.AddonName, text)
     print(message)
 end
 
