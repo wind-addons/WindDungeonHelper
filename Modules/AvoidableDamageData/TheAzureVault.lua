@@ -104,7 +104,7 @@ local mistakes = {
         -- 絕對零度
         type = AD.MISTAKE.SPELL_DAMAGE,
         spell = 388008,
-        threshold = 75
+        noPlayerDebuff = 388072
     },
     {
         -- 寒冰毀滅者
@@ -113,11 +113,6 @@ local mistakes = {
         noPlayerDebuff = 387151
     },
     -- [4] 安珀斯庫
-    {
-        -- 晶化咆哮
-        type = AD.MISTAKE.SPELL_DAMAGE,
-        spell = 384696
-    },
     {
         -- 晶化咆哮
         type = AD.MISTAKE.SPELL_DAMAGE,
