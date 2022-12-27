@@ -30,6 +30,11 @@ local mistakes = {
         type = AD.MISTAKE.SPELL_DAMAGE,
         spell = 153224
     },
+    {
+        -- 暗影符文
+        type = AD.MISTAKE.SPELL_DAMAGE,
+        spell = 152688
+    },
     -- [2] 納里旭
     {
         -- 虛無漩渦
