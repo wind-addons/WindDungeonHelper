@@ -1,6 +1,8 @@
 <div align="center">
 <img width="512" src="Title.svg"/><br><br>
 <img src="https://img.shields.io/badge/版本-1.9.5-green.svg?longCache=true&style=for-the-badge"/>
+
+[English (enUS)](README.md) | [简体中文 (zhCN)](README_zhCN.md) | [ру́сский язы́к (ruRU)](README_ruRU.md)
 </div>
 
 # ✅ 狀態
