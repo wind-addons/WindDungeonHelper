@@ -67,7 +67,6 @@ end
 
 function AD:InitializeAuthority()
     local successfulRequest = C_ChatInfo_RegisterAddonMessagePrefix(self.prefix)
-    assert(successfulRequest, L["The addon message prefix registration is failed."])
 
     local guidSplitted = {strsplit("-", UnitGUID("player"))}
     myServerID = tonumber(guidSplitted[2], 10)
@@ -87,11 +86,17 @@ do
         end
 
         if IsInGroup() then
+            local main, sub, patch = strsplit(".", W.Version)
+            local levelBase = tonumber(main) * 10000 + tonumber(sub) * 100 + tonumber(patch)
             local level = self.db.notification.channel and channelLevel[self.db.notification.channel] or 0
+
+            if level ~= 0 then
+                level = level * 100000 + levelBase
+            end
 
             -- If reload the ui, the data is cleared
             if self.inRecording then
-                level = level + 100
+                level = level + 100000
             end
 
             if level ~= 0 and force then
@@ -699,7 +704,12 @@ end
 
 function AD:PLAYER_ENTERING_WORLD(event, isLogin, isReload)
     if isLogin or isReload then
-        self:ResetAuthority()
+        C_Timer_After(
+            5,
+            function()
+                self:ResetAuthority()
+            end
+        )
     end
 end
 
