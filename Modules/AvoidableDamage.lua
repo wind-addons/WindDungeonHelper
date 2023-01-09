@@ -252,22 +252,13 @@ local MistakeData = {
         {
             -- 風暴
             type = AD.MISTAKE.SPELL_DAMAGE,
-            spell = 343520
+            spell = 343520,
+            playerIsDPS = true
         },
         {
             -- 懷恨幽影
             type = AD.MISTAKE.MELEE,
             npc = 174773
-        },
-        {
-            -- 夢魘 (S4 納斯雷茲姆滲透者)
-            type = AD.MISTAKE.AURA,
-            aura = 373391
-        },
-        {
-            -- 腐屍蟲群 (S4 納斯雷茲姆滲透者)
-            type = AD.MISTAKE.SPELL_DAMAGE,
-            spell = 373429
         },
         {
             -- 閃電之擊 (S1 雷霆詞綴環境傷害)
@@ -502,6 +493,12 @@ function AD:IsPolicyPassed(player, amount, data)
 
     if data.playerIsNotTank then
         if UnitGroupRolesAssigned(player) == "TANK" then
+            return false
+        end
+    end
+
+    if data.playerIsDPS then
+        if UnitGroupRolesAssigned(player) ~= "DAMAGER" then
             return false
         end
     end
