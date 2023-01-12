@@ -101,11 +101,6 @@ local mistakes = {
     -- [3] 芬里爾
     -- [4] 歐丁
     {
-        -- 光之矛
-        type = AD.MISTAKE.SPELL_DAMAGE,
-        spell = 198058
-    },
-    {
         -- 發光碎片
         type = AD.MISTAKE.SPELL_DAMAGE,
         spell = 198088
