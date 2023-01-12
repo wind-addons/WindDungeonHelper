@@ -10,6 +10,7 @@ function F.HandleNPCNameByID(id, callback)
 
     if cache.npcNames[id] then
         callback(cache.npcNames[id])
+        return
     end
 
     NI.GetNPCInfoByID(id, function(data)
