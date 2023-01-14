@@ -266,6 +266,11 @@ local MistakeData = {
             npc = 174773
         },
         {
+            -- 懷恨幽影 (DF)
+            type = AD.MISTAKE.SPELL_DAMAGE,
+            spell = 350163
+        },
+        {
             -- 閃電之擊 (S1 雷霆詞綴環境傷害)
             type = AD.MISTAKE.SPELL_DAMAGE,
             spell = 394873
