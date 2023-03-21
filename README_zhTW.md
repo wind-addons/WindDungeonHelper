@@ -1,13 +1,13 @@
 <div align="center">
 <img width="512" src="Title.svg"/><br><br>
-<img src="https://img.shields.io/badge/版本-1.9.9-green.svg?longCache=true&style=for-the-badge"/>
+<img src="https://img.shields.io/badge/版本-2.0.0-green.svg?longCache=true&style=for-the-badge"/>
 
 [English (enUS)](README.md) | [简体中文 (zhCN)](README_zhCN.md) | [ру́сский язы́к (ruRU)](README_ruRU.md)
 </div>
 
 # ✅ 狀態
 
-![發布狀態](https://img.shields.io/github/actions/workflow/status/fang2hou/WindDungeonHelper/publish_stable.yml?branch=1.9.9) [![加入 Discord 伺服器](https://img.shields.io/badge/Wind%20Plugins-加入-grey.svg?longCache=true&color=7289DA&logo=discord)](https://discord.gg/wvV5rQy)
+![發布狀態](https://img.shields.io/github/actions/workflow/status/fang2hou/WindDungeonHelper/publish_stable.yml?branch=2.0.0) [![加入 Discord 伺服器](https://img.shields.io/badge/Wind%20Plugins-加入-grey.svg?longCache=true&color=7289DA&logo=discord)](https://discord.gg/wvV5rQy)
 
 下載點: [Curse](https://www.curseforge.com/wow/addons/wind-dungeon-helper) | [Wago](https://addons.wago.io/addons/winddungeonhelper) | [WoWInterface](https://www.wowinterface.com/downloads/info25532-WindDungeonHelper.html) | [Github 發布](https://github.com/fang2hou/WindDungeonHelper/releases)
 
