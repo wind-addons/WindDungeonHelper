@@ -15,6 +15,9 @@ local currentPatchMaps = {
     -- Dragonflight
     [3] = true, -- Court of Stars
     [6] = true, -- Halls of Valor
+    [8] = true, -- Neltharion's Lair
+    [16] = true, -- Freehold
+    [22] = true, -- The Underrot
     [42] = true, -- Ruby Life Pools
     [43] = true, -- The Nokhud Offensive
     [44] = true, -- The Azure Vault
@@ -25,6 +28,7 @@ local currentPatchMaps = {
     [49] = true, -- Halls of Infusion
     [50] = true, -- Neltharus
     [51] = true, -- Uldaman: Legacy of Tyr
+    [77] = true -- The Vortex Pinnacle
 }
 
 function MH:Translate()
