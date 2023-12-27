@@ -23,4 +23,7 @@
 	<Include file="TheAzureVault.lua"/>
 	<Include file="TheNecroticWake.lua"/>
 	<Include file="TheNokhudOffensive.lua"/>
+	<!-- Dragoflight Season 3 -->
+	<Include file="BlackRookHold.lua"/>
+	<Include file="WaycrestManor.lua"/>
 </Ui>
