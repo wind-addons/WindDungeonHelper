@@ -16,6 +16,16 @@ local mistakes = {
         type = AD.MISTAKE.SPELL_DAMAGE,
         spell = 198386
     },
+    {
+        -- Arch-Druid Gladialis:Nightfall
+        type = AD.MISTAKE.SPELL_DAMAGE,
+        spell = 198401
+    },
+    {
+        -- Arch-Druid Gladialis:Nightmare Abomination (Meele)
+        type = AD.MISTAKE.MELEE,
+        npc = 109908
+    },
 
     -- Oakheart
     {
