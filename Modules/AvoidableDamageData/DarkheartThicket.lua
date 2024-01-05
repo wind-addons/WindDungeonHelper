@@ -41,6 +41,7 @@ local mistakes = {
         type = AD.MISTAKE.SPELL_DAMAGE,
         spell = 199460
     },
+
     -- Shade of Xavius
     {
         -- Shade of Xavius:Apocalyptic Fire
