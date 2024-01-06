@@ -27,4 +27,5 @@
 	<Include file="BlackRookHold.lua"/>
 	<Include file="WaycrestManor.lua"/>
 	<Include file="DarkheartThicket.lua"/>
+	<Include file="ThroneOfTheTides.lua"/>
 </Ui>
