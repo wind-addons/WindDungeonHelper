@@ -26,7 +26,6 @@ local mistakes = {
         type = AD.MISTAKE.MELEE,
         npc = 109908
     },
-
     -- Oakheart
     {
         -- Oakheart:Nightmare Breath
@@ -39,7 +38,6 @@ local mistakes = {
         type = AD.MISTAKE.SPELL_DAMAGE,
         spell = 199063
     },
-
     -- Dresaron
     {
         -- Dresaron:Breath of Corruption
@@ -51,14 +49,12 @@ local mistakes = {
         type = AD.MISTAKE.SPELL_DAMAGE,
         spell = 199460
     },
-
     -- Shade of Xavius
     {
         -- Shade of Xavius:Apocalyptic Fire
         type = AD.MISTAKE.SPELL_DAMAGE,
         spell = 200111
     },
-    
     -- Mobs
     {
         -- Propelling Charge

@@ -22,7 +22,6 @@ local mistakes = {
         type = AD.MISTAKE.SPELL_DAMAGE,
         spell = 196517
     },
-
     -- Illysanna Ravencrest
     {
         -- Illysanna Ravencrest:Blazing Trail
@@ -55,7 +54,6 @@ local mistakes = {
         type = AD.MISTAKE.SPELL_DAMAGE,
         spell = 197797
     },
-
     -- Smashspite the Hateful
     {
         -- Smashspite the Hateful:Fel Vomitus
@@ -68,7 +66,6 @@ local mistakes = {
         spell = 198080,
         noPlayerDebuff = 224188
     },
-
     -- Lord Kur'talos Ravencrest
     {
         -- Lord Kur'talos Ravencrest:Dark Blast
@@ -85,7 +82,6 @@ local mistakes = {
         type = AD.MISTAKE.SPELL_DAMAGE,
         spell = 198781
     },
-
     -- Mobs
     {
         -- Strike Down
@@ -168,7 +164,7 @@ local mistakes = {
     {
         -- Raven's Dive
         type = AD.MISTAKE.SPELL_DAMAGE,
-        spell = 214002 
+        spell = 214002
     }
 }
 
