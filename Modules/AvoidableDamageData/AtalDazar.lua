@@ -15,11 +15,10 @@ local mistakes = {
         type = AD.MISTAKE.SPELL_DAMAGE,
         spell = 255373
     },
-
     -- Priestess Alun'za
     {
         -- Priestess Alun'za:Transfusion
-            -- Transfusion damage, when you don't have Tainted Blood
+        -- Transfusion damage, when you don't have Tainted Blood
         type = AD.MISTAKE.SPELL_DAMAGE,
         spell = 255575,
         noPlayerDebuff = 255558
@@ -29,7 +28,6 @@ local mistakes = {
         type = AD.MISTAKE.SPELL_DAMAGE,
         spell = 258709
     },
-
     -- Yazma
     {
         -- Yazma:Echoes of Shadra #1
@@ -41,7 +39,6 @@ local mistakes = {
         type = AD.MISTAKE.SPELL_DAMAGE,
         spell = 250028
     },
-
     -- Vol'kaal
     {
         -- Vol'kaal:Toxic Leap
@@ -53,7 +50,6 @@ local mistakes = {
         type = AD.MISTAKE.SPELL_DAMAGE,
         spell = 250585
     },
-
     -- Mobs
     {
         -- Fiery Enchant
@@ -81,7 +77,7 @@ local mistakes = {
         type = AD.MISTAKE.SPELL_DAMAGE,
         spell = 260668,
         noPlayerDebuff = 255558
-    },    
+    },
     {
         -- Rending Maul
         type = AD.MISTAKE.SPELL_DAMAGE,

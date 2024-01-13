@@ -32,14 +32,12 @@ local mistakes = {
         npc = 44404,
         playerIsNotTank = true
     },
-
     -- Commander Ulthok
     {
         -- Commander Ulthok:Bubbling Ooze
         type = AD.MISTAKE.SPELL_DAMAGE,
         spell = 427559
     },
-
     -- Mindbender Ghur'sha
     {
         -- Mindbender Ghur'sha:Terrifying Vision
@@ -51,7 +49,6 @@ local mistakes = {
         type = AD.MISTAKE.SPELL_DAMAGE,
         spell = 429057
     },
-
     -- Ozumat
     {
         -- Ozumat:Blotting Darkness
@@ -86,7 +83,6 @@ local mistakes = {
         npc = 213806,
         playerIsNotTank = true
     },
-
     -- Mobs
     {
         -- Shadow Smash
