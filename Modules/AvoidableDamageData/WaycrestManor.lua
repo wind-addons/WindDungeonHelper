@@ -10,14 +10,12 @@ local mistakes = {
         type = AD.MISTAKE.SPELL_DAMAGE,
         spell = 268086
     },
-
     -- Soulbound Goliath
     {
         -- Soulbound Goliath:Burning Fists
         type = AD.MISTAKE.SPELL_DAMAGE,
         spell = 272669
     },
-
     -- Raal the Gluttonous
     {
         -- Raal the Gluttonous:Tenderize
@@ -39,7 +37,6 @@ local mistakes = {
         type = AD.MISTAKE.SPELL_DAMAGE,
         spell = 268234
     },
-
     -- Lord & Lady Waycrest
     {
         -- Lord Waycrest:Contagious Remnants
@@ -51,7 +48,6 @@ local mistakes = {
         type = AD.MISTAKE.SPELL_DAMAGE,
         spell = 268308
     },
-
     -- Mobs
     {
         -- Shadow Cleave
@@ -102,6 +98,11 @@ local mistakes = {
         -- Shrapnel Trap
         type = AD.MISTAKE.SPELL_DAMAGE,
         spell = 264525
+    },
+    {
+        -- Wildfire
+        type = AD.MISTAKE.SPELL_DAMAGE,
+        spell = 260570
     }
 }
 
