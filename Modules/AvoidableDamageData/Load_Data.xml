@@ -31,4 +31,5 @@
 	<Include file="ThroneOfTheTides.lua"/>
 	<Include file="WaycrestManor.lua"/>
 	<Include file="DawnOfTheInfiniteFall.lua"/>
+	<Include file="DawnOfTheInfiniteRise.lua"/>
 </Ui>
