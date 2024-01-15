@@ -1,7 +1,7 @@
 local W, F, L, P = unpack(select(2, ...))
 local AD = W:GetModule("AvoidableDamage")
 
--- TODO: Chronikar:Withering Sandpool - initial damage not avoidable, rest is
+-- TODO: Chronikar:Withering Sandpool - initial damage not avoidable
 
 local mistakes = {
     -- Chronikar
@@ -84,4 +84,4 @@ local mistakes = {
 
 local mapIds = {2190, 2191, 2192, 2193, 2194, 2195, 2196, 2197, 2197}
 
-AD:AddData("Dawn of the Infinite", mistakes, mapIds)
+AD:AddData("Dawn of the Infinite:Fall", mistakes, mapIds)
