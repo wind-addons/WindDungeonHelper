@@ -30,6 +30,5 @@
 	<Include file="Everbloom.lua"/>
 	<Include file="ThroneOfTheTides.lua"/>
 	<Include file="WaycrestManor.lua"/>
-	<Include file="DawnOfTheInfiniteFall.lua"/>
-	<Include file="DawnOfTheInfiniteRise.lua"/>
+	<Include file="DawnOfTheInfinite.lua"/>
 </Ui>
