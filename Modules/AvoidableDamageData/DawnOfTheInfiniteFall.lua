@@ -84,4 +84,4 @@ local mistakes = {
 
 local mapIds = {2190, 2191, 2192, 2193, 2194, 2195, 2196, 2197, 2197}
 
-AD:AddData("Dawn of the Infinite:Fall", mistakes, mapIds)
+AD:AddData("Dawn of the Infinite Fall", mistakes, mapIds)
