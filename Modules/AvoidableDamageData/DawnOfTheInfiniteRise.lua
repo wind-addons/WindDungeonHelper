@@ -36,6 +36,11 @@ local mistakes = {
         type = AD.MISTAKE.SPELL_DAMAGE,
         spell = 412769
     },
+    {
+        -- Morchie:Familiar Faces (Meele)
+        type = AD.MISTAKE.MELEE,
+        npc = 201756
+    },
     -- Time-Lost Battlefield
     {
         -- Time-Lost Battlefield:Bladestorm
@@ -183,6 +188,11 @@ local mistakes = {
         type = AD.MISTAKE.SPELL_DAMAGE,
         spell = 413536,
         playerIsNotTank = true
+    },
+    {
+        -- Chronal Eruption
+        type = AD.MISTAKE.SPELL_DAMAGE,
+        spell = 419517
     }
 }
 
