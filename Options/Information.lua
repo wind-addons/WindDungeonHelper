@@ -142,7 +142,7 @@ O.information = {
         },
         contributors = {
             order = 6,
-            name = L["Contributors (Github.com)"],
+            name = L["Contributors (GitHub.com)"],
             type = "group",
             inline = true,
             args = {
