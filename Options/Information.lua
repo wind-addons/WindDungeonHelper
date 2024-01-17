@@ -160,7 +160,7 @@ O.information = {
                     type = "description",
                     name = format(
                         "%s: %s",
-                        "jan-trojanowski",
+                        "tro-janek",
                         F.CreateClassColorString("Mhalvir @ " .. L["Burning Legion"] .. "(EU)", "SHAMAN")
                     )
                 }
