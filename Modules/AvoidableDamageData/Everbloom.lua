@@ -71,11 +71,6 @@ local mistakes = {
         -- Spatial Disruption
         type = AD.MISTAKE.SPELL_DAMAGE,
         spell = 426982
-    },
-    {
-        -- Bounding Whirl
-        type = AD.MISTAKE.SPELL_DAMAGE,
-        spell = 172579
     }
 }
 
