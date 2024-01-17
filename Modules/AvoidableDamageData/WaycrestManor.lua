@@ -55,19 +55,9 @@ local mistakes = {
         spell = 265372
     },
     {
-        -- Spellbind
-        type = AD.MISTAKE.SPELL_DAMAGE,
-        spell = 260699
-    },
-    {
         -- Toad Blight
         type = AD.MISTAKE.SPELL_DAMAGE,
         spell = 265352
-    },
-    {
-        -- Drain Essence
-        type = AD.MISTAKE.SPELL_DAMAGE,
-        spell = 256878
     },
     {
         -- Pallid Glare
