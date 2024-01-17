@@ -154,6 +154,11 @@ O.information = {
                         "fang2hou",
                         F.CreateClassColorString("Tabimonk @ " .. L["Shadowmoon"] .. "(TW)", "MONK")
                     )
+                },
+                ["2"] = {
+                    order = 2,
+                    type = "description",
+                    name = "jan-trojanowski"
                 }
             }
         },
