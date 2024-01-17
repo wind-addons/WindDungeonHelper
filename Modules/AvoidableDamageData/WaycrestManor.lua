@@ -70,11 +70,6 @@ local mistakes = {
         spell = 256878
     },
     {
-        -- Uproot
-        type = AD.MISTAKE.SPELL_DAMAGE,
-        spell = 278849
-    },
-    {
         -- Pallid Glare
         type = AD.MISTAKE.SPELL_DAMAGE,
         spell = 265346

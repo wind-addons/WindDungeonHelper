@@ -2,6 +2,7 @@ local W, F, L, P = unpack(select(2, ...))
 local AD = W:GetModule("AvoidableDamage")
 
 -- TODO: Chronikar:Withering Sandpool - initial damage not avoidable
+-- Commenting out Embers & Sharpnel, they are dots left after avoidable damage
 
 local mistakes = {
     -- Chronikar
@@ -184,11 +185,11 @@ local mistakes = {
         type = AD.MISTAKE.SPELL_DAMAGE,
         spell = 418092
     },
-    {
-        -- Shrapnel
-        type = AD.MISTAKE.SPELL_DAMAGE,
-        spell = 407313
-    },
+    -- {
+    --     -- Shrapnel
+    --     type = AD.MISTAKE.SPELL_DAMAGE,
+    --     spell = 407313
+    -- },
     {
         -- Consecration
         type = AD.MISTAKE.SPELL_DAMAGE,
@@ -240,11 +241,11 @@ local mistakes = {
         type = AD.MISTAKE.SPELL_DAMAGE,
         spell = 412029
     },
-    {
-        -- Embers
-        type = AD.MISTAKE.SPELL_DAMAGE,
-        spell = 407315
-    },
+    -- {
+    --     -- Embers
+    --     type = AD.MISTAKE.SPELL_DAMAGE,
+    --     spell = 407315
+    -- },
     {
         -- Kaboom!
         type = AD.MISTAKE.SPELL_DAMAGE,

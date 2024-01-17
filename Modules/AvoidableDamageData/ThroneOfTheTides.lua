@@ -2,6 +2,7 @@ local W, F, L, P = unpack(select(2, ...))
 local AD = W:GetModule("AvoidableDamage")
 
 -- Acid Barrage is debatable. Can be dodged, but requires very good coordination
+-- Commenting out Meele hits by adds on bosses, since it's debatable
 
 local mistakes = {
     -- Lady Naz'jar
@@ -20,18 +21,18 @@ local mistakes = {
         type = AD.MISTAKE.SPELL_DAMAGE,
         spell = 427769
     },
-    {
-        -- Lady Naz'jar:Naz'jar Honor Guard (Meele)
-        type = AD.MISTAKE.MELEE,
-        npc = 40633,
-        playerIsNotTank = true
-    },
-    {
-        -- Lady Naz'jar:Naz'jar Frost Witch (Meele)
-        type = AD.MISTAKE.MELEE,
-        npc = 44404,
-        playerIsNotTank = true
-    },
+    -- {
+    --     -- Lady Naz'jar:Naz'jar Honor Guard (Meele)
+    --     type = AD.MISTAKE.MELEE,
+    --     npc = 40633,
+    --     playerIsNotTank = true
+    -- },
+    -- {
+    --     -- Lady Naz'jar:Naz'jar Frost Witch (Meele)
+    --     type = AD.MISTAKE.MELEE,
+    --     npc = 44404,
+    --     playerIsNotTank = true
+    -- },
     -- Commander Ulthok
     {
         -- Commander Ulthok:Bubbling Ooze
@@ -71,18 +72,18 @@ local mistakes = {
         type = AD.MISTAKE.SPELL_DAMAGE,
         spell = 428809
     },
-    {
-        -- Ozumat:Sludge (Meele)
-        type = AD.MISTAKE.MELEE,
-        npc = 213942,
-        playerIsNotTank = true
-    },
-    {
-        -- Ozumat:Splotch (Meele)
-        type = AD.MISTAKE.MELEE,
-        npc = 213806,
-        playerIsNotTank = true
-    },
+    -- {
+    --     -- Ozumat:Sludge (Meele)
+    --     type = AD.MISTAKE.MELEE,
+    --     npc = 213942,
+    --     playerIsNotTank = true
+    -- },
+    -- {
+    --     -- Ozumat:Splotch (Meele)
+    --     type = AD.MISTAKE.MELEE,
+    --     npc = 213806,
+    --     playerIsNotTank = true
+    -- },
     -- Mobs
     {
         -- Shadow Smash

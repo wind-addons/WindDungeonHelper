@@ -4,6 +4,8 @@ local AD = W:GetModule("AvoidableDamage")
 -- TODO: Glaive Toss avoidable damage only if you're not the target
 -- TODO: Bloodthirsty Leap avoidable damage only if you're not the target
 -- TODO: Brutal Glaive avoidable damage only if you're not the target
+-- Commenting out Knife Dance, it can be LOS'ed, but it's debatable whether the addon should show it or not
+-- Commenting out Fel Bat Pup meele damage, since it's debatable
 
 local mistakes = {
     -- Amalgam of Souls
@@ -90,16 +92,6 @@ local mistakes = {
         playerIsNotTank = true
     },
     {
-        -- Glaive Toss
-        type = AD.MISTAKE.SPELL_DAMAGE,
-        spell = 196916
-    },
-    {
-        -- Spirit Blast
-        type = AD.MISTAKE.SPELL_DAMAGE,
-        spell = 196883
-    },
-    {
         -- Soul Echoes
         type = AD.MISTAKE.SPELL_DAMAGE,
         spell = 194960
@@ -115,21 +107,15 @@ local mistakes = {
         spell = 200256
     },
     {
-        -- Soul Venom
-        type = AD.MISTAKE.SPELL_DAMAGE,
-        spell = 225908,
-        playerIsNotTank = true
-    },
-    {
         -- Arrow Barrage
         type = AD.MISTAKE.SPELL_DAMAGE,
         spell = 200344
     },
-    {
-        -- Knife Dance
-        type = AD.MISTAKE.SPELL_DAMAGE,
-        spell = 200325
-    },
+    -- {
+    --     -- Knife Dance
+    --     type = AD.MISTAKE.SPELL_DAMAGE,
+    --     spell = 200325
+    -- },
     {
         -- Bonebreaking Strike
         type = AD.MISTAKE.SPELL_DAMAGE,
@@ -155,12 +141,12 @@ local mistakes = {
         type = AD.MISTAKE.SPELL_DAMAGE,
         spell = 201062
     },
-    {
-        -- Fel Bat Pup fixated on a player
-        type = AD.MISTAKE.MELEE,
-        npc = 102781,
-        playerIsNotTank = true
-    },
+    -- {
+    --     -- Fel Bat Pup fixated on a player
+    --     type = AD.MISTAKE.MELEE,
+    --     npc = 102781,
+    --     playerIsNotTank = true
+    -- },
     {
         -- Raven's Dive
         type = AD.MISTAKE.SPELL_DAMAGE,
