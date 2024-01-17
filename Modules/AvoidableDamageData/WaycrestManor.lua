@@ -98,6 +98,11 @@ local mistakes = {
         -- Shrapnel Trap
         type = AD.MISTAKE.SPELL_DAMAGE,
         spell = 264525
+    },
+    {
+        -- Wildfire
+        type = AD.MISTAKE.SPELL_DAMAGE,
+        spell = 260570
     }
 }
 

@@ -165,6 +165,11 @@ local mistakes = {
         -- Raven's Dive
         type = AD.MISTAKE.SPELL_DAMAGE,
         spell = 214002
+    },
+    {
+        -- Throw Priceless Artifact
+        type = AD.MISTAKE.SPELL_DAMAGE,
+        spell = 201175
     }
 }
 

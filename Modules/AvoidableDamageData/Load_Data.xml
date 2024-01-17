@@ -26,7 +26,9 @@
 	<!-- Dragoflight Season 3 -->
 	<Include file="AtalDazar.lua"/>
 	<Include file="BlackRookHold.lua"/>
-	<Include file="DarkheartThicket.lua"/>
+	<Include file="DarkheartThicket.lua"/>	
+	<Include file="Everbloom.lua"/>
 	<Include file="ThroneOfTheTides.lua"/>
 	<Include file="WaycrestManor.lua"/>
+	<Include file="DawnOfTheInfinite.lua"/>
 </Ui>
