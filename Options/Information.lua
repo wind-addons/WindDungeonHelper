@@ -158,7 +158,11 @@ O.information = {
                 ["2"] = {
                     order = 2,
                     type = "description",
-                    name = "jan-trojanowski"
+                    name = format(
+                        "%s: %s",
+                        "tro-janek",
+                        F.CreateClassColorString("Mhalvir @ " .. L["Burning Legion"] .. "(EU)", "SHAMAN")
+                    )
                 }
             }
         },

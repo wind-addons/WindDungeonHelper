@@ -21,12 +21,12 @@ local mistakes = {
         spell = 164357,
         playerIsNotTank = true
     },
-    {
-        -- Witherbark:Unchecked Growth (Meele)
-        type = AD.MISTAKE.MELEE,
-        npc = 81737,
-        playerIsNotTank = true
-    },
+    -- {
+    --     -- Witherbark:Unchecked Growth (Meele)
+    --     type = AD.MISTAKE.MELEE,
+    --     npc = 81737,
+    --     playerIsNotTank = true
+    -- },
     -- Ancient Protectors
     {
         -- Ancient Protectors:Noxious Charge
@@ -71,11 +71,6 @@ local mistakes = {
         -- Spatial Disruption
         type = AD.MISTAKE.SPELL_DAMAGE,
         spell = 426982
-    },
-    {
-        -- Bounding Whirl
-        type = AD.MISTAKE.SPELL_DAMAGE,
-        spell = 172579
     }
 }
 
