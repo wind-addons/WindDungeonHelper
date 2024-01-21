@@ -2,6 +2,7 @@ local W, F, L, P = unpack(select(2, ...))
 local AD = W:GetModule("AvoidableDamage")
 
 -- TODO: Chronikar:Withering Sandpool - initial damage not avoidable
+-- TODO: Timerip - initial damage not avoidable
 -- Commenting out Embers & Sharpnel, they are dots left after avoidable damage
 
 local mistakes = {
@@ -15,6 +16,11 @@ local mistakes = {
         -- Chronikar:Eon Fragments
         type = AD.MISTAKE.SPELL_DAMAGE,
         spell = 405970
+    },
+    {
+        -- Chronikar:Eon Shatter
+        type = AD.MISTAKE.SPELL_DAMAGE,
+        spell = 413107
     },
     -- Manifested Timeways
     {
@@ -148,11 +154,11 @@ local mistakes = {
         type = AD.MISTAKE.SPELL_DAMAGE,
         spell = 412810
     },
-    {
-        -- Timerip
-        type = AD.MISTAKE.SPELL_DAMAGE,
-        spell = 412065
-    },
+    -- {
+    --     -- Timerip
+    --     type = AD.MISTAKE.SPELL_DAMAGE,
+    --     spell = 412065
+    -- },
     {
         -- Sand Zone
         type = AD.MISTAKE.SPELL_DAMAGE,
@@ -272,6 +278,11 @@ local mistakes = {
         -- Chronal Eruption
         type = AD.MISTAKE.SPELL_DAMAGE,
         spell = 419517
+    },
+    {
+        -- Infinite Schizm
+        type = AD.MISTAKE.SPELL_DAMAGE,
+        spell = 419328
     }
 }
 

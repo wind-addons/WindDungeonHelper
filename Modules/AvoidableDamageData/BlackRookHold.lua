@@ -97,11 +97,6 @@ local mistakes = {
         spell = 194960
     },
     {
-        -- Arcane Blitz
-        type = AD.MISTAKE.SPELL_DAMAGE,
-        spell = 200248
-    },
-    {
         -- Phased Explosion
         type = AD.MISTAKE.SPELL_DAMAGE,
         spell = 200256
