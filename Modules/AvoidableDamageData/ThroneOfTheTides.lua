@@ -1,7 +1,6 @@
 local W, F, L, P = unpack(select(2, ...))
 local AD = W:GetModule("AvoidableDamage")
 
--- Acid Barrage is debatable. Can be dodged, but requires very good coordination
 -- Commenting out Meele hits by adds on bosses, since it's debatable
 
 local mistakes = {
@@ -104,6 +103,11 @@ local mistakes = {
         -- Volatile Acid
         type = AD.MISTAKE.SPELL_DAMAGE,
         spell = 426688
+    },
+    {
+        -- Volatile Bolt
+        type = AD.MISTAKE.SPELL_DAMAGE,
+        spell = 426685
     }
 }
 
