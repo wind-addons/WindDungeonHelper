@@ -54,7 +54,7 @@ local mistakes = {
     {
         -- Fiery Enchant
         type = AD.MISTAKE.SPELL_DAMAGE,
-        spell = 253583
+        spell = 253654
     },
     {
         -- Fiery Bolt
