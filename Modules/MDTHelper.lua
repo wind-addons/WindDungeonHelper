@@ -36,11 +36,11 @@ local currentPatchMaps = {
     [103] = true, -- Black Rook Hold
     [104] = true, -- The Everbloom
     [105] = true, -- Throne of Tides
-    [110] = true, -- The Stonevault
-    [111] = true, -- The Dawnbreaker
-    [112] = true, -- Grim Batol
-    [113] = true, -- Ara-Kara, City of Echoes
-    [114] = true -- City of Threads
+    [110] = true, -- The Stonevault (TWW S1)
+    [111] = true, -- The Dawnbreaker (TWW S1)
+    [112] = true, -- Grim Batol (TWW S1)
+    [113] = true, -- Ara-Kara, City of Echoes (TWW S1)
+    [114] = true -- City of Threads (TWW S1)
 }
 
 function MH:Translate()
