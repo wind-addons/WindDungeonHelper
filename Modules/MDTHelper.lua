@@ -35,7 +35,12 @@ local currentPatchMaps = {
     [102] = true, -- Waycrest Manor
     [103] = true, -- Black Rook Hold
     [104] = true, -- The Everbloom
-    [105] = true -- Throne of Tides
+    [105] = true, -- Throne of Tides
+    [110] = true, -- The Stonevault
+    [111] = true, -- The Dawnbreaker
+    [112] = true, -- Grim Batol
+    [113] = true, -- Ara-Kara, City of Echoes
+    [114] = true -- City of Threads
 }
 
 function MH:Translate()
