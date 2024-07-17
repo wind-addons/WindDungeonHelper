@@ -18,7 +18,10 @@ local currentPatchMaps = {
     [8] = true, -- Neltharion's Lair
     [15] = true, -- The Arcway
     [16] = true, -- Freehold
+    [19] = true, -- Siege of Boralus (TWW S1)
     [22] = true, -- The Underrot
+    [31] = true, -- Mists of Tirna Scithe (TWW S1)
+    [35] = true, -- The Necrotic Wake (TWW S1)
     [42] = true, -- Ruby Life Pools
     [43] = true, -- The Nokhud Offensive
     [44] = true, -- The Azure Vault
@@ -35,7 +38,12 @@ local currentPatchMaps = {
     [102] = true, -- Waycrest Manor
     [103] = true, -- Black Rook Hold
     [104] = true, -- The Everbloom
-    [105] = true -- Throne of Tides
+    [105] = true, -- Throne of Tides
+    [110] = true, -- The Stonevault (TWW S1)
+    [111] = true, -- The Dawnbreaker (TWW S1)
+    [112] = true, -- Grim Batol (TWW S1)
+    [113] = true, -- Ara-Kara,City of Echoes (TWW S1)
+    [114] = true -- City of Threads (TWW S1)
 }
 
 function MH:Translate()
