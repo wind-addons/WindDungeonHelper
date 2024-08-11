@@ -92,7 +92,7 @@ O.information = {
                                 L["AiFaDian"]
                             ),
                     nil,
-                    "https://afdian.net/@fang2hou"
+                    "https://afdian.com/a/fang2hou"
                 )
             end,
             width = 1.2
