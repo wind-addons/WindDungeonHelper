@@ -334,7 +334,7 @@ O.avoidableDamage = {
                             AD:GenerateOutput(
                                 W.db.avoidableDamage.custom.spellMessage,
                                 name,
-                                GetSpellLink(257274),
+                                C_Spell_GetSpellLink(257274),
                                 nil,
                                 AD:FormatNumber(12345),
                                 87
