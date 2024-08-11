@@ -8,7 +8,7 @@ externals:
     url: https://repos.wowace.com/wow/libdbicon-1-0/trunk
     type: svn
   Libraries/LibNPCInfo:
-    url: https://github.com/fang2hou/LibNPCInfo
+    url: https://github.com/wind-addons/LibNPCInfo
     branch: main
 
 ignore:
@@ -19,4 +19,4 @@ ignore:
   - README.md
   - README_zhCN.md
   - README_zhTW.md
-  - Title.svg
+  - README_ruRU.md
