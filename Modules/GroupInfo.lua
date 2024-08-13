@@ -6,7 +6,7 @@ local _G = _G
 local format = format
 local ipairs = ipairs
 
-local IsAddOnLoaded = IsAddOnLoaded
+local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 local LibStub = LibStub
 
 local function CheckElvUIWindTools()
