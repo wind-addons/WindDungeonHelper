@@ -25,20 +25,6 @@ local IsInGroup = IsInGroup
 local IsInInstance = IsInInstance
 local IsInRaid = IsInRaid
 local SendChatMessage = SendChatMessage
-local UnitBuff = function(unitToken, index, filter)
-    local auraData = C_UnitAuras.GetBuffDataByIndex(unitToken, index, filter);
-    if not auraData then
-        return nil;
-    end
-    return AuraUtil.UnpackAuraData(auraData);
-end
-local UnitDebuff = function(unitToken, index, filter)
-    local auraData = C_UnitAuras.GetDebuffDataByIndex(unitToken, index, filter);
-    if not auraData then
-        return nil;
-    end
-    return AuraUtil.UnpackAuraData(auraData);
-end
 local UnitGUID = UnitGUID
 local UnitGroupRolesAssigned = UnitGroupRolesAssigned
 local UnitHealthMax = UnitHealthMax
@@ -51,6 +37,8 @@ local C_ChatInfo_SendAddonMessage = C_ChatInfo.SendAddonMessage
 local C_Map_GetBestMapForUnit = C_Map.GetBestMapForUnit
 local C_Spell_GetSpellLink = C_Spell.GetSpellLink
 local C_Timer_After = C_Timer.After
+local C_UnitAuras_GetBuffDataByIndex = C_UnitAuras.GetBuffDataByIndex
+local C_UnitAuras_GetDebuffDataByIndex = C_UnitAuras.GetDebuffDataByIndex
 
 local LE_PARTY_CATEGORY_HOME = LE_PARTY_CATEGORY_HOME
 local LE_PARTY_CATEGORY_INSTANCE = LE_PARTY_CATEGORY_INSTANCE
@@ -433,8 +421,8 @@ end
 
 local function PlayerHasBuff(player, spellID)
     for i = 1, 40 do
-        local debuffID = select(10, UnitBuff(player, i))
-        if debuffID == spellID then
+        local aura = C_UnitAuras_GetBuffDataByIndex(player, i)
+        if aura and aura.spellId == spellID then
             return true
         end
     end
@@ -444,8 +432,8 @@ end
 
 local function PlayerHasDebuff(player, spellID)
     for i = 1, 40 do
-        local debuffID = select(10, UnitDebuff(player, i))
-        if debuffID == spellID then
+        local aura = C_UnitAuras_GetDebuffDataByIndex(player, i)
+        if aura and aura.spellId == spellID then
             return true
         end
     end
