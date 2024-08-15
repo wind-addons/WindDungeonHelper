@@ -6,9 +6,9 @@ local format = format
 local pairs = pairs
 
 local CreateFrame = CreateFrame
-local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 local ReloadUI = ReloadUI
 
+local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 local C_Timer_After = C_Timer.After
 
 local currentPatchMaps = {
@@ -80,7 +80,7 @@ function MH:ProfileUpdate()
         return
     end
 
-    if IsAddOnLoaded("MythicDungeonTools") then
+    if C_AddOns_IsAddOnLoaded("MythicDungeonTools") then
         self:Translate()
     else
         self:RegisterEvent("ADDON_LOADED", "Translate")
