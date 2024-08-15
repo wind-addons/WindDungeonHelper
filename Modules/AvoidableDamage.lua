@@ -25,8 +25,20 @@ local IsInGroup = IsInGroup
 local IsInInstance = IsInInstance
 local IsInRaid = IsInRaid
 local SendChatMessage = SendChatMessage
-local UnitBuff = UnitBuff
-local UnitDebuff = UnitDebuff
+local UnitBuff = function(unitToken, index, filter)
+    local auraData = C_UnitAuras.GetBuffDataByIndex(unitToken, index, filter);
+    if not auraData then
+        return nil;
+    end
+    return AuraUtil.UnpackAuraData(auraData);
+end
+local UnitDebuff = function(unitToken, index, filter)
+    local auraData = C_UnitAuras.GetDebuffDataByIndex(unitToken, index, filter);
+    if not auraData then
+        return nil;
+    end
+    return AuraUtil.UnpackAuraData(auraData);
+end
 local UnitGUID = UnitGUID
 local UnitGroupRolesAssigned = UnitGroupRolesAssigned
 local UnitHealthMax = UnitHealthMax

@@ -1,7 +1,7 @@
 local addonName, addon = ...
 
 local LibStub = _G.LibStub
-local GetAddOnMetadata = GetAddOnMetadata
+local GetAddOnMetadata = C_AddOns.GetAddOnMetadata
 local GetLocale = GetLocale
 
 local Engine = LibStub("AceAddon-3.0"):NewAddon(addonName)

@@ -12,7 +12,7 @@ local tonumber = tonumber
 local tostring = tostring
 
 local GameTooltip = _G.GameTooltip
-local IsAddOnLoaded = IsAddOnLoaded
+local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 local UnitGUID = UnitGUID
 
 local C_QuestLog_GetInfo = C_QuestLog.GetInfo
