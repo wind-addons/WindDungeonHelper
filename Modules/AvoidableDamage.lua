@@ -2,7 +2,6 @@
 local W, F, L, P = unpack(select(2, ...))
 local AD = W:NewModule("AvoidableDamage", "AceHook-3.0", "AceEvent-3.0")
 
-local assert = assert
 local format = format
 local gsub = gsub
 local math_pow = math.pow
@@ -20,6 +19,8 @@ local unpack = unpack
 local wipe = wipe
 
 local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
+local GenerateClosure = GenerateClosure
+local GetInstanceInfo = GetInstanceInfo
 local GetUnitName = GetUnitName
 local IsInGroup = IsInGroup
 local IsInInstance = IsInInstance
@@ -28,10 +29,8 @@ local SendChatMessage = SendChatMessage
 local UnitGUID = UnitGUID
 local UnitGroupRolesAssigned = UnitGroupRolesAssigned
 local UnitHealthMax = UnitHealthMax
-local UnitIsGroupLeader = UnitIsGroupLeader
 local UnitIsPlayer = UnitIsPlayer
 
-local C_ChatInfo_GetRegisteredAddonMessagePrefixes = C_ChatInfo.GetRegisteredAddonMessagePrefixes
 local C_ChatInfo_RegisterAddonMessagePrefix = C_ChatInfo.RegisterAddonMessagePrefix
 local C_ChatInfo_SendAddonMessage = C_ChatInfo.SendAddonMessage
 local C_Map_GetBestMapForUnit = C_Map.GetBestMapForUnit
@@ -42,11 +41,6 @@ local C_UnitAuras_GetDebuffDataByIndex = C_UnitAuras.GetDebuffDataByIndex
 
 local LE_PARTY_CATEGORY_HOME = LE_PARTY_CATEGORY_HOME
 local LE_PARTY_CATEGORY_INSTANCE = LE_PARTY_CATEGORY_INSTANCE
-
-local wprint = function()
-	return
-end
---local wprint = print
 
 --------------------------------------------
 -- Authority
@@ -65,7 +59,7 @@ local function GetBestChannel()
 end
 
 function AD:InitializeAuthority()
-	local successfulRequest = C_ChatInfo_RegisterAddonMessagePrefix(self.prefix)
+	C_ChatInfo_RegisterAddonMessagePrefix(self.prefix)
 
 	local guidSplitted = { strsplit("-", UnitGUID("player")) }
 	myServerID = tonumber(guidSplitted[2], 10)
@@ -94,7 +88,7 @@ do
 			end
 
 			-- If reload the ui, the data is cleared
-			if self.inRecording then
+			if self.inMythicPlus then
 				level = level + 100000
 			end
 
@@ -265,16 +259,6 @@ local MistakeData = {
 			-- 懷恨幽影 (DF)
 			type = AD.MISTAKE.SPELL_DAMAGE,
 			spell = 350163,
-		},
-		{
-			-- 閃電之擊 (S1 雷霆詞綴環境傷害)
-			type = AD.MISTAKE.SPELL_DAMAGE,
-			spell = 394873,
-		},
-		{
-			-- 洪荒超載 (S1 雷霆詞綴強暈傷害 拉薩葛斯)
-			type = AD.MISTAKE.SPELL_DAMAGE,
-			spell = 396411,
 		},
 	},
 }
@@ -473,6 +457,10 @@ function AD:COMBAT_LOG_EVENT_UNFILTERED()
 end
 
 function AD:IsPolicyPassed(player, amount, data)
+	if data.testing then
+		print("testing spell is " .. data.spell)
+	end
+
 	-- Windwalker monk karma
 	if PlayerHasBuff(player, 125174) then
 		return false
@@ -634,7 +622,7 @@ end
 function AD:CHALLENGE_MODE_COMPLETED()
 	self:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 
-	if not self.inRecording then
+	if not self.inMythicPlus then
 		return
 	end
 
@@ -675,7 +663,7 @@ function AD:CHALLENGE_MODE_COMPLETED()
 	end
 
 	self:ResetStatistic()
-	self.inRecording = nil
+	self.inMythicPlus = nil
 end
 
 function AD:CHALLENGE_MODE_START()
@@ -687,7 +675,7 @@ function AD:CHALLENGE_MODE_START()
 	self:Compile()
 	self:ResetStatistic()
 	self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
-	self.inRecording = true
+	self.inMythicPlus = true
 end
 
 function AD:OnInitialize()
@@ -698,17 +686,26 @@ function AD:OnInitialize()
 end
 
 function AD:PLAYER_ENTERING_WORLD(event, isLogin, isReload)
-	C_Timer_After(4, function()
-		self:ResetAuthority()
-	end)
-
-	C_Timer_After(10, function()
-		self:ResetAuthority()
-	end)
+	C_Timer_After(4, GenerateClosure(self.ResetAuthority, self))
+	C_Timer_After(10, GenerateClosure(self.ResetAuthority, self))
 end
 
 function AD:ZONE_CHANGED_NEW_AREA()
 	self:Compile()
+
+	if self.inMythicPlus then
+		return
+	end
+
+	local difficultyID = IsInInstance() and select(3, GetInstanceInfo())
+	local isMythicOrMythicPlus = difficultyID == 23 or difficultyID == 8
+	if self:GetCurrentDungeonName() and isMythicOrMythicPlus then
+		self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+		C_Timer_After(2, GenerateClosure(print, "register"))
+	else
+		self:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+		C_Timer_After(2, GenerateClosure(print, "unregister"))
+	end
 end
 
 function AD:ProfileUpdate()
@@ -722,7 +719,10 @@ function AD:ProfileUpdate()
 		self:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 		self:RegisterEvent("CHALLENGE_MODE_START")
 		self:RegisterEvent("CHALLENGE_MODE_COMPLETED")
-		if IsInInstance() then
+
+		local difficultyID = IsInInstance() and select(3, GetInstanceInfo())
+		local isMythicOrMythicPlus = difficultyID == 23 or difficultyID == 8
+		if self:GetCurrentDungeonName() and isMythicOrMythicPlus then
 			self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 		end
 	else
