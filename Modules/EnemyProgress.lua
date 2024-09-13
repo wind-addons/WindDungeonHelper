@@ -65,12 +65,9 @@ function EP:ProfileUpdate()
 	self.db = W.db.enemyProgress
 
 	if self.db and self.db.enable then
-		TooltipDataProcessor_AddTooltipPostCall(
-			Enum_TooltipDataType_Unit,
-			function(...)
-				self:AddObjectiveProgress(...)
-			end
-		)
+		TooltipDataProcessor_AddTooltipPostCall(Enum_TooltipDataType_Unit, function(...)
+			self:AddObjectiveProgress(...)
+		end)
 	end
 end
 

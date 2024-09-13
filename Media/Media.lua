@@ -3,7 +3,7 @@ local format = format
 
 W.Media = {
 	Icons = {},
-	Textures = {}
+	Textures = {},
 }
 
 local MediaPath = "Interface/Addons/WindDungeonHelper/Media/"
@@ -28,10 +28,10 @@ do
 		texWidth = 1024,
 		languages = {
 			-- {offsetY, width, height}
-			enUS = {0, 655, 122},
-			zhCN = {150, 375, 108},
-			zhTW = {300, 311, 108}
-		}
+			enUS = { 0, 655, 122 },
+			zhCN = { 150, 375, 108 },
+			zhTW = { 300, 311, 108 },
+		},
 	}
 
 	function F.GetTitleSize(scale)
@@ -46,7 +46,7 @@ do
 			end,
 			height = function()
 				return scale * data[3]
-			end
+			end,
 		}
 	end
 
@@ -56,12 +56,12 @@ do
 			return
 		end
 
-		return {0, data[2] / texTable.texWidth, data[1] / texTable.texHeight, (data[1] + data[3]) / texTable.texHeight}
+		return { 0, data[2] / texTable.texWidth, data[1] / texTable.texHeight, (data[1] + data[3]) / texTable.texHeight }
 	end
 end
 
 function F.GetClassIconStyleList()
-	return {"flat", "flatborder", "flatborder2", "round", "square", "warcraftflat"}
+	return { "flat", "flatborder", "flatborder2", "round", "square", "warcraftflat" }
 end
 
 function F.GetClassIconWithStyle(class, style)
