@@ -55,8 +55,25 @@ O.information = {
 	type = "group",
 	name = L["Information"],
 	args = {
-		kofi = {
+		minimapIcon = {
 			order = 1,
+			name = L["Minimap icon"],
+			desc = format(L["Enables / disables %s minimap icon"], L["Wind Dungeon Helper"]),
+			type = "toggle",
+			set = function(info, value)
+				W.db.minimapIcon.hide = not value
+				if value then
+					LDBI:Show(L["Wind Dungeon Helper"])
+				else
+					LDBI:Hide(L["Wind Dungeon Helper"])
+				end
+			end,
+			get = function()
+				return not W.db.minimapIcon.hide
+			end,
+		},
+		kofi = {
+			order = 2,
 			type = "execute",
 			name = format("%s %s (%s)", F.GetIconString(W.Media.Icons.donateKofi, 14), L["Donate"], L["Ko-fi"]),
 			func = function()
@@ -72,7 +89,7 @@ O.information = {
 			width = 1.2,
 		},
 		aiFaDian = {
-			order = 2,
+			order = 3,
 			type = "execute",
 			name = format("%s %s (%s)", F.GetIconString(W.Media.Icons.donateAiFaDian, 14), L["Donate"], L["AiFaDian"]),
 			func = function()
@@ -93,29 +110,11 @@ O.information = {
 			width = 1.2,
 		},
 		betterAlign = {
-			order = 3,
+			order = 4,
 			type = "description",
 			fontSize = "medium",
 			name = " ",
 			width = "full",
-		},
-		minimapIcon = {
-			order = 4,
-			name = L["Minimap icon"],
-			desc = format(L["Enables / disables %s minimap icon"], L["Wind Dungeon Helper"]),
-			type = "toggle",
-			width = "full",
-			set = function(info, value)
-				W.db.minimapIcon.hide = not value
-				if value then
-					LDBI:Show(L["Wind Dungeon Helper"])
-				else
-					LDBI:Hide(L["Wind Dungeon Helper"])
-				end
-			end,
-			get = function()
-				return not W.db.minimapIcon.hide
-			end,
 		},
 		description = {
 			order = 5,
