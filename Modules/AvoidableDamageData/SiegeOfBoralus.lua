@@ -13,6 +13,21 @@ local mistakes = {
 		spell = 256663,
 	},
 	{
+		-- 燃燒焦油 (黑油炸彈客)
+		type = AD.MISTAKE.SPELL_DAMAGE,
+		spell = 256660,
+	},
+	{
+		-- 火砲彈幕
+		type = AD.MISTAKE.SPELL_DAMAGE,
+		spell = 257585,
+	},
+	{
+		-- 火砲彈幕
+		type = AD.MISTAKE.SPELL_DAMAGE,
+		spell = 280679,
+	},
+	{
 		-- 巨力重拳 (骨頭幫執行者)
 		type = AD.MISTAKE.SPELL_DAMAGE,
 		spell = 256627,
@@ -23,6 +38,11 @@ local mistakes = {
 		spell = 274941,
 	},
 	{
+		-- 香蕉狂怒 (污鼠會海盜)
+		type = AD.MISTAKE.SPELL_DAMAGE,
+		spell = 272546,
+	},
+	{
 		-- 粉碎猛擊 (污鼠會毀滅者)
 		type = AD.MISTAKE.SPELL_DAMAGE,
 		spell = 272713,
@@ -31,6 +51,11 @@ local mistakes = {
 		-- 鋼鐵砲雨 (艾胥凡偵察兵)
 		type = AD.MISTAKE.SPELL_DAMAGE,
 		spell = 272140,
+	},
+	{
+		-- 鋼鐵砲雨 (艾胥凡偵察兵)
+		type = AD.MISTAKE.SPELL_DAMAGE,
+		spell = 277432,
 	},
 	{
 		-- 踐踏 (艾胥凡指揮官)
@@ -56,6 +81,11 @@ local mistakes = {
 		-- 水密外殼 (鐵潮造浪者)
 		type = AD.MISTAKE.SPELL_DAMAGE,
 		spell = 257069,
+	},
+	{
+		-- 碾碎之擁
+		type = AD.MISTAKE.SPELL_DAMAGE,
+		spell = 280485,
 	},
 	-- 首領
 	{
@@ -83,7 +113,11 @@ local mistakes = {
 		type = AD.MISTAKE.SPELL_DAMAGE,
 		spell = 276068,
 	},
-
+	{
+		-- 潮汐奔騰 (哈達爾‧黑淵)
+		type = AD.MISTAKE.SPELL_DAMAGE,
+		spell = 276042,
+	},
 	{
 		-- 粉碎浪潮 (哈達爾‧黑淵)
 		type = AD.MISTAKE.SPELL_DAMAGE,
@@ -100,88 +134,40 @@ local mistakes = {
 		spell = 257886,
 	},
 	{
-		-- 維克高斯之怒 (維克高斯)
-		type = AD.MISTAKE.SPELL_DAMAGE,
-		spell = 277535,
-	},
-	-- testing spells from EM
-	{
-		-- 燃燒焦油 (黑油炸彈客)
-		type = AD.MISTAKE.SPELL_DAMAGE,
-		spell = 256660,
-		testing = true,
-	},
-	{
-		-- 火砲彈幕
-		type = AD.MISTAKE.SPELL_DAMAGE,
-		spell = 257585,
-		testing = true,
-	},
-	{
 		-- 滅絕 (維克高斯)
 		type = AD.MISTAKE.SPELL_DAMAGE,
 		spell = 269484,
-		testing = true,
 	},
 	{
 		-- 深淵呼喚 (維克高斯)
 		type = AD.MISTAKE.SPELL_DAMAGE,
 		spell = 270187,
-		testing = true,
 	},
 	{
 		-- 深淵呼喚 (維克高斯)
 		type = AD.MISTAKE.SPELL_DAMAGE,
 		spell = 270484,
-		testing = true,
 	},
 	{
-		-- 香蕉狂怒 (污鼠會海盜)
+		-- 維克高斯之怒 (維克高斯)
 		type = AD.MISTAKE.SPELL_DAMAGE,
-		spell = 272546,
-		testing = true,
+		spell = 277535,
 	},
+
 	{
 		-- 沉重火炮 (喬巴‧紅鉤)
 		type = AD.MISTAKE.SPELL_DAMAGE,
 		spell = 273716,
-		testing = true,
 	},
 	{
 		-- 沉重火藥
 		type = AD.MISTAKE.SPELL_DAMAGE,
 		spell = 273718,
-		testing = true,
 	},
 	{
 		-- 腐敗之水 (維克高斯)
 		type = AD.MISTAKE.SPELL_DAMAGE,
 		spell = 275051,
-		testing = true,
-	},
-	{
-		-- 潮汐奔騰 (哈達爾‧黑淵)
-		type = AD.MISTAKE.SPELL_DAMAGE,
-		spell = 276042,
-		testing = true,
-	},
-	{
-		-- 鋼鐵砲雨 (艾胥凡偵察兵)
-		type = AD.MISTAKE.SPELL_DAMAGE,
-		spell = 277432,
-		testing = true,
-	},
-	{
-		-- 碾碎之擁
-		type = AD.MISTAKE.SPELL_DAMAGE,
-		spell = 280485,
-		testing = true,
-	},
-	{
-		-- 火砲彈幕
-		type = AD.MISTAKE.SPELL_DAMAGE,
-		spell = 280679,
-		testing = true,
 	},
 }
 
