@@ -701,10 +701,8 @@ function AD:ZONE_CHANGED_NEW_AREA()
 	local isMythicOrMythicPlus = difficultyID == 23 or difficultyID == 8
 	if self:GetCurrentDungeonName() and isMythicOrMythicPlus then
 		self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
-		C_Timer_After(2, GenerateClosure(print, "register"))
 	else
 		self:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
-		C_Timer_After(2, GenerateClosure(print, "unregister"))
 	end
 end
 
