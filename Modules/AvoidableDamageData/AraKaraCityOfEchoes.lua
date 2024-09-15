@@ -5,7 +5,7 @@ local mistakes = {
     {
 		-- 纏繞之網
 		type = AD.MISTAKE.AURA,
-		spell = 436614,
+		aura = 436614,
 	},
 	{
 		-- 纏繞之血 (『收割者』祈卡托, 血紅監督者)

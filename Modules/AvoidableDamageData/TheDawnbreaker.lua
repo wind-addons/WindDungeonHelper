@@ -5,7 +5,7 @@ local mistakes = {
 	{
 		-- 爆裂絲繭
 		type = AD.MISTAKE.AURA,
-		spell = 451104,
+		aura = 451104,
 	},
 	{
 		-- 恐嚇猛擊 (阿努比卡杰, 堅不可摧的伊絲奎特)
