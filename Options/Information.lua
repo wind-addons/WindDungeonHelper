@@ -125,10 +125,9 @@ O.information = {
 				format(L["Thank you for using %s!"], L["Wind Dungeon Helper"]),
 				format(L["%s is a plugin designed for dungeon combats."], L["Wind Dungeon Helper"]),
 				format(
-					L["You can send your suggestions or bugs via %s, %s, %s, %s and the thread in %s."],
+					L["You can send your suggestions or bugs via %s, %s, %s and the thread in %s."],
 					L["QQ Group"],
 					L["Discord"],
-					L["KOOK"],
 					L["Github"],
 					L["NGA.cn"]
 				)
