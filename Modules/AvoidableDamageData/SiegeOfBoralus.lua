@@ -124,11 +124,6 @@ local mistakes = {
 		spell = 261565,
 	},
 	{
-		-- 破浪 (哈達爾‧黑淵)
-		type = AD.MISTAKE.SPELL_DAMAGE,
-		spell = 257883,
-	},
-	{
 		-- 鹽水池 (哈達爾‧黑淵)
 		type = AD.MISTAKE.SPELL_DAMAGE,
 		spell = 257886,
