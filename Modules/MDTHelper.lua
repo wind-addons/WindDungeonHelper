@@ -2,14 +2,10 @@ local W, F, L = unpack(select(2, ...))
 local MH = W:NewModule("MDTHelper", "AceHook-3.0", "AceEvent-3.0")
 
 local _G = _G
-local format = format
+
 local pairs = pairs
 
-local CreateFrame = CreateFrame
-local ReloadUI = ReloadUI
-
 local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
-local C_Timer_After = C_Timer.After
 
 local currentPatchMaps = {
 	[3] = true, -- Court of Stars
