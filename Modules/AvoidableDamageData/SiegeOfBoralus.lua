@@ -153,6 +153,7 @@ local mistakes = {
 		-- 沉重火炮 (喬巴‧紅鉤)
 		type = AD.MISTAKE.SPELL_DAMAGE,
 		spell = 273716,
+		playerIsNotTank = true
 	},
 	{
 		-- 沉重火藥
