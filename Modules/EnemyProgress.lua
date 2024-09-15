@@ -24,7 +24,7 @@ local function isWindToolsLoaded()
 end
 
 function EP:AddEnemyProgress(tt, data)
-	if not _G.MDT or not self.db or not self.db.enable then
+	if not _G.MDT or not _G.MDT.GetEnemyForces or not self.db or not self.db.enable then
 		return
 	end
 
@@ -33,16 +33,23 @@ function EP:AddEnemyProgress(tt, data)
 	end
 
 	local npcID = select(6, strsplit("-", data.guid))
-	local count, max = _G.MDT:GetEnemyForces(tonumber(npcID))
-
-	if not count or not max or count == 0 or max == 0 then
+	if not npcID or npcID == "" then
 		return
 	end
 
-	local left = format("%s |cff00d1b2%s|r - |cffffdd57%s|r", F.GetIconString(618858, 16), count, max)
-	local right = format("%s |cff209cee%s|r%%", F.GetIconString(5926319, 16), F.Round(count / max * 100, self.db.accuracy))
-	GameTooltip:AddDoubleLine(left, right)
-	GameTooltip:Show()
+	npcID = tonumber(npcID)
+	local count, max = _G.MDT:GetEnemyForces(npcID)
+
+	if count and max and count > 0 and max > 0 then
+		local left = format("%s |cff00d1b2%s|r |cffffffff-|r |cffffdd57%s|r", F.GetIconString(132147, 14), count, max)
+		local right = format(
+			"%s |cff209cee%s|r|cffffffff%%|r",
+			F.GetIconString(5926319, 14),
+			F.Round(100 * count / max, self.db.accuracy)
+		)
+		GameTooltip:AddDoubleLine(left, right)
+		GameTooltip:Show()
+	end
 end
 
 function EP:ProfileUpdate()
