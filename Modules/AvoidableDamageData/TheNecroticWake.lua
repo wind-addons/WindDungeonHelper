@@ -51,6 +51,7 @@ local mistakes = {
 		type = AD.MISTAKE.MELEE,
 		npc = 162689,
 		playerDebuff = 343556,
+		playerIsNotTank = true
 	},
 	-- [4] 『霜縛者』納爾索
 	{
