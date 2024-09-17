@@ -2,7 +2,7 @@ local W, F, L, P = unpack(select(2, ...))
 local AD = W:GetModule("AvoidableDamage")
 
 local mistakes = {
-    {
+	{
 		-- 纏繞之網
 		type = AD.MISTAKE.AURA,
 		aura = 436614,
