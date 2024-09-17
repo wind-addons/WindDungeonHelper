@@ -42,6 +42,11 @@ local currentPatchMaps = {
 	[114] = true, -- City of Threads (TWW S1)
 }
 
+-- NPC Blacklist
+local npcBlacklist = {
+    [220003] = true,  -- Hollows Resident (Eye of Queen) City of Threads
+}
+
 function MH:Translate()
 	if not self.db or not self.db.enable or not self.db.translate then
 		return
@@ -53,17 +58,21 @@ function MH:Translate()
 		return
 	end
 
-	for mapID, NPCs in pairs(MDT.dungeonEnemies) do
-		if mapID and currentPatchMaps[mapID] and NPCs then
-			for _, NPC in pairs(NPCs) do
-				if NPC.id and NPC.name then
-					F.HandleNPCNameByID(NPC.id, function(name)
-						MDT.L[NPC.name] = name
-					end)
-				end
-			end
-		end
-	end
+
+    for mapID, NPCs in pairs(MDT.dungeonEnemies) do
+        if mapID and currentPatchMaps[mapID] and NPCs then
+            for _, NPC in pairs(NPCs) do
+                if NPC.id and NPC.name and not npcBlacklist[NPC.id] then
+                    F.HandleNPCNameByID(
+                        NPC.id,
+                        function(name)
+                            MDT.L[NPC.name] = name
+                        end
+                    )
+                end
+            end
+        end
+    end
 end
 
 function MH:ProfileUpdate()
