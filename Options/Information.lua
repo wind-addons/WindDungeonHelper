@@ -157,6 +157,11 @@ O.information = {
 						F.CreateClassColorString("Mhalvir @ " .. L["Burning Legion"] .. "(EU)", "SHAMAN")
 					),
 				},
+				["3"] = {
+					order = 3,
+					type = "description",
+					name = "Ex-wind",
+				},
 			},
 		},
 		version = {
