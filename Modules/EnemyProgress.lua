@@ -1,22 +1,15 @@
 local W, F, L = unpack(select(2, ...))
 local EP = W:NewModule("EnemyProgress", "AceHook-3.0")
-local LOP = LibStub("LibObjectiveProgress-1.0")
 
 local _G = _G
 
-local floor = floor
 local format = format
-local next = next
 local select = select
 local tonumber = tonumber
-local tostring = tostring
 
 local GameTooltip = _G.GameTooltip
-local UnitGUID = UnitGUID
 
 local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
-local C_QuestLog_GetInfo = C_QuestLog.GetInfo
-local C_QuestLog_GetLogIndexForQuestID = C_QuestLog.GetLogIndexForQuestID
 local TooltipDataProcessor_AddTooltipPostCall = TooltipDataProcessor.AddTooltipPostCall
 
 local Enum_TooltipDataType_Unit = Enum.TooltipDataType.Unit
@@ -30,8 +23,8 @@ local function isWindToolsLoaded()
 	end
 end
 
-function EP:AddObjectiveProgress(tt, data)
-	if not self.db or not self.db.enable then
+function EP:AddEnemyProgress(tt, data)
+	if not _G.MDT or not _G.MDT.GetEnemyForces or not self.db or not self.db.enable then
 		return
 	end
 
@@ -40,24 +33,22 @@ function EP:AddObjectiveProgress(tt, data)
 	end
 
 	local npcID = select(6, strsplit("-", data.guid))
-
 	if not npcID or npcID == "" then
 		return
 	end
 
-	local weightsTable = LOP:GetNPCWeightByCurrentQuests(tonumber(npcID))
-	if not weightsTable then
-		return
-	end
+	npcID = tonumber(npcID)
+	local count, max = _G.MDT:GetEnemyForces(npcID)
 
-	for questID, npcWeight in next, weightsTable do
-		local info = C_QuestLog_GetInfo(C_QuestLog_GetLogIndexForQuestID(questID))
-		for i = 1, tt:NumLines() do
-			local text = _G["GameTooltipTextLeft" .. i]
-			if text and text:GetText() == info.title then
-				text:SetText(text:GetText() .. format(" + %s%%", F.Round(npcWeight, self.db.accuracy)))
-			end
-		end
+	if count and max and count > 0 and max > 0 then
+		local left = format("%s |cff00d1b2%s|r |cffffffff-|r |cffffdd57%s|r", F.GetIconString(132147, 14), count, max)
+		local right = format(
+			"%s |cff209cee%s|r|cffffffff%%|r",
+			F.GetIconString(5926319, 14),
+			F.Round(100 * count / max, self.db.accuracy)
+		)
+		GameTooltip:AddDoubleLine(left, right)
+		GameTooltip:Show()
 	end
 end
 
@@ -65,12 +56,9 @@ function EP:ProfileUpdate()
 	self.db = W.db.enemyProgress
 
 	if self.db and self.db.enable then
-		TooltipDataProcessor_AddTooltipPostCall(
-			Enum_TooltipDataType_Unit,
-			function(...)
-				self:AddObjectiveProgress(...)
-			end
-		)
+		TooltipDataProcessor_AddTooltipPostCall(Enum_TooltipDataType_Unit, function(...)
+			self:AddEnemyProgress(...)
+		end)
 	end
 end
 
