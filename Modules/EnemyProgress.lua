@@ -48,7 +48,7 @@ function EP:AddEnemyProgress(tt, data)
 	end
 
 	local accuracy = self.db.accuracy
-	local npcID = select(6, strsplit("-", data.guid))
+	local npcID = data and data.guid and select(6, strsplit("-", data.guid))
 	if not npcID or npcID == "" then
 		return
 	end
