@@ -8,11 +8,6 @@ local mistakes = {
 		aura = 451104,
 	},
 	{
-		-- 恐嚇猛擊 (阿努比卡杰, 堅不可摧的伊絲奎特)
-		type = AD.MISTAKE.SPELL_DAMAGE,
-		spell = 427007,
-	},
-	{
 		-- 黑暗傷痕 (阿努比卡杰, 『死亡尖嘯者』伊坎特克)
 		type = AD.MISTAKE.SPELL_DAMAGE,
 		spell = 427378,
@@ -91,11 +86,6 @@ local mistakes = {
 		-- 黏性新星 (蘇芮基戰士)
 		type = AD.MISTAKE.SPELL_DAMAGE,
 		spell = 451098,
-	},
-	{
-		-- 恐嚇猛擊 (阿努比卡杰, 堅不可摧的伊絲奎特)
-		type = AD.MISTAKE.SPELL_DAMAGE,
-		spell = 451115,
 	},
 	{
 		-- 崩解之夜 (代言者影冠)

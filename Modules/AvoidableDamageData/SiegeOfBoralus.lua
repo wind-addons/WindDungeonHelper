@@ -153,11 +153,7 @@ local mistakes = {
 		-- 沉重火炮 (喬巴‧紅鉤)
 		type = AD.MISTAKE.SPELL_DAMAGE,
 		spell = 273716,
-	},
-	{
-		-- 沉重火藥
-		type = AD.MISTAKE.SPELL_DAMAGE,
-		spell = 273718,
+		playerIsNotTank = true,
 	},
 	{
 		-- 腐敗之水 (維克高斯)

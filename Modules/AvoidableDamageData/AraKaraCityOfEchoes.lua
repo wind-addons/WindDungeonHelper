@@ -8,11 +8,6 @@ local mistakes = {
 		aura = 436614,
 	},
 	{
-		-- 纏繞之血 (『收割者』祈卡托, 血紅監督者)
-		type = AD.MISTAKE.SPELL_DAMAGE,
-		spell = 432031,
-	},
-	{
 		-- 寰宇奇異點 (『收割者』祈卡托)
 		type = AD.MISTAKE.SPELL_DAMAGE,
 		spell = 432117,
