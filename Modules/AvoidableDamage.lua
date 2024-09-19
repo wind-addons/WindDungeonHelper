@@ -671,11 +671,29 @@ function AD:CHALLENGE_MODE_START()
 		return
 	end
 
-	self:SendChatMessage(L["[WDH] Avoidable damage notification enabled, glhf!"])
+	self:Compile()
+
+	C_Timer_After(0.1, function()
+		if not self.inMythicPlus then
+			self.inMythicPlus = true
+			self:ResetStatistic()
+			self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+		end
+	end)
+end
+
+function AD:CHALLENGE_MODE_RESET()
+	if not self:GetCurrentDungeonName() then
+		return
+	end
+
+
+	self.inMythicPlus = true
 	self:Compile()
 	self:ResetStatistic()
 	self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
-	self.inMythicPlus = true
+
+	self:SendChatMessage(L["[WDH] Avoidable damage notification enabled, glhf!"])
 end
 
 function AD:OnInitialize()
@@ -716,6 +734,7 @@ function AD:ProfileUpdate()
 		self:RegisterEvent("GROUP_ROSTER_UPDATE", "ResetAuthority")
 		self:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 		self:RegisterEvent("CHALLENGE_MODE_START")
+		self:RegisterEvent("CHALLENGE_MODE_RESET")
 		self:RegisterEvent("CHALLENGE_MODE_COMPLETED")
 
 		local difficultyID = IsInInstance() and select(3, GetInstanceInfo())
@@ -728,6 +747,7 @@ function AD:ProfileUpdate()
 		self:UnregisterEvent("GROUP_ROSTER_UPDATE")
 		self:UnregisterEvent("ZONE_CHANGED_NEW_AREA")
 		self:UnregisterEvent("CHALLENGE_MODE_START")
+		self:UnregisterEvent("CHALLENGE_MODE_RESET")
 		self:UnregisterEvent("CHALLENGE_MODE_COMPLETED")
 		self:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 		self:ResetStatistic()
