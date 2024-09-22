@@ -23,11 +23,6 @@ local mistakes = {
 		spell = 433443,
 	},
 	{
-		-- 鑽地衝鋒 (阿努扎克特)
-		type = AD.MISTAKE.SPELL_DAMAGE,
-		spell = 433731,
-	},
-	{
 		-- 無間蟲群 (阿努扎克特)
 		type = AD.MISTAKE.SPELL_DAMAGE,
 		spell = 433781,
