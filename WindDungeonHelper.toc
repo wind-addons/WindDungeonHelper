@@ -20,6 +20,7 @@ Libraries\Load_Libraries.xml
 Locales\Load_Locales.xml
 Initialize.lua
 Media\Load_Media.xml
+Core\Metadata.lua
 Settings\Load_Settings.xml
 Core\Load_Core.xml
 Modules\Load_Modules.xml
