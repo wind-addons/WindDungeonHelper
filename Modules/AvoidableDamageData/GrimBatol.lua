@@ -101,4 +101,4 @@ local mistakes = {
 
 local mapIds = { 293 }
 
-AD:AddData("The Stonevault", mistakes, mapIds)
+AD:AddData("Grim Batol", mistakes, mapIds)

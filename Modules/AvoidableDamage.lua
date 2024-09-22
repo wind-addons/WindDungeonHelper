@@ -278,7 +278,15 @@ function AD:AddData(mapName, mistakeData, mapIDs)
 	if not mapName then
 		return
 	end
+
+	if MistakeData[mapName] then
+		C_Timer_After(5, function()
+			print("Duplicated map name: " .. mapName)
+		end)
+	end
+
 	MistakeData[mapName] = mistakeData
+
 	for _, mapID in pairs(mapIDs) do
 		MapTable[mapID] = mapName
 	end
@@ -686,7 +694,6 @@ function AD:CHALLENGE_MODE_RESET()
 	if not self:GetCurrentDungeonName() then
 		return
 	end
-
 
 	self.inMythicPlus = true
 	self:Compile()
