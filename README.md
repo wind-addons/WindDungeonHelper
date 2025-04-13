@@ -20,7 +20,7 @@
 
 **Wind Dungeon Helper** is a plugin designed for dungeon combats.
 
-This plugin is aim to improve your skills and and QoL.
+This plugin is aim to improve your skills and QoL.
 
 ## 🧬 Features
 
