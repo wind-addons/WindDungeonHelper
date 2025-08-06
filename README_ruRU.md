@@ -24,7 +24,7 @@
 
 ## 🧬 Функции
 
-1. **Избегаемый урон** (ответвление из [ElitismHelper](https://wow.curseforge.com/projects/elitismhelper))
+1. **Избегаемый урон** (ответвление из [ElitismHelper](https://www.curseforge.com/wow/addons/elitismhelper))
 
    Этот модуль отправит сообщение, включающее имя заклинания, после того, как игрок получит избегаемый урон.
 

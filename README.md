@@ -24,7 +24,7 @@ This plugin is aim to improve your skills and QoL.
 
 ## 🧬 Features
 
-1. **Avoidable Damage** (forked from [ElitismHelper](https://wow.curseforge.com/projects/elitismhelper))
+1. **Avoidable Damage** (forked from [ElitismHelper](https://www.curseforge.com/wow/addons/elitismhelper))
 
    This module will send a message including spell name after the player takes avoidable damage.
 

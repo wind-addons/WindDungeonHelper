@@ -24,7 +24,7 @@
 
 ## 🧬 功能
 
-1. **可规避伤害** ([ElitismHelper](https://wow.curseforge.com/projects/elitismhelper) 的一个分支)
+1. **可规避伤害** ([ElitismHelper](https://www.curseforge.com/wow/addons/elitismhelper) 的一个分支)
 
    这个模块将在玩家承受可规避伤害之后发送一个包含法术名的消息。
 
