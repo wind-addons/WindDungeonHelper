@@ -53,11 +53,6 @@ local mistakes = {
 		spell = 434830,
 	},
 	{
-		-- 劇毒割裂 (腫脹的爬行者)
-		type = AD.MISTAKE.SPELL_DAMAGE,
-		spell = 438623,
-	},
-	{
 		-- 毒性之雲 (阿提克)
 		type = AD.MISTAKE.SPELL_DAMAGE,
 		spell = 438825,

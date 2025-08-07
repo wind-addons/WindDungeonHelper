@@ -3,7 +3,22 @@ local AD = W:GetModule("AvoidableDamage")
 
 local mistakes = {
 	{
-		-- 淨滅火焰 (海布藍德)
+		-- 近戰 (海盜蠻兵)
+		type = AD.MISTAKE.MELEE,
+		npc = 177500,
+	},
+	{
+		-- 致命汪洋
+		type = AD.MISTAKE.AURA,
+		aura = 347422,
+	},
+	{
+		-- 淨化力場 (海布藍德)
+		type = AD.MISTAKE.SPELL_DAMAGE,
+		spell = 346828,
+	},
+	{
+		-- 淨滅火焰 (巨大防禦砲塔, 海布藍德)
 		type = AD.MISTAKE.SPELL_DAMAGE,
 		spell = 346960,
 	},
@@ -23,29 +38,24 @@ local mistakes = {
 		spell = 347149,
 	},
 	{
-		-- 鉤尾掃擊
-		type = AD.MISTAKE.SPELL_DAMAGE,
-		spell = 347151,
-	},
-	{
 		-- 火砲彈幕
 		type = AD.MISTAKE.SPELL_DAMAGE,
 		spell = 347370,
 	},
 	{
-		-- 能量分離 (索利亞)
+		-- 致命汪洋
+		type = AD.MISTAKE.SPELL_DAMAGE,
+		spell = 347423,
+	},
+	{
+		-- 能量分離 (索利亞, 創先者文物)
 		type = AD.MISTAKE.SPELL_DAMAGE,
 		spell = 351101,
 	},
 	{
-		-- 極光新星 (索利亞)
+		-- 極光新星 (索利亞, 創先者文物)
 		type = AD.MISTAKE.SPELL_DAMAGE,
 		spell = 351646,
-	},
-	{
-		-- 鉤到啦！
-		type = AD.MISTAKE.SPELL_DAMAGE,
-		spell = 354334,
 	},
 	{
 		-- 易爆河豚 (暗洋魚法師)

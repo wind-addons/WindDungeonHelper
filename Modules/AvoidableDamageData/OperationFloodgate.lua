@@ -33,11 +33,6 @@ local mistakes = {
 		spell = 465128,
 	},
 	{
-		-- 泡泡潰擊 (泡泡)
-		type = AD.MISTAKE.SPELL_DAMAGE,
-		spell = 465487,
-	},
-	{
 		-- 電池箭 (暗融起跳者)
 		type = AD.MISTAKE.SPELL_DAMAGE,
 		spell = 465604,
@@ -76,11 +71,6 @@ local mistakes = {
 		-- 流水電擊
 		type = AD.MISTAKE.SPELL_DAMAGE,
 		spell = 468741,
-	},
-	{
-		-- 泡泡 (泡泡)
-		type = AD.MISTAKE.SPELL_DAMAGE,
-		spell = 469819,
 	},
 	{
 		-- 勘查地面 (風險投資公司勘測員)
@@ -156,11 +146,6 @@ local mistakes = {
 		-- 電能水池
 		type = AD.MISTAKE.SPELL_DAMAGE,
 		spell = 1215071,
-	},
-	{
-		-- 水花噴濺 (泡泡)
-		type = AD.MISTAKE.SPELL_DAMAGE,
-		spell = 1217496,
 	},
 	{
 		-- B.B.B.F.G. (姬薩‧迅融)

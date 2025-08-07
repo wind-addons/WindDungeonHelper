@@ -50,7 +50,7 @@ local mistakes = {
 	{
 		-- 秘法斬擊 (過載哨兵)
 		type = AD.MISTAKE.SPELL_DAMAGE,
-        playerIsNotTank = true,
+		playerIsNotTank = true,
 		spell = 1231224,
 	},
 	{

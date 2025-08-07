@@ -3,6 +3,11 @@ local AD = W:GetModule("AvoidableDamage")
 
 local mistakes = {
 	{
+		-- 罪光幻象
+		type = AD.MISTAKE.AURA,
+		aura = 339237,
+	},
+	{
 		-- 血腥洪流 (艾可隆)
 		type = AD.MISTAKE.SPELL_DAMAGE,
 		spell = 319702,
