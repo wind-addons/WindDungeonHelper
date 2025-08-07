@@ -28,6 +28,11 @@ local mistakes = {
 		spell = 349801,
 	},
 	{
+		-- 爆燃靈魄
+		type = AD.MISTAKE.SPELL_DAMAGE,
+		spell = 349989,
+	},
+	{
 		-- 靈魄引爆
 		type = AD.MISTAKE.SPELL_DAMAGE,
 		spell = 349999,
