@@ -2,10 +2,10 @@ package-as: WindDungeonHelper
 
 externals:
   Libraries/Ace3:
-    url: https://www.wowace.com/projects/ace3/files
+    url: https://repos.wowace.com/wow/ace3/trunk
     type: svn
   Libraries/LibDBIcon-1.0:
-    url: https://www.wowace.com/projects/libdbicon-1-0/files
+    url: https://repos.wowace.com/wow/libdbicon-1-0/trunk
     type: svn
   Libraries/LibNPCInfo:
     url: https://github.com/wind-addons/LibNPCInfo
