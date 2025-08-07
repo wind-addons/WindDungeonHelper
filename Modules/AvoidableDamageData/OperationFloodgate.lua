@@ -3,6 +3,16 @@ local AD = W:GetModule("AvoidableDamage")
 
 local mistakes = {
 	{
+		-- 飛艇彈幕
+		type = AD.MISTAKE.SPELL_DAMAGE,
+		spell = 1213704,
+	},
+	{
+		-- 電能水池
+		type = AD.MISTAKE.AURA,
+		spell = 1215089,
+	},
+	{
 		-- 高速衝鋒 (布隆特)
 		type = AD.MISTAKE.SPELL_DAMAGE,
 		spell = 460965,
@@ -48,7 +58,7 @@ local mistakes = {
 		spell = 468604,
 	},
 	{
-		-- 跳躍火花 (基澤‧巨電)
+		-- 跳躍火花 (基澤‧巨電, 跳躍火花)
 		type = AD.MISTAKE.SPELL_DAMAGE,
 		spell = 468647,
 	},
@@ -118,7 +128,7 @@ local mistakes = {
 		spell = 473287,
 	},
 	{
-		-- 超級大爆炸！ (姬薩‧迅融)
+		-- 超級大爆炸！ (滴答作響的定時炸彈, 姬薩‧迅融)
 		type = AD.MISTAKE.SPELL_DAMAGE,
 		spell = 473526,
 	},
