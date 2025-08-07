@@ -13,7 +13,7 @@ local mistakes = {
 		spell = 432117,
 	},
 	{
-		-- 噴發蜘蛛網 (『收割者』祈卡托, 血紅監督者)
+		-- 噴發蜘蛛網 (血紅監督者, 『收割者』祈卡托)
 		type = AD.MISTAKE.SPELL_DAMAGE,
 		spell = 432132,
 	},
@@ -23,12 +23,17 @@ local mistakes = {
 		spell = 433443,
 	},
 	{
+		-- 鑽地衝鋒 (阿努扎克特)
+		type = AD.MISTAKE.SPELL_DAMAGE,
+		spell = 433731,
+	},
+	{
 		-- 無間蟲群 (阿努扎克特)
 		type = AD.MISTAKE.SPELL_DAMAGE,
 		spell = 433781,
 	},
 	{
-		-- 噴發蜘蛛網 (『收割者』祈卡托, 血紅監督者)
+		-- 噴發蜘蛛網 (血紅監督者, 『收割者』祈卡托)
 		type = AD.MISTAKE.SPELL_DAMAGE,
 		spell = 433843,
 	},
