@@ -8,15 +8,20 @@ local mistakes = {
 		spell = 319702,
 	},
 	{
+		-- 血腥洪流 (艾可隆)
+		type = AD.MISTAKE.SPELL_DAMAGE,
+		spell = 319703,
+	},
+	{
+		-- 粉碎猛擊 (哈奇厄斯)
+		type = AD.MISTAKE.SPELL_DAMAGE,
+		spell = 322936,
+		playerIsNotTank = true,
+	},
+	{
 		-- 拋擲殘骸 (哈奇厄斯)
 		type = AD.MISTAKE.SPELL_DAMAGE,
 		spell = 322945,
-	},
-	{
-		-- 玻璃裂片 (哈奇厄斯)
-		type = AD.MISTAKE.SPELL_DAMAGE,
-		spell = 323001,
-		playerIsNotTank = true,
 	},
 	{
 		-- 念力碰撞
@@ -49,6 +54,11 @@ local mistakes = {
 		spell = 326440,
 	},
 	{
+		-- 苦痛 (嫉妒化身)
+		type = AD.MISTAKE.SPELL_DAMAGE,
+		spell = 326891,
+	},
+	{
 		-- 強力揮擊 (石源魔斬擊者)
 		type = AD.MISTAKE.SPELL_DAMAGE,
 		spell = 326997,
@@ -63,6 +73,11 @@ local mistakes = {
 		-- 念力猛襲 (宮務大臣)
 		type = AD.MISTAKE.SPELL_DAMAGE,
 		spell = 329113,
+	},
+	{
+		-- 靈魄泉 (靈魄泉, 至高判決者阿利茲)
+		type = AD.MISTAKE.SPELL_DAMAGE,
+		spell = 329340,
 	},
 	{
 		-- 靈魄泉 (靈魄泉, 至高判決者阿利茲)
