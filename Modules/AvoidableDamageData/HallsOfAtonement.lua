@@ -72,7 +72,7 @@ local mistakes = {
 	{
 		-- 爆發折磨 (宮務大臣)
 		type = AD.MISTAKE.SPELL_DAMAGE,
-		spell = 327885,
+		spell = 1236964,
 	},
 	{
 		-- 念力猛襲 (宮務大臣)
