@@ -1,15 +1,12 @@
 local W, F, L = unpack(select(2, ...))
-local LibStub = _G.LibStub
-local openRaidLib = LibStub:GetLibrary("LibOpenRaid-1.0")
 local KT = W:NewModule("KeystoneTooltip", "AceHook-3.0")
+local KI = W:GetModule("KeystoneInfo")
 local C = W.Utilities.Color
 
 local _G = _G
 local format = format
 
 local GenerateClosure = GenerateClosure
-
-local UnitIsPlayer = UnitIsPlayer
 
 local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 local TooltipDataProcessor_AddTooltipPostCall = TooltipDataProcessor.AddTooltipPostCall
@@ -48,23 +45,20 @@ function KT:Handler(tt)
 		return
 	end
 
-	local info = openRaidLib.GetKeystoneInfo(unit)
-	if info then
-		local mapID = info and info.challengeMapID
-		if mapID and W.MythicPlusMapData[mapID] then
-			local data = W.MythicPlusMapData[mapID]
+	local data = KI:UnitData(unit)
+	local mapID = data and data.challengeMapID
+	if mapID and W.MythicPlusMapData[mapID] then
+		local mapData = W.MythicPlusMapData[mapID]
+		local right = C.StringWithKeystoneLevel(
+			format("%s (%d)", db.useAbbreviation and mapData.abbr or mapData.name, data.level),
+			data.level
+		)
 
-			local right = C.StringWithKeystoneLevel(
-				format("%s (%d)", db.useAbbreviation and data.abbr or data.name, info.level),
-				info.level
-			)
-
-			if db.icon and db.iconHeight and db.iconWidth then
-				right = F.GetIconString(data.tex, db.iconHeight, db.iconWidth, true) .. " " .. right
-			end
-
-			tt:AddDoubleLine(L["Keystone"], right)
+		if db.icon and db.iconHeight and db.iconWidth then
+			right = F.GetIconString(mapData.tex, db.iconHeight, db.iconWidth, true) .. " " .. right
 		end
+
+		tt:AddDoubleLine(L["Keystone"], right)
 	end
 end
 
