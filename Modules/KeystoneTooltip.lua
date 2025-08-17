@@ -7,6 +7,7 @@ local _G = _G
 local format = format
 
 local GenerateClosure = GenerateClosure
+local UnitIsPlayer = UnitIsPlayer
 
 local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 local TooltipDataProcessor_AddTooltipPostCall = TooltipDataProcessor.AddTooltipPostCall

@@ -4,6 +4,7 @@ local AD = W:NewModule("AvoidableDamage", "AceHook-3.0", "AceEvent-3.0")
 
 local format = format
 local gsub = gsub
+local ipairs = ipairs
 local math_pow = math.pow
 local pairs = pairs
 local print = print

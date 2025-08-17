@@ -1,5 +1,8 @@
 local W, F, L = unpack(select(2, ...))
 
+local pairs = pairs
+local tostring = tostring
+
 local C_ChallengeMode_GetMapUIInfo = C_ChallengeMode.GetMapUIInfo
 
 W.MythicPlusMapData = {

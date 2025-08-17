@@ -1,7 +1,8 @@
 local W, F, L = unpack(select(2, ...))
+local LibStub = LibStub
 local KI = W:NewModule("KeystoneInfo", "AceEvent-3.0")
-local OR = _G.LibStub:GetLibrary("LibOpenRaid-1.0")
-local KS = _G.LibStub:GetLibrary("LibKeystone")
+local OR = LibStub:GetLibrary("LibOpenRaid-1.0")
+local KS = LibStub:GetLibrary("LibKeystone")
 
 local select = select
 
