@@ -18,17 +18,6 @@ local mistakes = {
 		spell = 319703,
 	},
 	{
-		-- 粉碎猛擊 (哈奇厄斯)
-		type = AD.MISTAKE.SPELL_DAMAGE,
-		spell = 322936,
-		playerIsNotTank = true,
-	},
-	{
-		-- 拋擲殘骸 (哈奇厄斯)
-		type = AD.MISTAKE.SPELL_DAMAGE,
-		spell = 322945,
-	},
-	{
 		-- 念力碰撞
 		type = AD.MISTAKE.SPELL_DAMAGE,
 		spell = 323126,
