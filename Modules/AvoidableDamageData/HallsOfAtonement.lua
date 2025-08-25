@@ -18,6 +18,12 @@ local mistakes = {
 		spell = 319703,
 	},
 	{
+		-- 玻璃裂片 (哈奇厄斯)
+		type = AD.MISTAKE.SPELL_DAMAGE,
+		spell = 323001,
+		playerIsNotTank = true,
+	},
+	{
 		-- 念力碰撞
 		type = AD.MISTAKE.SPELL_DAMAGE,
 		spell = 323126,
