@@ -141,6 +141,6 @@ local mistakes = {
 	},
 }
 
-local mapIds = { 1989, 1990, 1991, 1992 }
+local mapIds = { 1989, 1990, 1991, 1992, 1995, 1997, 1996, 1993 }
 
 AD:AddData("Tazavesh: Streets of Wonder", mistakes, mapIds)
