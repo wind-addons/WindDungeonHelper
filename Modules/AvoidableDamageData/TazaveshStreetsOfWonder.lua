@@ -38,11 +38,6 @@ local mistakes = {
 		spell = 349999,
 	},
 	{
-		-- 貪食饗宴 (阿克魯斯)
-		type = AD.MISTAKE.SPELL_DAMAGE,
-		spell = 350013,
-	},
-	{
 		-- 腐蝕靈魄 (亞奇力特)
 		type = AD.MISTAKE.SPELL_DAMAGE,
 		spell = 350045,
