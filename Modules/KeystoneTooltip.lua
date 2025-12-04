@@ -14,7 +14,7 @@ local TooltipDataProcessor_AddTooltipPostCall = TooltipDataProcessor.AddTooltipP
 
 local Enum_TooltipDataType_Unit = Enum.TooltipDataType.Unit
 
-local function isWindToolsLoaded()
+local function IsWindToolsLoaded()
 	if C_AddOns_IsAddOnLoaded("ElvUI_WindTools") then
 		local E = _G.ElvUI and _G.ElvUI[1]
 		if
@@ -37,7 +37,7 @@ function KT:Handler(tt)
 
 	local db = self.db
 
-	if not db or not db.enable or isWindToolsLoaded() then
+	if not db or not db.enable or IsWindToolsLoaded() then
 		return
 	end
 
@@ -47,20 +47,27 @@ function KT:Handler(tt)
 	end
 
 	local data = KI:UnitData(unit)
-	local mapID = data and data.challengeMapID
-	if mapID and W.MythicPlusMapData[mapID] then
-		local mapData = W.MythicPlusMapData[mapID]
-		local right = C.StringWithKeystoneLevel(
-			format("%s (%d)", db.useAbbreviation and mapData.abbr or mapData.name, data.level),
-			data.level
-		)
-
-		if db.icon and db.iconHeight and db.iconWidth then
-			right = F.GetIconString(mapData.tex, db.iconHeight, db.iconWidth, true) .. " " .. right
-		end
-
-		tt:AddDoubleLine(L["Keystone"], right)
+	if not data or not data.challengeMapID or not data.level then
+		return
 	end
+
+	local mythicPlusMapData = W:GetMythicPlusMapData()
+
+	local mapData = data.challengeMapID and mythicPlusMapData[data.challengeMapID]
+	if not mapData then
+		return
+	end
+
+	local right = C.StringWithKeystoneLevel(
+		format("%s (%d)", db.useAbbreviation and mapData.abbr or mapData.name, data.level),
+		data.level
+	)
+
+	if db.icon and db.iconHeight and db.iconWidth then
+		right = F.GetIconString(mapData.tex, db.iconHeight, db.iconWidth, true) .. " " .. right
+	end
+
+	tt:AddDoubleLine(L["Keystone"], right)
 end
 
 function KT:ProfileUpdate()
